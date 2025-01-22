@@ -7,7 +7,7 @@
 @stack('styles')
 </head>
 
-<body>
+<body class="p-0">
 <div id="app">
 <!-- nav -->
 @include('front.layouts.header')

@@ -1,546 +1,147 @@
 @extends('front.layouts.app')
 
 @section('content')
-@include('front.layouts.sidebar')
 
-<section class="is-title-bar">
+<!-- <section class="is-title-bar"> 
 	<div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
 		<ul>
 			<li>Admin</li>
 			<li>Dashboard</li>
 		</ul>
-		<a href="https://github.com/justboil/admin-one-tailwind" target="_blank" class="button blue">
-			<span class="icon"><i class="mdi mdi-github-circle"></i></span>
+		<a
+			href="https://github.com/justboil/admin-one-tailwind"
+			target="_blank"
+			class="button blue">
+			<span class="icon">
+				<i class="mdi mdi-github-circle"></i>
+			</span>
 			<span>GitHub</span>
 		</a>
-	</div>
-</section>
-
-<section class="section main-section">
-	<div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
-		
-	</div>
-
-	<div class="relative bg-gray-50 px-6 pt-16 pb-20 lg:px-8 lg:pt-24 lg:pb-28">
-  <div class="absolute inset-0">
-    <div class="h-1/3 bg-white sm:h-2/3"></div>
-  </div>
-  <div class="relative mx-auto max-w-7xl">
-    <div class="text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Column me neatly.</h2>
-      <p class="mx-auto mt-3 max-w-2xl text-xl text-gray-500 sm:mt-4">
-        This is your life and it's ending one minute @ a time...</p>
-    </div>
-    <div class="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3">
-
-      <div class="flex flex-col overflow-hidden rounded-lg shadow-lg">
-        <div class="flex-shrink-0">
-          <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1679&amp;q=80" alt="">
-        </div>
-        <div class="flex flex-1 flex-col justify-between bg-white p-6">
-          <div class="flex-1">
-            <p class="text-sm font-medium text-indigo-600">
-              <a href="#" class="hover:underline">Article</a>
-            </p>
-            <a href="#" class="mt-2 block">
-              <p class="text-xl font-semibold text-gray-900">Boost your conversion rate</p>
-              <p class="mt-3 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.</p>
-            </a>
-          </div>
-          <div class="mt-6 flex items-center">
-            <div class="flex-shrink-0">
-              <a href="#">
-                <span class="sr-only">Roel Aufderehar</span>
-                <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
-              </a>
-            </div>
-            <div class="ml-3">
-              <p class="text-sm font-medium text-gray-900">
-                <a href="#" class="hover:underline">Roel Aufderehar</a>
-              </p>
-              <div class="flex space-x-1 text-sm text-gray-500">
-                <time datetime="2020-03-16">Mar 16, 2020</time>
-                <span aria-hidden="true">·</span>
-                <span>6 min read</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex flex-col overflow-hidden rounded-lg shadow-lg">
-        <div class="flex-shrink-0">
-          <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1547586696-ea22b4d4235d?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1679&amp;q=80" alt="">
-        </div>
-        <div class="flex flex-1 flex-col justify-between bg-white p-6">
-          <div class="flex-1">
-            <p class="text-sm font-medium text-indigo-600">
-              <a href="#" class="hover:underline">Video</a>
-            </p>
-            <a href="#" class="mt-2 block">
-              <p class="text-xl font-semibold text-gray-900">How to use search engine optimization to drive sales</p>
-              <p class="mt-3 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-                facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci tempora aut inventore optio animi.,
-                tempore temporibus quo laudantium.</p>
-            </a>
-          </div>
-          <div class="mt-6 flex items-center">
-            <div class="flex-shrink-0">
-              <a href="#">
-                <span class="sr-only">Brenna Goyette</span>
-                <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
-              </a>
-            </div>
-            <div class="ml-3">
-              <p class="text-sm font-medium text-gray-900">
-                <a href="#" class="hover:underline">Brenna Goyette</a>
-              </p>
-              <div class="flex space-x-1 text-sm text-gray-500">
-                <time datetime="2020-03-10">Mar 10, 2020</time>
-                <span aria-hidden="true">·</span>
-                <span>4 min read</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex flex-col overflow-hidden rounded-lg shadow-lg">
-        <div class="flex-shrink-0">
-          <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1679&amp;q=80" alt="">
-        </div>
-        <div class="flex flex-1 flex-col justify-between bg-white p-6">
-          <div class="flex-1">
-            <p class="text-sm font-medium text-indigo-600">
-              <a href="#" class="hover:underline">Case Study</a>
-            </p>
-            <a href="#" class="mt-2 block">
-              <p class="text-xl font-semibold text-gray-900">Improve your customer experience</p>
-              <p class="mt-3 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
-                harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis
-                perferendis hic.</p>
-            </a>
-          </div>
-          <div class="mt-6 flex items-center">
-            <div class="flex-shrink-0">
-              <a href="#">
-                <span class="sr-only">Daniela Metz</span>
-                <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
-              </a>
-            </div>
-            <div class="ml-3">
-              <p class="text-sm font-medium text-gray-900">
-                <a href="#" class="hover:underline">Daniela Metz</a>
-              </p>
-              <div class="flex space-x-1 text-sm text-gray-500">
-                <time datetime="2020-02-12">Feb 12, 2020</time>
-                <span aria-hidden="true">·</span>
-                <span>11 min read</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- <section class="is-hero-bar">
-	<div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-		<h1 class="title">
-			Dashboard
-		</h1>
-		<button class="button light">Button</button>
-	</div>
-</section>
-
-<section class="section main-section">
-	<div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
-		<div class="card">
-			<div class="card-content">
-				<div class="flex items-center justify-between">
-					<div class="widget-label">
-						<h3>
-							Clients
-						</h3>
-						<h1>
-							512
-						</h1>
-					</div>
-					<span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
-				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-content">
-				<div class="flex items-center justify-between">
-					<div class="widget-label">
-						<h3>
-							Sales
-						</h3>
-						<h1>
-							$7,770
-						</h1>
-					</div>
-					<span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
-				</div>
-			</div>
-		</div>
-
-		<div class="card">
-			<div class="card-content">
-				<div class="flex items-center justify-between">
-					<div class="widget-label">
-						<h3>
-							Performance
-						</h3>
-						<h1>
-							256%
-						</h1>
-					</div>
-					<span class="icon widget-icon text-red-500"><i class="mdi mdi-finance mdi-48px"></i></span>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="card mb-6">
-		<header class="card-header">
-			<p class="card-header-title">
-				<span class="icon"><i class="mdi mdi-finance"></i></span>
-				Performance
-			</p>
-			<a href="#" class="card-header-icon">
-				<span class="icon"><i class="mdi mdi-reload"></i></span>
-			</a>
-		</header>
-		<div class="card-content">
-			<div class="chart-area">
-				<div class="h-full">
-					<div class="chartjs-size-monitor">
-						<div class="chartjs-size-monitor-expand">
-							<div></div>
-						</div>
-						<div class="chartjs-size-monitor-shrink">
-							<div></div>
-						</div>
-					</div>
-					<canvas id="big-line-chart" width="2992" height="1000" class="chartjs-render-monitor block" style="height: 400px; width: 1197px;"></canvas>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="notification blue">
-		<div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
-			<div>
-				<span class="icon"><i class="mdi mdi-buffer"></i></span>
-				<b>Responsive table</b>
-			</div>
-			<button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
-		</div>
-	</div>
-
-	<div class="card has-table">
-		<header class="card-header">
-			<p class="card-header-title">
-				<span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-				Clients
-			</p>
-			<a href="#" class="card-header-icon">
-				<span class="icon"><i class="mdi mdi-reload"></i></span>
-			</a>
-		</header>
-		<div class="card-content">
-			<table>
-				<thead>
-				<tr>
-					<th></th>
-					<th>Name</th>
-					<th>Company</th>
-					<th>City</th>
-					<th>Progress</th>
-					<th>Created</th>
-					<th></th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td class="image-cell">
-						<div class="image">
-							<img src="https://avatars.dicebear.com/v2/initials/rebecca-bauch.svg" class="rounded-full">
-						</div>
-					</td>
-					<td data-label="Name">Rebecca Bauch</td>
-					<td data-label="Company">Daugherty-Daniel</td>
-					<td data-label="City">South Cory</td>
-					<td data-label="Progress" class="progress-cell">
-						<progress max="100" value="79">79</progress>
-					</td>
-					<td data-label="Created">
-						<small class="text-gray-500" title="Oct 25, 2021">Oct 25, 2021</small>
-					</td>
-					<td class="actions-cell">
-						<div class="buttons right nowrap">
-							<button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-								<span class="icon"><i class="mdi mdi-eye"></i></span>
-							</button>
-							<button class="button small red --jb-modal" data-target="sample-modal" type="button">
-								<span class="icon"><i class="mdi mdi-trash-can"></i></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="image-cell">
-						<div class="image">
-							<img src="https://avatars.dicebear.com/v2/initials/felicita-yundt.svg" class="rounded-full">
-						</div>
-					</td>
-					<td data-label="Name">Felicita Yundt</td>
-					<td data-label="Company">Johns-Weissnat</td>
-					<td data-label="City">East Ariel</td>
-					<td data-label="Progress" class="progress-cell">
-						<progress max="100" value="67">67</progress>
-					</td>
-					<td data-label="Created">
-						<small class="text-gray-500" title="Jan 8, 2021">Jan 8, 2021</small>
-					</td>
-					<td class="actions-cell">
-						<div class="buttons right nowrap">
-							<button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-								<span class="icon"><i class="mdi mdi-eye"></i></span>
-							</button>
-							<button class="button small red --jb-modal" data-target="sample-modal" type="button">
-								<span class="icon"><i class="mdi mdi-trash-can"></i></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="image-cell">
-						<div class="image">
-							<img src="https://avatars.dicebear.com/v2/initials/mr-larry-satterfield-v.svg" class="rounded-full">
-						</div>
-					</td>
-					<td data-label="Name">Mr. Larry Satterfield V</td>
-					<td data-label="Company">Hyatt Ltd</td>
-					<td data-label="City">Windlerburgh</td>
-					<td data-label="Progress" class="progress-cell">
-						<progress max="100" value="16">16</progress>
-					</td>
-					<td data-label="Created">
-						<small class="text-gray-500" title="Dec 18, 2021">Dec 18, 2021</small>
-					</td>
-					<td class="actions-cell">
-						<div class="buttons right nowrap">
-							<button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-								<span class="icon"><i class="mdi mdi-eye"></i></span>
-							</button>
-							<button class="button small red --jb-modal" data-target="sample-modal" type="button">
-								<span class="icon"><i class="mdi mdi-trash-can"></i></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="image-cell">
-						<div class="image">
-							<img src="https://avatars.dicebear.com/v2/initials/mr-broderick-kub.svg" class="rounded-full">
-						</div>
-					</td>
-					<td data-label="Name">Mr. Broderick Kub</td>
-					<td data-label="Company">Kshlerin, Bauch and Ernser</td>
-					<td data-label="City">New Kirstenport</td>
-					<td data-label="Progress" class="progress-cell">
-						<progress max="100" value="71">71</progress>
-					</td>
-					<td data-label="Created">
-						<small class="text-gray-500" title="Sep 13, 2021">Sep 13, 2021</small>
-					</td>
-					<td class="actions-cell">
-						<div class="buttons right nowrap">
-							<button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-								<span class="icon"><i class="mdi mdi-eye"></i></span>
-							</button>
-							<button class="button small red --jb-modal" data-target="sample-modal" type="button">
-								<span class="icon"><i class="mdi mdi-trash-can"></i></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="image-cell">
-						<div class="image">
-							<img src="https://avatars.dicebear.com/v2/initials/barry-weber.svg" class="rounded-full">
-						</div>
-					</td>
-					<td data-label="Name">Barry Weber</td>
-					<td data-label="Company">Schulist, Mosciski and Heidenreich</td>
-					<td data-label="City">East Violettestad</td>
-					<td data-label="Progress" class="progress-cell">
-						<progress max="100" value="80">80</progress>
-					</td>
-					<td data-label="Created">
-						<small class="text-gray-500" title="Jul 24, 2021">Jul 24, 2021</small>
-					</td>
-					<td class="actions-cell">
-						<div class="buttons right nowrap">
-							<button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-								<span class="icon"><i class="mdi mdi-eye"></i></span>
-							</button>
-							<button class="button small red --jb-modal" data-target="sample-modal" type="button">
-								<span class="icon"><i class="mdi mdi-trash-can"></i></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="image-cell">
-						<div class="image">
-							<img src="https://avatars.dicebear.com/v2/initials/bert-kautzer-md.svg" class="rounded-full">
-						</div>
-					</td>
-					<td data-label="Name">Bert Kautzer MD</td>
-					<td data-label="Company">Gerhold and Sons</td>
-					<td data-label="City">Mayeport</td>
-					<td data-label="Progress" class="progress-cell">
-						<progress max="100" value="62">62</progress>
-					</td>
-					<td data-label="Created">
-						<small class="text-gray-500" title="Mar 30, 2021">Mar 30, 2021</small>
-					</td>
-					<td class="actions-cell">
-						<div class="buttons right nowrap">
-							<button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-								<span class="icon"><i class="mdi mdi-eye"></i></span>
-							</button>
-							<button class="button small red --jb-modal" data-target="sample-modal" type="button">
-								<span class="icon"><i class="mdi mdi-trash-can"></i></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="image-cell">
-						<div class="image">
-							<img src="https://avatars.dicebear.com/v2/initials/lonzo-steuber.svg" class="rounded-full">
-						</div>
-					</td>
-					<td data-label="Name">Lonzo Steuber</td>
-					<td data-label="Company">Skiles Ltd</td>
-					<td data-label="City">Marilouville</td>
-					<td data-label="Progress" class="progress-cell">
-						<progress max="100" value="17">17</progress>
-					</td>
-					<td data-label="Created">
-						<small class="text-gray-500" title="Feb 12, 2021">Feb 12, 2021</small>
-					</td>
-					<td class="actions-cell">
-						<div class="buttons right nowrap">
-							<button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-								<span class="icon"><i class="mdi mdi-eye"></i></span>
-							</button>
-							<button class="button small red --jb-modal" data-target="sample-modal" type="button">
-								<span class="icon"><i class="mdi mdi-trash-can"></i></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="image-cell">
-						<div class="image">
-							<img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg" class="rounded-full">
-						</div>
-					</td>
-					<td data-label="Name">Jonathon Hahn</td>
-					<td data-label="Company">Flatley Ltd</td>
-					<td data-label="City">Billiemouth</td>
-					<td data-label="Progress" class="progress-cell">
-						<progress max="100" value="74">74</progress>
-					</td>
-					<td data-label="Created">
-						<small class="text-gray-500" title="Dec 30, 2021">Dec 30, 2021</small>
-					</td>
-					<td class="actions-cell">
-						<div class="buttons right nowrap">
-							<button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-								<span class="icon"><i class="mdi mdi-eye"></i></span>
-							</button>
-							<button class="button small red --jb-modal" data-target="sample-modal" type="button">
-								<span class="icon"><i class="mdi mdi-trash-can"></i></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="image-cell">
-						<div class="image">
-							<img src="https://avatars.dicebear.com/v2/initials/ryley-wuckert.svg" class="rounded-full">
-						</div>
-					</td>
-					<td data-label="Name">Ryley Wuckert</td>
-					<td data-label="Company">Heller-Little</td>
-					<td data-label="City">Emeraldtown</td>
-					<td data-label="Progress" class="progress-cell">
-						<progress max="100" value="54">54</progress>
-					</td>
-					<td data-label="Created">
-						<small class="text-gray-500" title="Jun 28, 2021">Jun 28, 2021</small>
-					</td>
-					<td class="actions-cell">
-						<div class="buttons right nowrap">
-							<button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-								<span class="icon"><i class="mdi mdi-eye"></i></span>
-							</button>
-							<button class="button small red --jb-modal" data-target="sample-modal" type="button">
-								<span class="icon"><i class="mdi mdi-trash-can"></i></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="image-cell">
-						<div class="image">
-							<img src="https://avatars.dicebear.com/v2/initials/sienna-hayes.svg" class="rounded-full">
-						</div>
-					</td>
-					<td data-label="Name">Sienna Hayes</td>
-					<td data-label="Company">Conn, Jerde and Douglas</td>
-					<td data-label="City">Jonathanfort</td>
-					<td data-label="Progress" class="progress-cell">
-						<progress max="100" value="55">55</progress>
-					</td>
-					<td data-label="Created">
-						<small class="text-gray-500" title="Mar 7, 2021">Mar 7, 2021</small>
-					</td>
-					<td class="actions-cell">
-						<div class="buttons right nowrap">
-							<button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-								<span class="icon"><i class="mdi mdi-eye"></i></span>
-							</button>
-							<button class="button small red --jb-modal" data-target="sample-modal" type="button">
-								<span class="icon"><i class="mdi mdi-trash-can"></i></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				</tbody>
-			</table>
-			<div class="table-pagination">
-				<div class="flex items-center justify-between">
-					<div class="buttons">
-						<button type="button" class="button active">1</button>
-						<button type="button" class="button">2</button>
-						<button type="button" class="button">3</button>
-					</div>
-					<small>Page 1 of 3</small>
-				</div>
-			</div>
-		</div>
-	</div>
+	</div> 
 </section> -->
+
+<!--
+  Heads up! 👋
+
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+-->
+
+<!--
+  Heads up! 👋
+
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+-->
+
+<section class="relative bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat">
+	
+	<div class="absolute inset-0 bg-white/75 lg:bg-transparent lg:from-white/95 lg:to-white/25 lg:bg-gradient-to-r sm:bg-gradient-to-l"></div>
+
+	<div class="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
+		<div class="max-w-xl ltr:sm:text-left rtl:sm:text-right">
+			<h1 class="text-3xl font-extrabold sm:text-5xl">
+				Denpasar
+				<strong class="block font-extrabold text-rose-700"> Menyama Bagia. </strong>
+			</h1>
+
+			<p class="mt-4 max-w-lg sm:text-xl/relaxed">
+				{{trans('front.intro')}}
+			</p>
+
+			<div class="mt-8 flex flex-wrap gap-4 text-center">
+				<a href="#" class="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
+					{{trans('front.get_started')}}
+				</a>
+				<a href="#" class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto">
+					{{trans('front.learn_more')}}
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section main-section">
+
+	<div class="w-full bg-white">
+
+		<div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8">
+			<div class="mx-auto max-w-2xl text-center">
+				<h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ trans('front.blog_title') }}</h2>
+				<p class="mt-2 text-lg leading-8 text-gray-600">
+				{{ trans('front.blog_desc') }}
+				</p>
+			</div>
+			<div
+				class="mx-auto mt-8 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-12 lg:mx-0 lg:max-w-none lg:grid-cols-3 ">
+				<!-- First blog post -->
+				<article
+					class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 dark:bg-gray-700 px-8 py-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
+					<img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw1fHxhaXxlbnwwfDB8fHwxNzEyNzUzMTQ4fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
+					<div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+					<div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+					<div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300"><time
+							datetime="2023-10-11" class="mr-8">Oct 11, 2023</time>
+						<div class="-ml-4 flex items-center gap-x-4"><svg viewBox="0 0 2 2"
+								class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50">
+								<circle cx="1" cy="1" r="1"></circle>
+							</svg>
+							<div class="flex gap-x-2.5">
+								<img src="https://randomuser.me/api/portraits/men/2.jpg" alt="" class="h-6 w-6 flex-none rounded-full bg-white/10">John
+							</div>
+						</div>
+					</div>
+					<h3 class="mt-3 text-lg font-semibold leading-6 text-white">
+						<a href="/tech-blog/post1"><span class="absolute inset-0"></span>The Future of Artificial
+							Intelligence: Trends and Challenges</a>
+					</h3>
+				</article>
+				<!-- Second blog post -->
+				<article
+					class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 dark:bg-gray-700 px-8 py-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
+					<img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw1fHxibG9jayUyMGNoYWlufGVufDB8MHx8fDE3MTI3NTMxNjd8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
+					<div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+					<div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+					<div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300"><time
+							datetime="2023-09-25" class="mr-8">Sept 25, 2023</time>
+						<div class="-ml-4 flex items-center gap-x-4"><svg viewBox="0 0 2 2"
+								class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50">
+								<circle cx="1" cy="1" r="1"></circle>
+							</svg>
+							<div class="flex gap-x-2.5">
+								<img src="https://randomuser.me/api/portraits/women/2.jpg" alt="" class="h-6 w-6 flex-none rounded-full bg-white/10">Jane
+							</div>
+						</div>
+					</div>
+					<h3 class="mt-3 text-lg font-semibold leading-6 text-white">
+						<a href="/tech-blog/post2"><span class="absolute inset-0"></span>The Rise of Blockchain Technology:
+							A Comprehensive Guide</a>
+					</h3>
+				</article>
+				<!-- Third blog post -->
+				<article
+					class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 dark:bg-gray-700 px-8 py-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
+					<img src="https://images.unsplash.com/photo-1666112835156-c65bb806ac73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxNXx8cXVhbnR1bSUyMGNvbXB1dGluZ3xlbnwwfDB8fHwxNzEyNzUzMTk2fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
+					<div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+					<div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+					<div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300"><time
+							datetime="2023-09-24" class="mr-8">Sept 24, 2023</time>
+						<div class="-ml-4 flex items-center gap-x-4"><svg viewBox="0 0 2 2"
+								class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50">
+								<circle cx="1" cy="1" r="1"></circle>
+							</svg>
+							<div class="flex gap-x-2.5">
+								<img src="https://randomuser.me/api/portraits/men/4.jpg" alt="" class="h-6 w-6 flex-none rounded-full bg-white/10">Michael
+							</div>
+						</div>
+					</div>
+					<h3 class="mt-3 text-lg font-semibold leading-6 text-white">
+						<a href="/tech-blog/post3"><span class="absolute inset-0"></span>How Quantum Computing Will
+							Revolutionize Data Security</a>
+					</h3>
+				</article>
+				<!-- More blog posts can be added similarly -->
+			</div>
+		</div>
+
+	</div>
+</section>
 @endsection
