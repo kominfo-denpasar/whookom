@@ -6,7 +6,7 @@
 			</div>
 			<a href="https://github.com/kominfo-denpasar/dmb" style="height: 20px">
 				<!-- <img src="https://img.shields.io/github/v/release/kominfo-denpasar/dmb?color=%23999"> -->
-				<img src="https://img.shields.io/badge/dmb-v0.0.1-blue">
+				<img src="https://img.shields.io/badge/dmb-v0.0.1-red">
 			</a>
 		</div>
 		<a href="#!">
