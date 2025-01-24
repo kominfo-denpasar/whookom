@@ -5,3 +5,18 @@
         <p>Home</p>
     </a>
 </li>
+
+
+<li class="nav-item">
+    <a href="{{ route('psikologs.index') }}" class="nav-link {{ Request::is('psikologs*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Psikolog</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('masyarakats.index') }}" class="nav-link {{ Request::is('masyarakats*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Masyarakat</p>
+    </a>
+</li>
