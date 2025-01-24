@@ -25,4 +25,14 @@ class FrontController extends Controller
     {
         return view('front.home');
     }
+
+    /**
+     * Halaman keluhan.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function keluhan()
+    {
+        return view('front.keluhan');
+    }
 }

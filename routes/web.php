@@ -20,6 +20,9 @@ Route::get('/', function () {
 */
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
 Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('front.beranda');
+Route::get('/keluhan', [App\Http\Controllers\FrontController::class, 'keluhan'])->name('front.keluhan');
 
 Auth::routes();
