@@ -86,7 +86,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<select class="w-full p-2 border border-gray-300 rounded-lg" required="">
+								<select name="jk" class="w-full p-2 input" required="">
 									<option value="">Pilih</option>
 									<option value="1">Laki-laki</option>
 									<option value="2">Perempuan</option>
@@ -99,16 +99,32 @@
 				</div>
 				<!-- .field -->
 
-				
+				<div class="field">
+					<label class="label">Tanggal Lahir</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<input type="date" autocomplete="off" name="tgl_lahir" class="input" required="">
+							</div>
+							<p class="help">Pilih tanggal</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
 
 				<div class="field">
 					<label class="label">Nomor HP</label>
 					<div class="field-body">
 						<div class="field">
-							<div class="control">
-								<input type="text" autocomplete="off" name="hp" placeholder="081xxx" class="input" required="">
+							<div class="field addons">
+								<div class="control">
+									<input class="input" value="+62" size="2" readonly="">
+								</div>
+								<div class="control expanded">
+									<input class="input" type="tel" placeholder="81xxx" name="hp" required="">
+								</div>
 							</div>
-							<p class="help">Disarankan nomor yang terhubung dengan WhatsApp</p>
+							<p class="help">Tanpa nol depan. Disarankan nomor yang terhubung dengan WhatsApp. Kami menggunakan WhatsApp untuk mengirimkan info ke Anda</p>
 						</div>
 					</div>
 				</div>
@@ -121,7 +137,7 @@
 							<div class="control">
 								<input type="email" autocomplete="off" name="email" placeholder="nama@gmail.com" class="input" required="">
 							</div>
-							<p class="help">e-mail Anda yang masih aktif. Kami menggunakan e-mail untuk menyampaikan informasi kepada Anda</p>
+							<p class="help">e-mail Anda yang masih aktif. Kami juga menggunakan e-mail untuk menyampaikan informasi</p>
 						</div>
 					</div>
 				</div>
