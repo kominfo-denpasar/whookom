@@ -10,10 +10,16 @@
     {!! Form::text('nama', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- JK Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('jk', 'JK:') !!}
+    {!! Form::select('jk', ['L' => 'L', 'P' => 'P'], null, ['class' => 'form-control custom-select']) !!}
+</div>
+
 <!-- Tgl Lahir Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('tgl_lahir', 'Tgl Lahir:') !!}
-    {!! Form::text('tgl_lahir', null, ['class' => 'form-control','id'=>'tgl_lahir']) !!}
+    {!! Form::date('tgl_lahir', null, ['class' => 'form-control','id'=>'tgl_lahir']) !!}
 </div>
 
 @push('page_scripts')
@@ -32,6 +38,12 @@
 <div class="form-group col-sm-6">
     {!! Form::label('hp', 'Hp:') !!}
     {!! Form::text('hp', null, ['class' => 'form-control', 'required']) !!}
+</div>
+
+<!-- Hp Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('email', 'email:') !!}
+    {!! Form::text('email', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
 <!-- Desa Id Field -->

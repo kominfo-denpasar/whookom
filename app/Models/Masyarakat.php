@@ -11,9 +11,11 @@ class Masyarakat extends Model
     public $fillable = [
         'nik',
         'nama',
+        'jk',
         'tgl_lahir',
         'alamat',
         'hp',
+        'email',
         'desa_id',
         'kec_id',
         'user_id'
@@ -25,6 +27,7 @@ class Masyarakat extends Model
         'tgl_lahir' => 'date',
         'alamat' => 'string',
         'hp' => 'string',
+        'email' => 'string',
         'desa_id' => 'integer',
         'kec_id' => 'integer',
         'user_id' => 'integer'
@@ -32,10 +35,10 @@ class Masyarakat extends Model
 
     public static array $rules = [
         'nik' => 'required',
-        'nama' => 'tgl_lahir date date',
+        'nama' => 'required',
         'tgl_lahir' => 'required',
         'hp' => 'required',
-        'desa_id' => 'kec_id integer number'
+        'email' => 'required'
     ];
 
     
