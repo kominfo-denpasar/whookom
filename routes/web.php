@@ -28,6 +28,8 @@ Route::get('/survei-dass-21', [App\Http\Controllers\FrontController::class, 'sur
 
 Auth::routes();
 
-Route::resource('psikologs', App\Http\Controllers\PsikologController::class);
-Route::resource('masyarakats', App\Http\Controllers\MasyarakatController::class);
-Route::resource('dassPertanyaans', App\Http\Controllers\dassPertanyaanController::class);
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('psikologs', App\Http\Controllers\PsikologController::class);
+    Route::resource('masyarakats', App\Http\Controllers\MasyarakatController::class);
+    Route::resource('dassPertanyaans', App\Http\Controllers\dassPertanyaanController::class);
+});

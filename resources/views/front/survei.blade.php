@@ -6,11 +6,11 @@
 
 	<div class="max-w-2xl mx-auto px-4 py-12 sm:px-6">
 		<article class="rounded-xl border border-gray-200 bg-white p-4 shadow-lg md:px-8">
-				<div class="flex items-center gap-4">
+				<div class="flex items-center">
 					<img
 					alt=""
 					src="https://img.freepik.com/free-vector/woman-teaching-boy-with-maracas_74855-5966.jpg?t=st=1737948234~exp=1737951834~hmac=975b3e4020a8f6e9242638b86d30bad4321c5b6bfc0df060f05cc2a12f77c630&w=1380"
-					class=""
+					class="sm:h-60 mx-auto"
 					/>
 				<div>
 				</div>

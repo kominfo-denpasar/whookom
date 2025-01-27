@@ -6,11 +6,11 @@
 
 	<div class="max-w-2xl mx-auto px-4 py-12 sm:px-6">
 		<article class="rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
-				<div class="flex items-center gap-4">
+				<div class="flex items-center">
 					<img
 					alt=""
 					src="https://img.freepik.com/free-vector/online-survey-analysis-electronic-data-collection-digital-research-tool-computerized-study-analyst-considering-feedback-results-analysing-info_335657-854.jpg?t=st=1737950194~exp=1737953794~hmac=17bfa0dd4b22961792ee8e41cf21cc263947a73a63e4ec8928fc4209207f6351&w=826"
-					class=""
+					class="sm:h-60 mx-auto"
 					/>
 				<div>
 				</div>
