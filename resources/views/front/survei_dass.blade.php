@@ -20,218 +20,44 @@
 				<h2 class="text-2xl font-bold mb-6 text-center">Depression Anxiety and Stress Scale <br>(DASS-21)</h2>
 				<form>
 					<p class="mb-4">Silakan baca setiap pernyataan dan pilih angka 0, 1, 2, atau 3 yang menunjukkan seberapa banyak pernyataan tersebut berlaku untuk Anda selama seminggu terakhir. Tidak ada jawaban yang benar atau salah. Jangan menghabiskan terlalu banyak waktu pada pernyataan mana pun.</p>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">1. Saya merasa diri saya mudah marah karena hal-hal sepele</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
+					@if(empty($dass))
+					<div role="alert" class="rounded border-s-4 border-red-500 bg-red-50 p-4">
+						<div class="flex items-center gap-2 text-red-800">
+							<strong class="block font-medium"> Perhatian</strong>
+						</div>
+
+						<p class="text-sm text-red-700">
+							Terjadi kesalahan pada sistem, silahkan coba beberapa saat lagi.
+						</p>
 					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">2. Saya merasa bibir saya sering kering.</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">3. Saya tidak bisa merasakan perasaan positif sama sekali</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">4. Saya mengalami kesulitan bernapas (misalnya, bernapas terlalu cepat, sesak napas tanpa adanya aktivitas fisik)</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">5. Saya merasa sulit untuk memulai melakukan sesuatu</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">6. Saya cenderung bereaksi berlebihan terhadap situasi</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">7. Saya mengalami gemetar (misalnya, di tangan)</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">8. Saya merasa menggunakan banyak energi saraf</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">9. Saya khawatir tentang situasi di mana saya mungkin panik dan mempermalukan diri sendiri</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">10. Saya merasa tidak ada yang bisa saya harapkan</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">11. Saya merasa gelisah</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">12. Saya merasa sulit untuk rileks</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">13. Saya merasa sedih dan murung</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">14. Saya tidak toleran terhadap apa pun yang menghalangi saya untuk melanjutkan apa yang saya lakukan</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">15. Saya merasa hampir panik</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">16. Saya tidak bisa merasa antusias tentang apa pun</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">17. Saya merasa tidak berharga sebagai pribadi</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">18. Saya merasa agak sensitif</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">19. Saya menyadari detak jantung saya tanpa adanya aktivitas fisik (misalnya, merasa detak jantung meningkat, jantung melewatkan satu detak)</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">20. Saya merasa takut tanpa alasan yang jelas</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
-					<hr>
-					<div class="my-4">
-						<label class="block text-gray-700 font-medium mb-2">21. Saya merasa hidup ini tidak berarti</label>
-						<select class="w-full p-2 border border-gray-300 rounded-lg">
-							<option value="0">0 - Tidak berlaku sama sekali</option>
-							<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-							<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-							<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
-						</select>
-					</div>
+					@else
+						@foreach($dass as $d)
+							<hr>
+							<div class="my-4">
+								<label class="block text-gray-700 font-medium mb-2">{{$no}}. {{$d->pertanyaan}}</label>
+								@if($d->kode=="Depression")
+									<select class="w-full p-2 border border-gray-300 rounded-lg" name="nilai_d[]" required="">
+								@elseif($d->kode=="Anxiety")
+									<select class="w-full p-2 border border-gray-300 rounded-lg" name="nilai_a[]" required="">
+								@elseif($d->kode=="Stress")
+									<select class="w-full p-2 border border-gray-300 rounded-lg" name="nilai_s[]" required="">
+								@endif
+									<option value="">- Pilih salah satu -</option>
+									<option value="0">0 - Tidak berlaku sama sekali</option>
+									<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
+									<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
+									<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
+								</select>
+							</div>
+							@php
+								$no++;
+							@endphp
+						@endforeach
+					@endif
+					
 					<div class="text-center">
 						<!-- Base -->
+						@if(!empty($dass))
 						<button type="submit" class="group relative inline-block focus:outline-none focus:ring">
 							<span
 								class="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-yellow-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"
@@ -242,6 +68,7 @@
 								Submit Jawaban
 							</span>
 						</button>
+						@endif
 					</div>
 				</form>
 			</div>
@@ -249,6 +76,5 @@
 
 	</div>
 </section>
-
 
 @endsection

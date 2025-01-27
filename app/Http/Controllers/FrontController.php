@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FrontController extends Controller
 {
@@ -43,6 +44,10 @@ class FrontController extends Controller
      */
     public function surveiDass()
     {
-        return view('front.survei_dass');
+        // ambil data pertanyaan dari database
+        $dass = DB::table('dass_pertanyaans')->get();
+        $no = 1;
+        // dd($dass);
+        return view('front.survei_dass',  compact('dass', 'no'));
     }
 }
