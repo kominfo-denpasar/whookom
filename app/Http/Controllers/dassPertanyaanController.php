@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Createdass_pertanyaanRequest;
-use App\Http\Requests\Updatedass_pertanyaanRequest;
+use App\Http\Requests\CreatedassPertanyaanRequest;
+use App\Http\Requests\UpdatedassPertanyaanRequest;
 use App\Http\Controllers\AppBaseController;
-use App\Repositories\dass_pertanyaanRepository;
+use App\Repositories\dassPertanyaanRepository;
 use Illuminate\Http\Request;
 use Flash;
 
-class dass_pertanyaanController extends AppBaseController
+class dassPertanyaanController extends AppBaseController
 {
     /** @var dass_pertanyaanRepository $dassPertanyaanRepository*/
     private $dassPertanyaanRepository;
 
-    public function __construct(dass_pertanyaanRepository $dassPertanyaanRepo)
+    public function __construct(dassPertanyaanRepository $dassPertanyaanRepo)
     {
         $this->dassPertanyaanRepository = $dassPertanyaanRepo;
     }
@@ -41,7 +41,7 @@ class dass_pertanyaanController extends AppBaseController
     /**
      * Store a newly created dass_pertanyaan in storage.
      */
-    public function store(Createdass_pertanyaanRequest $request)
+    public function store(CreatedassPertanyaanRequest $request)
     {
         $input = $request->all();
 
@@ -87,7 +87,7 @@ class dass_pertanyaanController extends AppBaseController
     /**
      * Update the specified dass_pertanyaan in storage.
      */
-    public function update($id, Updatedass_pertanyaanRequest $request)
+    public function update($id, UpdatedassPertanyaanRequest $request)
     {
         $dassPertanyaan = $this->dassPertanyaanRepository->find($id);
 

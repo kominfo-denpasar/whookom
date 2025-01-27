@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class dass_pertanyaan extends Model
+class dassPertanyaan extends Model
 {
     public $table = 'dass_pertanyaans';
 

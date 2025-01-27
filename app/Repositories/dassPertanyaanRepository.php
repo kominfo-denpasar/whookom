@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\dass_pertanyaan;
+use App\Models\dassPertanyaan;
 use App\Repositories\BaseRepository;
 
-class dass_pertanyaanRepository extends BaseRepository
+class dassPertanyaanRepository extends BaseRepository
 {
     protected $fieldSearchable = [
         'pertanyaan',
@@ -19,6 +19,6 @@ class dass_pertanyaanRepository extends BaseRepository
 
     public function model(): string
     {
-        return dass_pertanyaan::class;
+        return dassPertanyaan::class;
     }
 }

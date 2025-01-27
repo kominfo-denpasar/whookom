@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\dass_pertanyaan;
+use App\Models\dassPertanyaan;
 use Illuminate\Foundation\Http\FormRequest;
 
-class Updatedass_pertanyaanRequest extends FormRequest
+class CreatedassPertanyaanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,6 @@ class Updatedass_pertanyaanRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = dass_pertanyaan::$rules;
-        
-        return $rules;
+        return dassPertanyaan::$rules;
     }
 }
