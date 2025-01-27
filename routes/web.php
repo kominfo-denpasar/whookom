@@ -23,7 +23,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('front.beranda');
-Route::get('/keluhan', [App\Http\Controllers\FrontController::class, 'keluhan'])->name('front.keluhan');
+Route::get('/survei', [App\Http\Controllers\FrontController::class, 'survei'])->name('front.survei');
+Route::get('/survei-dass-21', [App\Http\Controllers\FrontController::class, 'surveiDass'])->name('front.survei-dass-21');
 
 Auth::routes();
 

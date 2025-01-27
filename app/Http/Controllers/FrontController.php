@@ -27,12 +27,22 @@ class FrontController extends Controller
     }
 
     /**
-     * Halaman keluhan.
+     * Halaman intro survei.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function keluhan()
+    public function survei()
     {
-        return view('front.keluhan');
+        return view('front.survei');
+    }
+
+    /**
+     * Halaman survei DASS-21.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function surveiDass()
+    {
+        return view('front.survei_dass');
     }
 }

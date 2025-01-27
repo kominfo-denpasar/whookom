@@ -20,18 +20,6 @@
 	</div> 
 </section> -->
 
-<!--
-  Heads up! 👋
-
-  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
--->
-
-<!--
-  Heads up! 👋
-
-  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
--->
-
 <section class="relative bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat">
 
 	<div class="absolute inset-0 bg-white/75 lg:bg-transparent lg:from-white/95 lg:to-white/25 lg:bg-gradient-to-r sm:bg-gradient-to-l"></div>
@@ -48,10 +36,10 @@
 			</p>
 
 			<div class="mt-8 flex flex-wrap gap-4 text-center">
-				<a href="#" class="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
+				<a href="{{ url('/survei') }}" class="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
 					{{trans('front.get_started')}}
 				</a>
-				<a href="#" class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto">
+				<a href="{{ url('/tentang') }}" class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto">
 					{{trans('front.learn_more')}}
 				</a>
 			</div>
@@ -63,7 +51,7 @@
 
 	<div class="w-full bg-white">
 
-		<div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8">
+		<div class="mx-auto max-w-7xl px-6 lg:px-8 py-8">
 			<div class="mx-auto max-w-2xl text-center">
 				<h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ trans('front.blog_title') }}</h2>
 				<p class="mt-2 text-lg leading-8 text-gray-600">

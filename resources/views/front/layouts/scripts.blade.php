@@ -2,8 +2,15 @@
 <script type="text/javascript" src="js/main.min.js?v=1652870200386"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<script type="text/javascript" src="js/chart.sample.min.js"></script>
+<!-- <script type="text/javascript" src="js/chart.sample.min.js"></script> -->
 
+
+<script>
+  function toggleModal(id) { 
+    document.getElementById('modal-'+id).classList.toggle('hidden')
+  }
+  
+</script>
 
 <script>
   !function(f,b,e,v,n,t,s)
