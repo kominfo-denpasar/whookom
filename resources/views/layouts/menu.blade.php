@@ -20,3 +20,10 @@
         <p>Masyarakat</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('dassPertanyaans.index') }}" class="nav-link {{ Request::is('dassPertanyaans*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Dass Pertanyaans</p>
+    </a>
+</li>

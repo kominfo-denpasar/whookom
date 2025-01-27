@@ -30,3 +30,4 @@ Auth::routes();
 
 Route::resource('psikologs', App\Http\Controllers\PsikologController::class);
 Route::resource('masyarakats', App\Http\Controllers\MasyarakatController::class);
+Route::resource('dass_pertanyaans', App\Http\Controllers\dass_pertanyaanController::class);
