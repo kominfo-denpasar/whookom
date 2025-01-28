@@ -7,6 +7,7 @@ use App\Models\Masyarakat;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class FrontController extends Controller
 {
@@ -35,9 +36,23 @@ class FrontController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function survei()
+    public function surveiIntro()
     {
-        return view('front.survei');
+        return view('front.survei_intro');
+    }
+
+    /**
+     * Halaman registrasi survei.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function surveiReg()
+    {
+        if(Session::get('nik') && Session::get('warning')) {
+            return view('front.survei_reg', ['warning' => Session::get('nik'), 'nik' => Session::get('warning')]);
+        } else {
+            return redirect()->route('front.survei-intro');
+        }
     }
 
     /**
@@ -45,13 +60,43 @@ class FrontController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function surveiDass()
+    public function surveiDass(Request $request)
     {
         // ambil data pertanyaan dari database
         $dass = DB::table('dass_pertanyaans')->get();
         $no = 1;
         // dd($dass);
         return view('front.survei_dass',  compact('dass', 'no'));
+    }
+
+    /**
+     * cek nik
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function cekNik(Request $request)
+    {
+        //validate form
+        $this->validate($request, [
+            'nik'     => 'required|numeric|min:10'
+        ]);
+
+        //check nik
+        $masyarakat = Masyarakat::where('nik', $request->nik)->first();
+
+        // dd($request->nik);
+
+        if ($masyarakat) {
+            return redirect()->route('front.survei-dass-21')->with([
+                'success' => 'Anda sudah teregistrasi sebelumnya, silahkan melanjutkan untuk mengisi survei!'
+            ]);
+        } else {
+            return redirect()->route('front.survei-reg')->with([
+                'warning' => 'Silahkan mengisi data registrasi di bawah ini untuk melanjutkan!',
+                'nik' => $request->nik
+            ]);
+        }
     }
 
     /**
