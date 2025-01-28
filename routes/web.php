@@ -43,3 +43,4 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 Route::get('/notif', [App\Http\Controllers\FrontController::class, 'testNotif']);
+Route::resource('dasshasils', App\Http\Controllers\dasshasilController::class);

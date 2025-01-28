@@ -27,3 +27,10 @@
         <p>Dass Pertanyaans</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('dasshasils.index') }}" class="nav-link {{ Request::is('dasshasils*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Dasshasils</p>
+    </a>
+</li>
