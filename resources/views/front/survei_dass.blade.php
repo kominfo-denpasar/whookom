@@ -24,7 +24,9 @@
 				</div>
 				@endif
 				<h2 class="text-2xl font-bold mb-6 text-center">Depression Anxiety and Stress Scale <br>(DASS-21)</h2>
-				<form>
+				<form action="{{route('front.store-dass')}}" method="POST" class="space-y-2">
+					@csrf
+					<input type="hidden" name="nik" value="{{Session::get('nik')}}">
 					<p class="mb-4">Silakan baca setiap pernyataan dan pilih angka 0, 1, 2, atau 3 yang menunjukkan seberapa banyak pernyataan tersebut berlaku untuk Anda selama seminggu terakhir. Tidak ada jawaban yang benar atau salah. Jangan menghabiskan terlalu banyak waktu pada pernyataan mana pun.</p>
 					@if(empty($dass))
 					<div role="alert" class="rounded border-s-4 border-red-500 bg-red-50 p-4">

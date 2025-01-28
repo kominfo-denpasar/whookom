@@ -119,7 +119,6 @@ class FrontController extends Controller
 	{
 		//validate form
 		$this->validate($request, [
-			// 'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 			'nik'     => 'required|numeric|min:10',
 			'nama'   => 'required|max:100',
 			'jk'   => 'required',
@@ -128,25 +127,53 @@ class FrontController extends Controller
 			'hp'   => 'required'
 		]);
 
-		// dd($request->all());
+		//create data
+		Masyarakat::create([
+			'nik'     	=> $request->nik,
+			'nama'   	=> $request->nama,
+			'jk'     	=> $request->jk,
+			'tgl_lahir'	=> $request->tgl_lahir,
+			'email'     => $request->email,
+			'hp'		=> $request->hp
+		]);
+
+		//redirect to dass21
+		return redirect()->route('front.survei-dass-21')->with(['success' => 'Berhasil menyimpan data!']);
+	}
+
+	/**
+	 * simpan data pendaftaran awal
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function storeDass(Request $request)
+	{
+		//validate form
+		$this->validate($request, [
+			// 'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+			'nik'     => 'required|numeric|min:10'
+		]);
+
+		//ambil data id masyarakat
+		$masyarakat = Masyarakat::select('id')->where('nik', $request->nik)->first();
+
+		//jumlahkan nilai array
+		$sum_d = array_sum($request->nilai_d);
+		$sum_a = array_sum($request->nilai_a);
+		$sum_s = array_sum($request->nilai_s);
 
 		//upload image
 		// $image = $request->file('image');
 		// $image->storeAs('public/posts', $image->hashName());
 
 		//create data
-		Masyarakat::create([
-			// 'image'     => $image->hashName(),
-			'nik'     => $request->nik,
-			'nama'   => $request->nama,
-			'jk'     => $request->jk,
-			'tgl_lahir'     => $request->tgl_lahir,
-			'email'     => $request->email,
-			'hp'     => $request->hp
-		]);
+		
 
-		//redirect to dass21
-		return redirect()->route('front.survei-dass-21')->with(['success' => 'Berhasil menyimpan data!']);
+		//redirect
+		return redirect()->route('front.survei-hasil')->with([
+			'success' => 'Berhasil menyimpan data!'
+		]);
 	}
 
 	/**
