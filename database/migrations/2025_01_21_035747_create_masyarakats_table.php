@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('desa_id');
             $table->integer('kec_id');
             $table->integer('user_id');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

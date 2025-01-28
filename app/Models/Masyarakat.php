@@ -18,7 +18,8 @@ class Masyarakat extends Model
         'email',
         'desa_id',
         'kec_id',
-        'user_id'
+        'user_id',
+        'status'
     ];
 
     protected $casts = [
@@ -30,7 +31,8 @@ class Masyarakat extends Model
         'email' => 'string',
         'desa_id' => 'integer',
         'kec_id' => 'integer',
-        'user_id' => 'integer'
+        'user_id' => 'integer',
+        'status' => 'integer'
     ];
 
     public static array $rules = [
