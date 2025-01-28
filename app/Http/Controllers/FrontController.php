@@ -148,4 +148,21 @@ class FrontController extends Controller
 		//redirect to dass21
 		return redirect()->route('front.survei-dass-21')->with(['success' => 'Berhasil menyimpan data!']);
 	}
+
+	/**
+	 * Tes notif
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function testNotif()
+	{
+		// kirim whatsapp untuk user pemohon
+		$data = [
+			'phone' => '081238921686',
+			'message' => "weee",
+		];
+		
+		// script
+		$this->notif_wa($data);
+	}
 }

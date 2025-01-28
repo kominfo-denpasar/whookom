@@ -38,3 +38,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('masyarakats', App\Http\Controllers\MasyarakatController::class);
     Route::resource('dassPertanyaans', App\Http\Controllers\dassPertanyaanController::class);
 });
+
+
+Route::get('/notif', [App\Http\Controllers\FrontController::class, 'testNotif']);
