@@ -17,6 +17,12 @@
 			</div>
 
 			<div class="lg:p-8">
+				@if($message = Session::get("warning"))
+				<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative my-2" role="alert">
+					<strong class="font-bold">Info: </strong>
+					<span class="block sm:inline">{{$message}}</span>
+				</div>
+				@endif
 				<h2 class="text-2xl font-bold mb-6 text-center">Depression Anxiety and Stress Scale <br>(DASS-21)</h2>
 				<form>
 					<p class="mb-4">Silakan baca setiap pernyataan dan pilih angka 0, 1, 2, atau 3 yang menunjukkan seberapa banyak pernyataan tersebut berlaku untuk Anda selama seminggu terakhir. Tidak ada jawaban yang benar atau salah. Jangan menghabiskan terlalu banyak waktu pada pernyataan mana pun.</p>

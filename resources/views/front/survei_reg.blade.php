@@ -43,7 +43,7 @@
 					<div class="field-body">
 						<div class="field">
 						<div class="control">
-							<input type="text" autocomplete="off" name="nik" value="{{Session::get('nik')}}" class="input @error('title') is-invalid @enderror" required="">
+							<input type="text" autocomplete="off" name="nik" value="{{Session::get('nik')}}" class="input @error('title') is-invalid @enderror" required="" readonly>
 						</div>
 						<p class="help">Nomor Induk Kependudukan pada KTP Anda</p>
 						<!-- error message untuk title -->
