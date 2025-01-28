@@ -52,16 +52,22 @@
 				
 			</div>
 
-			<form action="#" method="POST" class="space-y-2">
-				
+			<form action="{{route('front.store-reg')}}" method="POST" class="space-y-2">
+				@csrf
 				<div class="field">
 					<label class="label">NIK</label>
 					<div class="field-body">
 						<div class="field">
 						<div class="control">
-							<input type="text" autocomplete="off" name="nik" placeholder="517102xxxxx" class="input" required="">
+							<input type="text" autocomplete="off" name="nik" placeholder="517102xxxxx" class="input @error('title') is-invalid @enderror" required="">
 						</div>
 						<p class="help">Nomor Induk Kependudukan pada KTP Anda</p>
+						<!-- error message untuk title -->
+						@error('nik')
+							<div class="alert alert-danger mt-2">
+								{{ $message }}
+							</div>
+						@enderror
 						</div>
 					</div>
 				</div>
@@ -88,9 +94,9 @@
 							<div class="control">
 								<select name="jk" class="w-full p-2 input" required="">
 									<option value="">Pilih</option>
-									<option value="1">Laki-laki</option>
-									<option value="2">Perempuan</option>
-									<option value="3">Tidak ingin menyebutkan</option>
+									<option value="L">Laki-laki</option>
+									<option value="P">Perempuan</option>
+									<option value="N">Tidak ingin menyebutkan</option>
 								</select>
 							</div>
 							<p class="help">Pilih salah satu</p>

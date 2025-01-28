@@ -26,6 +26,8 @@ Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('f
 Route::get('/survei', [App\Http\Controllers\FrontController::class, 'survei'])->name('front.survei');
 Route::get('/survei-dass-21', [App\Http\Controllers\FrontController::class, 'surveiDass'])->name('front.survei-dass-21');
 
+Route::post('/survei/store-reg', [App\Http\Controllers\FrontController::class, 'storeReg'])->name('front.store-reg');
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
