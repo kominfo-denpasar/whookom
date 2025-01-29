@@ -29,7 +29,7 @@
 
 				<li>
 					<a onclick="toggleModal('syaratsurvei')" class="block h-full rounded-lg border border-gray-700 p-4 hover:border-rose-600">
-						<strong class="font-medium text-black">Apa yang perlu dilakukan untuk mengisi survei?</strong>
+						<strong class="font-medium text-black">Apa yang perlu pahami dan dilakukan sebelum mengisi survei?</strong>
 
 						<p class="mt-1 text-xs font-medium text-gray-500">
 						Hal-hal yang perlu diketahui dan dilakukan saat mengisi survei
@@ -45,7 +45,7 @@
 						<strong class="block font-medium"> Catatan</strong>
 					</div> -->
 
-					<p class="text-sm text-green-700">
+					<p class="text-green-700">
 						Mohon untuk menginputkan Nomor Induk Kependudukan (NIK) Anda pada kolom di bawah ini. Terima kasih 🙏🏻
 					</p>
 				</div>

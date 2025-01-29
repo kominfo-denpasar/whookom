@@ -19,7 +19,9 @@
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <h3 class="text-base font-semibold text-gray-900" id="modal-title">Apa itu DASS-21?</h3>
                             <div class="mt-2">
-                                <p class="text-sm text-gray-500">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos minus atque sequi, laudantium officiis odio adipisci distinctio necessitatibus? Soluta molestiae provident mollitia at rerum quis optio, architecto voluptas porro natus!</p>
+                                <p class="my-2 text-sm">
+                                Survei DASS-21 adalah alat ukur yang digunakan untuk mengukur tingkat depresi, kecemasan, dan stres yang dialami oleh seseorang. Survei ini terdiri dari 21 pertanyaan yang dirancang untuk mengidentifikasi gejala-gejala tersebut dalam diri seseorang.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -54,9 +56,20 @@
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div class="sm:flex sm:items-start">
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                            <h3 class="text-base font-semibold text-gray-900" id="modal-title">Apa yang perlu dilakukan saat mengisi survei</h3>
+                            <h3 class="text-base font-semibold text-gray-900" id="modal-title">Apa yang perlu dilakukan sebelum mengisi survei</h3>
                             <div class="mt-2">
-                                <p class="text-sm text-gray-500">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos minus atque sequi, laudantium officiis odio adipisci distinctio necessitatibus? Soluta molestiae provident mollitia at rerum quis optio, architecto voluptas porro natus!</p>
+                                <p class="text-sm my-2">
+                                    Sebelum mengisi survei, pastikan Anda berada di tempat yang tenang dan tidak terganggu. Jawablah pertanyaan dengan jujur dan sejujur-jujurnya. Hasil survei ini akan membantu Anda untuk mengetahui tingkat depresi, kecemasan, dan stres yang Anda alami.
+                                </p>
+                                <p class="text-sm my-2">
+                                    Hasil survei ini tidak dapat digunakan sebagai alat diagnosis medis. Jika Anda merasa membutuhkan bantuan lebih lanjut, segera hubungi psikolog atau psikiater terdekat.
+                                </p>
+                                <p class="my-2 text-sm">
+                                    Hasil dari survei DASS-21 ini bertujuan untuk memberikan gambaran umum mengenai tingkat depresi, kecemasan, dan stres yang dialami responden. Tes ini bukan alat diagnosis medis dan tidak dapat menggantikan evaluasi profesional dari psikolog atau psikiater.
+                                </p>
+                                <p class="my-2 text-sm">
+                                    Jika hasil survei menunjukkan tingkat yang tinggi dalam salah satu atau lebih kategori, disarankan untuk berkonsultasi dengan tenaga profesional di bidang kesehatan mental guna mendapatkan penilaian yang lebih akurat dan rekomendasi yang sesuai.
+                                </p>
                             </div>
                         </div>
                     </div>

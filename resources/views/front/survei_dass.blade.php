@@ -17,12 +17,37 @@
 			</div>
 
 			<div class="lg:p-8">
-				@if($message = Session::get("warning"))
+				@if($dasshasil)
+				<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative my-2" role="alert">
+					<span class="block sm:inline">
+						Anda sudah pernah mengisi survei sebelumnya. Berikut adalah riwayat pengisian survei Anda.<br>
+					</span>
+				</div>
+				<ul class="mt-2 space-y-2">
+					@foreach($dasshasil as $d)
+					<li>
+						<a onclick="toggleModal('apaitudass')" class="block h-full rounded-lg border border-gray-700 p-4 hover:border-rose-600">
+							<strong class="font-medium text-black">Survei {{$d->created_at}}</strong>
+
+							<p class="mt-1 text-xs font-medium text-gray-500">
+							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates iure ipsa ipsum tenetur, molestias atque nam itaque nisi ex reiciendis laboriosam qui optio, quia, est voluptate iste culpa deleniti architecto.
+							</p>
+						</a>
+					</li>
+					@endforeach
+				</ul>
+				
+				<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative my-2" role="alert">
+					<strong class="font-bold">Info: </strong>
+					<span class="block sm:inline">Anda masih dapat mengisi survei lagi jika perlu.</span>
+				</div>
+				@elseif($message = Session::get("warning"))
 				<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative my-2" role="alert">
 					<strong class="font-bold">Info: </strong>
 					<span class="block sm:inline">{{$message}}</span>
 				</div>
 				@endif
+				
 				<h2 class="text-2xl font-bold mb-6 text-center">Depression Anxiety and Stress Scale <br>(DASS-21)</h2>
 				<form action="{{route('front.store-dass')}}" method="POST" class="space-y-2">
 					@csrf

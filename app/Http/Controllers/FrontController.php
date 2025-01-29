@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Masyarakat;
+use App\Models\dasshasil;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,7 +57,7 @@ class FrontController extends Controller
 	}
 
 	/**
-	 * Halaman survei DASS-21.
+	 * Halaman pengisian survei DASS-21.
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable
 	 */
@@ -66,12 +67,21 @@ class FrontController extends Controller
 			// ambil data pertanyaan dari database
 			$dass = DB::table('dass_pertanyaans')->get();
 			$no = 1;
-			// dd($dass);
-			return view('front.survei_dass', compact('dass', 'no'))
-				->with([
-					'warning' => Session::get('warning'), 
-					'nik' => Session::get('nik')
-				]);
+
+			//ambil data masyarakat
+			$masyarakat = Masyarakat::select('nama', 'id')->where('nik', Session::get('nik'))->first();
+
+			// cek jika sudah pernah mengisi dass
+			$dasshasil = dasshasil::latest()->take(3)
+				->select('created_at','id')
+				->where('mas_id', $masyarakat->id)
+				->get();
+
+			return view('front.survei_dass', compact('dass', 'no', 'dasshasil'))
+			->with([
+				'warning' => Session::get('warning'), 
+				'nik' => Session::get('nik')
+			]);
 		} else {
 			return redirect()->route('front.survei-intro');
 		}
@@ -208,18 +218,23 @@ class FrontController extends Controller
 
 		if($hasil_d == 'Normal' && $hasil_a == 'Normal' && $hasil_s == 'Normal') {
 			$hasil_text = "Hasil tes Anda menunjukkan kondisi kesehatan mental yang berada dalam batas normal. Ini artinya, Anda mungkin sudah cukup baik dalam mengelola stres, kecemasan, atau suasana hati. Namun, kesehatan mental tetap penting untuk dijaga, lho! Jika Anda ingin berdiskusi atau memperdalam pemahaman tentang diri, klik tombol di bawah untuk menjadwalkan konseling gratis. Kami siap mendengarkan!";
+			$hasil_status = 'Normal';
 		} elseif($hasil_d == 'Extreme Severe' || $hasil_a == 'Extreme Severe' || $hasil_s == 'Extreme Severe') {
 			$hasil_text = "Anda sepertinya sudah sangat gila. Anda mungkin merasa sangat tertekan, cemas, atau sedih. Kondisi ini bisa sangat mengganggu aktivitas sehari-hari dan kualitas hidup Anda. Jangan biarkan kondisi ini berlarut-larut. Klik tombol di bawah untuk konseling gratis dan izinkan kami membantu Anda melewati ini.";
+			$hasil_status = 'Extreme Severe';
 		} elseif($hasil_d == 'Severe' || $hasil_a == 'Severe' || $hasil_s == 'Severe') {
 			$hasil_text = "Hasil tes menunjukkan gejala yang cukup serius. Anda mungkin merasa stres yang sangat berat, sering diliputi kecemasan, atau suasana hati yang begitu rendah hingga mengganggu aktivitas sehari-hari. Kami paham ini tidak mudah, tapi Anda tidak perlu menghadapi ini sendirian. Silahkan tombol di bawah untuk konseling gratis dan izinkan kami membantu Anda melewati ini.";
+			$hasil_status = 'Severe';
 		} elseif($hasil_d == 'Moderate' || $hasil_a == 'Moderate' || $hasil_s == 'Moderate') {
 			$hasil_text = "Hasil tes menunjukkan adanya gejala sedang. Ini mungkin berarti Anda sering merasa lelah secara emosional, khawatir yang berlebihan, atau merasa sedih tanpa alasan yang jelas. Kondisi ini penting untuk diperhatikan agar tidak menjadi lebih berat. Yuk, cari cara untuk kembali seimbang. Klik tombol di bawah untuk konseling gratis, kami ada untuk mendukung Anda!";
+			$hasil_status = 'Moderate';
 		} elseif($hasil_d == 'Mild' || $hasil_a == 'Mild' || $hasil_s == 'Mild') {
 			$hasil_text = "Hasil tes menunjukkan adanya gejala ringan. Mungkin Anda sedang merasa sedikit lelah, stres, atau cemas, tapi masih bisa diatasi. Meski begitu, ada baiknya untuk mulai memahami kondisi ini lebih dalam sebelum berkembang lebih jauh. Silahkan klik tombol di bawah untuk konseling gratis dan obrolkan lebih lanjut dengan psikolog kami.";
+			$hasil_status = 'Mild';
 		}
 
 		//create data hasil dass
-		DB::table('dasshasils')->insert([
+		dasshasil::create([
 			'mas_id'     	=> $masyarakat->id,
 			'nilai_d'   	=> $sum_d,
 			'nilai_s'     	=> $sum_s,
@@ -230,7 +245,7 @@ class FrontController extends Controller
 		// kirim whatsapp
 		$data = [
 			'phone' => '0'.$masyarakat->hp,
-			'message' => "Halo $masyarakat->nama, berikut adalah hasil survei Anda:\n\n$hasil_text\n\nTerima kasih telah mengikuti survei ini.",
+			'message' => "Halo $masyarakat->nama, berikut adalah hasil survei Anda:\n\n$hasil_text\n\nTerima kasih telah mengikuti survei ini.\n\nJika Anda ingin melakukan konseling, dapat mengklik link berikut: ".route('front.konseling-reg', $masyarakat->id)."\n\nSalam, Denpasar Menyama Bagia"
 		];
 		
 		// script
@@ -239,7 +254,9 @@ class FrontController extends Controller
 		//redirect
 		return redirect()->route('front.survei-hasil')->with([
 			'success' => 'Berhasil menyimpan data!',
-			'hasil' => $hasil_text
+			'hasil' => $hasil_text,
+			'mas_id' => $masyarakat->id,
+			'status' => $hasil_status,
 		]);
 	}
 
@@ -259,6 +276,23 @@ class FrontController extends Controller
 		} else {
 			return redirect()->route('front.survei-intro');
 		}
+
+		return view('front.survei_hasil');
+	}
+
+	/**
+	 * Halaman registrasi survei.
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function konselingReg($id)
+	{
+		// if(Session::get('nik') && Session::get('warning')) {
+		// 	return view('front.survei_reg', ['warning' => Session::get('warning'), 'nik' => Session::get('nik')]);
+		// } else {
+		// 	return redirect()->route('front.survei-intro');
+		// }
+		dd($id);
 	}
 
 	/**

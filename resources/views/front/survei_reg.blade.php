@@ -29,7 +29,7 @@
 						<strong class="block font-medium"> Catatan</strong>
 					</div> -->
 
-					<p class="text-sm text-green-700">
+					<p class="text-green-700">
 						Halo, kami Tim Denpasar Menyama Bagia sangat mengapresiasi kepedulian Anda tentang kebutuhan kesehatan mental diri sendiri. Sebagai langkah kami untuk dapat mendukung Anda, kami mohon untuk mengisi data-data di bawah ini, Matur Suksma 🙏🏻
 					</p>
 				</div>
