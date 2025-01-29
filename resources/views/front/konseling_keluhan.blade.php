@@ -16,28 +16,12 @@
 				</div>
 			</div>
 
-			<ul class="mt-4 space-y-2">
-				<!-- <li>
-					<a onclick="toggleModal('apaitudass')" class="block h-full rounded-lg border border-gray-700 p-4 hover:border-rose-600">
-						<strong class="font-medium text-black">Apa itu Survei DASS-21?</strong>
-
-						<p class="mt-1 text-xs font-medium text-gray-500">
-						Ketahui tentang apa itu survei DASS-21
-						</p>
-					</a>
-				</li>
-
-				<li>
-					<a onclick="toggleModal('syaratsurvei')" class="block h-full rounded-lg border border-gray-700 p-4 hover:border-rose-600">
-						<strong class="font-medium text-black">Apa yang perlu pahami dan dilakukan sebelum mengisi survei?</strong>
-
-						<p class="mt-1 text-xs font-medium text-gray-500">
-						Hal-hal yang perlu diketahui dan dilakukan saat mengisi survei
-						</p>
-					</a>
-				</li> -->
-
-			</ul>
+			@if($message = Session::get("warning"))
+			<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mt-2" role="alert">
+				<strong class="font-bold">Info: </strong>
+				<span class="block sm:inline">{{$message}}</span>
+			</div>
+			@endif
 
 			<div class="mt-4 mb-2 space-y-2">
 				<div role="alert" class="rounded border-s-4 border-blue-500 bg-blue-50 p-4">
@@ -46,37 +30,104 @@
 					</div> -->
 
 					<p class="text-blue-700">
-						Mohon untuk menginputkan kode OTP yang telah dikirimkan melalui email dan whatsApp Anda pada kolom di bawah ini. Terima kasih 🙏🏻
+						Terima kasih telah mau mengajukan pendaftaran konsultasi. Silakan lengkapi data-data berikut ini 🙏🏻
 					</p>
 				</div>
 				
 			</div>
 
-			<form action="{{route('front.validasi-otp')}}" method="POST" class="space-y-2">
+			<form action="{{route('front.store-reg')}}" method="POST" class="space-y-2">
 				@csrf
 				<div class="field">
-					<label class="label">Kode OTP</label>
+					<label class="label">NIK</label>
 					<div class="field-body">
 						<div class="field">
-						
 						<div class="control">
-							<input type="hidden" name="mas_id" value="{{Session::get('mas_id')}}">
-							<input type="text" autocomplete="off" name="otp" placeholder="xxxxxx" class="input @error('otp') is-invalid @enderror" required="">
+							<input type="text" autocomplete="off" name="nik" value="{{Session::get('nik')}}" class="input @error('title') is-invalid @enderror" required="" readonly>
 						</div>
-						<p class="help">Batas waktu menginputkan kode: 15 menit</p>
+						<p class="help">Nomor Induk Kependudukan pada KTP Anda</p>
 						<!-- error message untuk title -->
-						@error('otp')
-							<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
+						@error('nik')
+							<div class="alert alert-danger mt-2">
 								{{ $message }}
 							</div>
 						@enderror
-
-						@if($message = Session::get("error"))
-						<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
-							<strong class="font-bold">Error: </strong>
-							<span class="block sm:inline">{{$message}}</span>
 						</div>
-						@endif
+					</div>
+				</div>
+				<!-- .field -->
+				
+
+				<div class="field">
+					<label class="label">Nama Lengkap</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<input type="text" autocomplete="off" name="nama" placeholder="John Doe" class="input" required="">
+							</div>
+							<p class="help">Isi dengan nama lengkap Anda</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">Jenis Kelamin</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<select name="jk" class="w-full p-2 input" required="">
+									<option value="">Pilih</option>
+									<option value="L">Laki-laki</option>
+									<option value="P">Perempuan</option>
+									<option value="N">Tidak ingin menyebutkan</option>
+								</select>
+							</div>
+							<p class="help">Pilih salah satu</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">Tanggal Lahir</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<input type="date" autocomplete="off" name="tgl_lahir" class="input" required="">
+							</div>
+							<p class="help">Pilih tanggal</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">Nomor HP</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="field addons">
+								<div class="control">
+									<input class="input" value="+62" size="2" readonly="">
+								</div>
+								<div class="control expanded">
+									<input class="input" type="tel" placeholder="81xxx" name="hp" required="">
+								</div>
+							</div>
+							<p class="help">Tanpa nol depan. Disarankan nomor yang terhubung dengan WhatsApp. Kami menggunakan WhatsApp untuk mengirimkan info ke Anda</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">e-mail</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<input type="email" autocomplete="off" name="email" placeholder="nama@gmail.com" class="input" required="">
+							</div>
+							<p class="help">e-mail Anda yang masih aktif. Kami juga menggunakan e-mail untuk menyampaikan informasi</p>
 						</div>
 					</div>
 				</div>
@@ -91,7 +142,7 @@
 
 						<span
 							class="relative inline-block border-2 border-current px-8 py-3 text-sm font-bold tracking-widest text-black group-active:text-opacity-75">
-							Submit
+							Mulai Mengisi Survei
 						</span>
 					</button>
 				</div>

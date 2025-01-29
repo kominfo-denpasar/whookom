@@ -39,7 +39,7 @@
 				
 				<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative my-2" role="alert">
 					<strong class="font-bold">Info: </strong>
-					<span class="block sm:inline">Anda masih dapat mengisi survei lagi jika perlu. Atau ingin mengajukan <a href="{{route('front.konseling-store-reg', Session::get('mas_id'))}}"><strong class="font-bold">Pendaftaran</strong></a> untuk konseling?</span>
+					<span class="block sm:inline">Anda masih dapat mengisi survei lagi jika perlu. Atau ingin mengajukan pendaftaran untuk konseling? <a href="{{route('front.konseling-store-reg', Session::get('mas_id'))}}"><strong class="font-bold">Klik di sini</strong></a> untuk mengajukan pendaftaran konseling.</span>
 				</div>
 				@elseif($message = Session::get("warning"))
 				<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative my-2" role="alert">

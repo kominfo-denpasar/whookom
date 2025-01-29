@@ -304,14 +304,14 @@ class FrontController extends Controller
 	public function konselingStoreReg($id)
 	{
 		// ambil data masyarakat dan cek apakah belum terverifikasi
-		$masyarakat = Masyarakat::select('id', 'nama', 'nik', 'hp')
+		$masyarakat = Masyarakat::select('id', 'nama', 'hp')
 			->where([
 				'id' => $id
 			])
 			->first();
 
 		// generate otp
-		$otp = (new Otp)->generate($masyarakat->nik, 'numeric', 6, 15);
+		$otp = (new Otp)->generate($masyarakat->id, 'numeric', 6, 15);
 
 		// dd($otp);
 
@@ -338,18 +338,13 @@ class FrontController extends Controller
 	 */
 	public function validasiOtp(Request $request)
 	{
-		//validate form
-		$this->validate($request, [
-			'otp'     => 'required|numeric|min:6'
-		]);
-
 		//ambil data masyarakat
 		$masyarakat = Masyarakat::where('id', $request->mas_id)
-			->select('nik')
+			->select('id')
 			->first();
 
 		//cek otp
-		$otp = (new Otp)->validate($masyarakat->nik, $request->otp);
+		$otp = (new Otp)->validate($masyarakat->id, $request->otp);
 
 		if ($otp->status) {
 			// ganti status masyarakat
@@ -358,11 +353,15 @@ class FrontController extends Controller
 					'status' => '1'
 				]);
 
-			return redirect()->route('front.konseling-konsul');
+			return redirect()->route('front.konseling-keluhan', $request->mas_id)
+				->with([
+					'keluhan' => true
+				]);
 		} else {
+			// jika salah
 			return redirect()->route('front.konseling-reg')->with([
-				'error' => $otp->message,
-				'mas_id' => $masyarakat
+				'success' => $otp->message,
+				'mas_id' => $masyarakat->id
 			]);
 		}
 	}
@@ -372,9 +371,18 @@ class FrontController extends Controller
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable
 	 */
-	public function konselingKeluhan()
+	public function konselingKeluhan($id)
 	{
-		dd('test');
+		// cek apakah sudah verifikasi otp
+		$masyarakat = Masyarakat::where('id', $id)
+			->where('status', '1')
+			->first();
+
+		if(Session::get('keluhan') && $masyarakat) {
+			return view('front.konseling_keluhan', ['mas_id' => $id]);
+		} else {
+			return redirect()->route('front.survei-intro');
+		}
 	}
 
 	/**

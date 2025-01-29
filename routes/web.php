@@ -29,7 +29,7 @@ Route::get('/survei/registrasi', [App\Http\Controllers\FrontController::class, '
 Route::get('/survei/dass-21', [App\Http\Controllers\FrontController::class, 'surveiDass'])->name('front.survei-dass-21');
 Route::get('/survei/hasil', [App\Http\Controllers\FrontController::class, 'surveiHasil'])->name('front.survei-hasil');
 Route::get('/konseling/registrasi', [App\Http\Controllers\FrontController::class, 'konselingReg'])->name('front.konseling-reg');
-Route::get('/konseling/keluhan', [App\Http\Controllers\FrontController::class, 'konselingKeluhan'])->name('front.konseling-keluhan');
+Route::get('/konseling/keluhan/{id}', [App\Http\Controllers\FrontController::class, 'konselingKeluhan'])->name('front.konseling-keluhan');
 
 Route::post('/survei/cek-nik', [App\Http\Controllers\FrontController::class, 'cekNik'])->name('front.cek-nik');
 Route::post('/survei/store-reg', [App\Http\Controllers\FrontController::class, 'storeReg'])->name('front.store-reg');

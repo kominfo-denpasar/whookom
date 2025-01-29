@@ -15,30 +15,7 @@
 				<div>
 				</div>
 			</div>
-
-			<ul class="mt-4 space-y-2">
-				<!-- <li>
-					<a onclick="toggleModal('apaitudass')" class="block h-full rounded-lg border border-gray-700 p-4 hover:border-rose-600">
-						<strong class="font-medium text-black">Apa itu Survei DASS-21?</strong>
-
-						<p class="mt-1 text-xs font-medium text-gray-500">
-						Ketahui tentang apa itu survei DASS-21
-						</p>
-					</a>
-				</li>
-
-				<li>
-					<a onclick="toggleModal('syaratsurvei')" class="block h-full rounded-lg border border-gray-700 p-4 hover:border-rose-600">
-						<strong class="font-medium text-black">Apa yang perlu pahami dan dilakukan sebelum mengisi survei?</strong>
-
-						<p class="mt-1 text-xs font-medium text-gray-500">
-						Hal-hal yang perlu diketahui dan dilakukan saat mengisi survei
-						</p>
-					</a>
-				</li> -->
-
-			</ul>
-
+			
 			<div class="mt-4 mb-2 space-y-2">
 				<div role="alert" class="rounded border-s-4 border-blue-500 bg-blue-50 p-4">
 					<!-- <div class="flex items-center gap-2 text-green-800">
@@ -49,8 +26,18 @@
 						Mohon untuk menginputkan kode OTP yang telah dikirimkan melalui email dan whatsApp Anda pada kolom di bawah ini. Terima kasih 🙏🏻
 					</p>
 				</div>
-				
 			</div>
+
+			@if(Session::get("success") == "Kode OTP berhasil dikirimkan!")
+			<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-2" role="alert">
+				<strong class="font-bold">Info: </strong>
+				<span class="block sm:inline">{{Session::get("success")}}</span>
+			</div>
+			@else
+			<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
+				<span class="block sm:inline">{{Session::get("success")}}</span>
+			</div>
+			@endif
 
 			<form action="{{route('front.validasi-otp')}}" method="POST" class="space-y-2">
 				@csrf
