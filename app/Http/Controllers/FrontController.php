@@ -72,7 +72,8 @@ class FrontController extends Controller
 			$masyarakat = Masyarakat::select('nama', 'id')->where('nik', Session::get('nik'))->first();
 
 			// cek jika sudah pernah mengisi dass
-			$dasshasil = dasshasil::latest()->take(3)
+			$dasshasil = dasshasil::latest()
+				->take(3)
 				->select('created_at','id')
 				->where('mas_id', $masyarakat->id)
 				->get();
@@ -276,8 +277,6 @@ class FrontController extends Controller
 		} else {
 			return redirect()->route('front.survei-intro');
 		}
-
-		return view('front.survei_hasil');
 	}
 
 	/**
@@ -287,11 +286,7 @@ class FrontController extends Controller
 	 */
 	public function konselingReg($id)
 	{
-		// if(Session::get('nik') && Session::get('warning')) {
-		// 	return view('front.survei_reg', ['warning' => Session::get('warning'), 'nik' => Session::get('nik')]);
-		// } else {
-		// 	return redirect()->route('front.survei-intro');
-		// }
+		
 		dd($id);
 	}
 
