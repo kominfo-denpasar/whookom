@@ -39,7 +39,7 @@
 				
 				<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative my-2" role="alert">
 					<strong class="font-bold">Info: </strong>
-					<span class="block sm:inline">Anda masih dapat mengisi survei lagi jika perlu.</span>
+					<span class="block sm:inline">Anda masih dapat mengisi survei lagi jika perlu. Atau ingin mengajukan <a href="{{route('front.konseling-store-reg', Session::get('mas_id'))}}"><strong class="font-bold">Pendaftaran</strong></a> untuk konseling?</span>
 				</div>
 				@elseif($message = Session::get("warning"))
 				<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative my-2" role="alert">
@@ -51,7 +51,7 @@
 				<h2 class="text-2xl font-bold mb-6 text-center">Depression Anxiety and Stress Scale <br>(DASS-21)</h2>
 				<form action="{{route('front.store-dass')}}" method="POST" class="space-y-2">
 					@csrf
-					<input type="hidden" name="nik" value="{{Session::get('nik')}}">
+					<input type="hidden" name="mas_id" value="{{Session::get('mas_id')}}">
 					<p class="mb-4">Silakan baca setiap pernyataan dan pilih angka 0, 1, 2, atau 3 yang menunjukkan seberapa banyak pernyataan tersebut berlaku untuk Anda selama seminggu terakhir. Tidak ada jawaban yang benar atau salah. Jangan menghabiskan terlalu banyak waktu pada pernyataan mana pun.</p>
 					@if(empty($dass))
 					<div role="alert" class="rounded border-s-4 border-red-500 bg-red-50 p-4">

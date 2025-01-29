@@ -28,11 +28,15 @@ Route::get('/survei', [App\Http\Controllers\FrontController::class, 'surveiIntro
 Route::get('/survei/registrasi', [App\Http\Controllers\FrontController::class, 'surveiReg'])->name('front.survei-reg');
 Route::get('/survei/dass-21', [App\Http\Controllers\FrontController::class, 'surveiDass'])->name('front.survei-dass-21');
 Route::get('/survei/hasil', [App\Http\Controllers\FrontController::class, 'surveiHasil'])->name('front.survei-hasil');
-Route::get('/konseling/registrasi/{id}', [App\Http\Controllers\FrontController::class, 'konselingReg'])->name('front.konseling-reg');
+Route::get('/konseling/registrasi', [App\Http\Controllers\FrontController::class, 'konselingReg'])->name('front.konseling-reg');
+Route::get('/konseling/keluhan', [App\Http\Controllers\FrontController::class, 'konselingKeluhan'])->name('front.konseling-keluhan');
 
 Route::post('/survei/cek-nik', [App\Http\Controllers\FrontController::class, 'cekNik'])->name('front.cek-nik');
 Route::post('/survei/store-reg', [App\Http\Controllers\FrontController::class, 'storeReg'])->name('front.store-reg');
 Route::post('/survei/store-dass', [App\Http\Controllers\FrontController::class, 'storeDass'])->name('front.store-dass');
+
+Route::get('/konseling/store-reg/{id}', [App\Http\Controllers\FrontController::class, 'konselingStoreReg'])->name('front.konseling-store-reg');
+Route::post('/validasi-otp', [App\Http\Controllers\FrontController::class, 'validasiOtp'])->name('front.validasi-otp');
 
 Auth::routes();
 

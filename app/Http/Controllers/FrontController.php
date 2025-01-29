@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Ichtrojan\Otp\Otp;
 
 use App\Models\Masyarakat;
 use App\Models\dasshasil;
@@ -49,8 +49,8 @@ class FrontController extends Controller
 	 */
 	public function surveiReg()
 	{
-		if(Session::get('nik') && Session::get('warning')) {
-			return view('front.survei_reg', ['warning' => Session::get('warning'), 'nik' => Session::get('nik')]);
+		if(Session::get('mas_id') && Session::get('warning')) {
+			return view('front.survei_reg', ['warning' => Session::get('warning'), 'mas_id' => Session::get('mas_id')]);
 		} else {
 			return redirect()->route('front.survei-intro');
 		}
@@ -63,25 +63,25 @@ class FrontController extends Controller
 	 */
 	public function surveiDass()
 	{
-		if(Session::get('nik') && Session::get('warning')) {
+		if(Session::get('mas_id') && Session::get('warning')) {
 			// ambil data pertanyaan dari database
 			$dass = DB::table('dass_pertanyaans')->get();
 			$no = 1;
 
 			//ambil data masyarakat
-			$masyarakat = Masyarakat::select('nama', 'id')->where('nik', Session::get('nik'))->first();
+			// $masyarakat = Masyarakat::select('nama', 'id')->where('id', Session::get('mas_id'))->first();
 
 			// cek jika sudah pernah mengisi dass
 			$dasshasil = dasshasil::latest()
 				->take(3)
 				->select('created_at','id')
-				->where('mas_id', $masyarakat->id)
+				->where('mas_id', Session::get('mas_id'))
 				->get();
 
 			return view('front.survei_dass', compact('dass', 'no', 'dasshasil'))
 			->with([
 				'warning' => Session::get('warning'), 
-				'nik' => Session::get('nik')
+				'mas_id' => Session::get('mas_id')
 			]);
 		} else {
 			return redirect()->route('front.survei-intro');
@@ -108,12 +108,12 @@ class FrontController extends Controller
 			//jika nik sudah ada 
 			return redirect()->route('front.survei-dass-21')->with([
 				'warning' => 'Anda sudah pernah mendaftar sebelumnya, silahkan melanjutkan untuk mengisi survei!',
-				'nik' => $request->nik
+				'mas_id' => $masyarakat->id
 			]);
 		} else {
 			return redirect()->route('front.survei-reg')->with([
 				'warning' => 'Silahkan mengisi data registrasi di bawah ini untuk melanjutkan!',
-				'nik' => $request->nik
+				'mas_id' => $masyarakat->id
 			]);
 		}
 	}
@@ -280,14 +280,101 @@ class FrontController extends Controller
 	}
 
 	/**
-	 * Halaman registrasi survei.
+	 * Halaman registrasi konseling.
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable
 	 */
-	public function konselingReg($id)
+	public function konselingReg()
 	{
+		if(Session::get('success') && Session::get('mas_id')) {
+			return view('front.konseling_reg', [
+				'mas_id' => Session::get('mas_id'), 
+				'success' => Session::get('success')]
+			);
+		} else {
+			return redirect()->route('front.survei-intro');
+		}
+	}
+
+	/**
+	 * Proses registrasi konseling.
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function konselingStoreReg($id)
+	{
+		// ambil data masyarakat dan cek apakah belum terverifikasi
+		$masyarakat = Masyarakat::select('id', 'nama', 'nik', 'hp')
+			->where([
+				'id' => $id
+			])
+			->first();
+
+		// generate otp
+		$otp = (new Otp)->generate($masyarakat->nik, 'numeric', 6, 15);
+
+		// dd($otp);
+
+		// kirim whatsapp
+		$data = [
+			'phone' => '0'.$masyarakat->hp,
+			'message' => "Halo $masyarakat->nama, berikut adalah kode OTP Anda.\n\nKode: $otp->token \n\nSilahkan input kode pada field yang sudah disediakan pada website. Mohon tidak menyebarkan kode ini kepada orang lain. Kode ini hanya berlaku selama 15 menit.\n\nSalam, Denpasar Menyama Bagia"
+		];
 		
-		dd($id);
+		// script
+		$this->notif_wa($data);
+
+		return redirect()->route('front.konseling-reg')
+			->with([
+				'success' => 'Kode OTP berhasil dikirimkan!',
+				'mas_id' => $masyarakat->id
+			]);
+	}
+
+	/**
+	 * validasi otp
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function validasiOtp(Request $request)
+	{
+		//validate form
+		$this->validate($request, [
+			'otp'     => 'required|numeric|min:6'
+		]);
+
+		//ambil data masyarakat
+		$masyarakat = Masyarakat::where('id', $request->mas_id)
+			->select('nik')
+			->first();
+
+		//cek otp
+		$otp = (new Otp)->validate($masyarakat->nik, $request->otp);
+
+		if ($otp->status) {
+			// ganti status masyarakat
+			$masyarakat = Masyarakat::where('nik', $masyarakat->nik)
+				->update([
+					'status' => '1'
+				]);
+
+			return redirect()->route('front.konseling-konsul');
+		} else {
+			return redirect()->route('front.konseling-reg')->with([
+				'error' => $otp->message,
+				'mas_id' => $masyarakat
+			]);
+		}
+	}
+
+	/**
+	 * Halaman regis keluhan.
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function konselingKeluhan()
+	{
+		dd('test');
 	}
 
 	/**
