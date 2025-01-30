@@ -96,7 +96,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<select name="kec_id" class="w-full p-2 input" required="">
+								<select name="kec_id" id="kec_id" class="w-full p-2 input" required="">
 									<option value="">Pilih</option>
 								</select>
 							</div>
@@ -111,7 +111,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<select name="desai_id" class="w-full p-2 input" required="">
+								<select name="desa_id" id="desa_id" class="w-full p-2 input" required="">
 									<option value="">Pilih</option>
 								</select>
 							</div>
@@ -231,3 +231,80 @@
 
 @include('front.modals.survei')
 @endsection
+
+@push('script')
+
+<script type="text/javascript">
+	const fetchAllTodos = () => {
+	return fetch("//www.emsifa.com/api-wilayah-indonesia/api/districts/5171.json")
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok.');
+			}
+			return response.json();
+		})
+		.then((data) => {
+			console.log(data);
+			return data;
+		})
+		.catch((error) => {
+			return error;
+		});
+	};
+
+	// Ambil tag id container
+	const containerDisplay = document.getElementById('kec_id')
+
+	// Komponen Card untuk render semua data
+	const cardComponent = (id, title) => {
+		// Buat Card
+		const data = `
+			<option value="${id}">${title}</option>
+		`
+		// Tambahkan kedalam elemen container yang sudah kita definisikan sebelumnya
+		containerDisplay.insertAdjacentHTML('afterbegin', data)
+	}
+
+	function render() {
+		fetchAllTodos()
+			.then((response) => {
+				response.forEach(result => {
+					cardComponent(result.id, result.name);
+				});
+			})
+			.catch((error) => {
+				console.error('Error rendering data:', error);
+			});
+	}
+
+	render();
+
+	document.querySelector('#kec_id').addEventListener('change', function() {
+		const opsi = document.querySelector('#kec_id').value;
+
+		const url = `//www.emsifa.com/api-wilayah-indonesia/api/villages/${opsi}.json`;
+
+		fetch(url)
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok.');
+				}
+				return response.json();
+			})
+			.then((data) => {
+				console.log(data);
+				const containerDisplay = document.getElementById('desa_id');
+				containerDisplay.innerHTML = "<option value=''>Pilih</option>";
+				data.forEach(result => {
+					const data = `
+						<option value="${result.id}">${result.name}</option>
+					`
+					containerDisplay.insertAdjacentHTML('afterbegin', data)
+				});
+			})
+			.catch((error) => {
+				return error;
+			});
+	});
+</script>
+@endpush
