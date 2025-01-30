@@ -378,11 +378,30 @@ class FrontController extends Controller
 			->where('status', '1')
 			->first();
 
-		if(Session::get('keluhan') && $masyarakat) {
-			return view('front.konseling_keluhan', ['mas_id' => $id]);
-		} else {
-			return redirect()->route('front.survei-intro');
-		}
+		// if(Session::get('keluhan') && $masyarakat) {
+			return view('front.konseling_keluhan', ['masyarakat' => $masyarakat]);
+		// } else {
+		// 	return redirect()->route('front.survei-intro');
+		// }
+	}
+
+	/**
+	 * Halaman regis jadwal.
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function konselingJadwal($id)
+	{
+		// cek apakah sudah verifikasi otp
+		$masyarakat = Masyarakat::where('id', $id)
+			->where('status', '1')
+			->first();
+
+		// if(Session::get('keluhan') && $masyarakat) {
+			return view('front.konseling_jadwal', ['masyarakat' => $masyarakat]);
+		// } else {
+		// 	return redirect()->route('front.survei-intro');
+		// }
 	}
 
 	/**

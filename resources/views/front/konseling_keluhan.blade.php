@@ -30,7 +30,7 @@
 					</div> -->
 
 					<p class="text-blue-700">
-						Terima kasih telah mau mengajukan pendaftaran konsultasi. Silakan lengkapi data-data berikut ini 🙏🏻
+						Terima kasih telah mau mengajukan pendaftaran konsultasi. Silakan untuk melengkapi data-data berikut ini 🙏🏻
 					</p>
 				</div>
 				
@@ -43,9 +43,9 @@
 					<div class="field-body">
 						<div class="field">
 						<div class="control">
-							<input type="text" autocomplete="off" name="nik" value="{{Session::get('nik')}}" class="input @error('title') is-invalid @enderror" required="" readonly>
+							<input type="text" autocomplete="off" name="nik" value="{{$masyarakat->nik}}" class="input @error('title') is-invalid @enderror" readonly>
 						</div>
-						<p class="help">Nomor Induk Kependudukan pada KTP Anda</p>
+						<!-- <p class="help">Nomor Induk Kependudukan pada KTP Anda</p> -->
 						<!-- error message untuk title -->
 						@error('nik')
 							<div class="alert alert-danger mt-2">
@@ -63,24 +63,41 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<input type="text" autocomplete="off" name="nama" placeholder="John Doe" class="input" required="">
+								<input type="text" autocomplete="off" name="nama" value="{{$masyarakat->nama}}" class="input" readonly>
 							</div>
-							<p class="help">Isi dengan nama lengkap Anda</p>
+							<!-- <p class="help">Isi dengan nama lengkap Anda</p> -->
 						</div>
 					</div>
 				</div>
 				<!-- .field -->
 
 				<div class="field">
-					<label class="label">Jenis Kelamin</label>
+					<label class="label">Status Perkawinan</label>
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<select name="jk" class="w-full p-2 input" required="">
+								<select name="status_kawin" class="w-full p-2 input" required="">
 									<option value="">Pilih</option>
-									<option value="L">Laki-laki</option>
-									<option value="P">Perempuan</option>
-									<option value="N">Tidak ingin menyebutkan</option>
+									<option>Lajang</option>
+									<option>Menikah</option>
+									<option>Cerai</option>
+								</select>
+							</div>
+							<p class="help">Pilih salah satu</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<hr class="pt-4">
+
+				<div class="field">
+					<label class="label">Kecamatan</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<select name="kec_id" class="w-full p-2 input" required="">
+									<option value="">Pilih</option>
 								</select>
 							</div>
 							<p class="help">Pilih salah satu</p>
@@ -90,48 +107,108 @@
 				<!-- .field -->
 
 				<div class="field">
-					<label class="label">Tanggal Lahir</label>
+					<label class="label">Kelurahan/Desa</label>
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<input type="date" autocomplete="off" name="tgl_lahir" class="input" required="">
+								<select name="desai_id" class="w-full p-2 input" required="">
+									<option value="">Pilih</option>
+								</select>
 							</div>
-							<p class="help">Pilih tanggal</p>
+							<p class="help">Pilih salah satu</p>
 						</div>
 					</div>
 				</div>
 				<!-- .field -->
 
 				<div class="field">
-					<label class="label">Nomor HP</label>
+					<label class="label">Alamat Tempat Tinggal</label>
 					<div class="field-body">
 						<div class="field">
-							<div class="field addons">
+							<div class="control">
+								<textarea class="textarea" autocomplete="off" placeholder="Jl. Nama Jalan, Nomor, Banjar"></textarea>
+							</div>
+							<!-- <p class="help">Isi dengan nama lengkap Anda</p> -->
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="border rounded-md p-4 w-full mx-auto max-w-2xl">
+					<div class="field">
+						<label class="label">Keluhan atau Ketidaknyamanan apa yang Anda rasakan?</label>
+						<div class="field-body">
+							<div class="field">
 								<div class="control">
-									<input class="input" value="+62" size="2" readonly="">
+									<textarea class="textarea" autocomplete="off" placeholder="Saya merasa..."></textarea>
 								</div>
-								<div class="control expanded">
-									<input class="input" type="tel" placeholder="81xxx" name="hp" required="">
+								<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
+									<strong class="font-bold">Info: </strong>
+									<span class="block sm:inline">Jelaskan dan deskripsikan apa yang Anda rasakan saat ini.</span>
 								</div>
 							</div>
-							<p class="help">Tanpa nol depan. Disarankan nomor yang terhubung dengan WhatsApp. Kami menggunakan WhatsApp untuk mengirimkan info ke Anda</p>
 						</div>
 					</div>
+					<!-- .field -->
 				</div>
-				<!-- .field -->
 
-				<div class="field">
-					<label class="label">e-mail</label>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input type="email" autocomplete="off" name="email" placeholder="nama@gmail.com" class="input" required="">
+				<div class="border rounded-md p-4 w-full mx-auto max-w-2xl">
+					<label class="label">Sejak Kapan Anda Rasakan Keluhan atau Ketidaknyamanan ini?</label>
+					<div>
+						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
+							<input type="radio" name="waktu_kapan">
+							<i class="pl-2">Sejak 2 hari belakangan</i>
+						</label>
+
+						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
+							<input type="radio" name="waktu_kapan">
+							<i class="pl-2">Sejak Seminggu Terakhir</i>
+						</label>
+
+						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
+							<input type="radio" name="waktu_kapan">
+							<i class="pl-2">Sejak Sebulan Terakhir</i>
+						</label>
+
+						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
+							<input type="radio" name="waktu_kapan">
+							<i class="pl-2">Sejak setahun terakhir</i>
+						</label>
+
+						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
+							<input type="radio" name="waktu_kapan">
+							<i class="pl-2">Lebih dari Setahun</i>
+						</label>
+					</div>
+					<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mt-2" role="alert">
+						<strong class="font-bold">Info: </strong>
+						<span class="block sm:inline">Isi dengan waktu berapa lama Anda mengalami keluhan atau Ketidaknyamanan itu</span>
+					</div>
+				</div>
+
+				<div class="border rounded-md p-4 w-full mx-auto max-w-2xl">
+					<div class="field">
+						<label class="label">Seberapa mengganggu hal tersebut pada aktivitas sehari-hari anda?</label>
+						<div class="field-body">
+							<div class="field grouped multiline">
+								@foreach (range(1, 10) as $item)
+								<div class="control">
+									<label class="radio">
+									<input type="radio" name="nilai_mengganggu" value="{{$item}}" >
+									<span class="check"></span>
+									<span class="control-label">{{$item}}</span>
+									</label>
+								</div>
+								@endforeach
 							</div>
-							<p class="help">e-mail Anda yang masih aktif. Kami juga menggunakan e-mail untuk menyampaikan informasi</p>
+						</div>
+
+						<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mt-2" role="alert">
+							<strong class="font-bold">Info: </strong>
+							<span class="block sm:inline">Semakin rendah nilai maka hal itu tidak mengganggu, sedangkan semakin tinggi nilainya maka hal itu sangat mengganggu bagi Anda</span>
 						</div>
 					</div>
 				</div>
-				<!-- .field -->
 
 				<div class="space-y-2 text-center">
 					<!-- Base -->
@@ -142,7 +219,7 @@
 
 						<span
 							class="relative inline-block border-2 border-current px-8 py-3 text-sm font-bold tracking-widest text-black group-active:text-opacity-75">
-							Mulai Mengisi Survei
+							Submit Data
 						</span>
 					</button>
 				</div>
