@@ -49,7 +49,7 @@
 			<div class="space-y-2 text-center">
 
 				<!-- Base -->
-				<a href="{{route('front.konseling-reg', Session::get('mas_id'))}}" class="mt-4 mb-2 group relative inline-block focus:outline-none focus:ring">
+				<a href="{{route('front.konseling-store-reg', Session::get('mas_id'))}}" class="mt-4 mb-2 group relative inline-block focus:outline-none focus:ring">
 					<span
 						class="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-yellow-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"
 					></span>

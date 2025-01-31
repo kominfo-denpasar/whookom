@@ -17,7 +17,7 @@
 			</div>
 
 			<div class="lg:p-8">
-				@if($dasshasil)
+				@if(count($dasshasil) > 0)
 				<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative my-2" role="alert">
 					<span class="block sm:inline">
 						Anda sudah pernah mengisi survei sebelumnya. Berikut adalah riwayat pengisian survei Anda.<br>

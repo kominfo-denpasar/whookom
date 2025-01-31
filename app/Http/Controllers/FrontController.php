@@ -113,7 +113,8 @@ class FrontController extends Controller
 		} else {
 			return redirect()->route('front.survei-reg')->with([
 				'warning' => 'Silahkan mengisi data registrasi di bawah ini untuk melanjutkan!',
-				'mas_id' => $masyarakat->id
+				'mas_id' => $request->nik,
+				'nik' => $request->nik
 			]);
 		}
 	}
@@ -137,7 +138,7 @@ class FrontController extends Controller
 		]);
 
 		//create data
-		Masyarakat::create([
+		$masyarakat = Masyarakat::create([
 			'nik'     	=> $request->nik,
 			'nama'   	=> $request->nama,
 			'jk'     	=> $request->jk,
@@ -147,7 +148,10 @@ class FrontController extends Controller
 		]);
 
 		//redirect to dass21
-		return redirect()->route('front.survei-dass-21')->with(['success' => 'Berhasil menyimpan data!']);
+		return redirect()->route('front.survei-dass-21')->with([
+			'warning' => 'Berhasil menyimpan data!',
+			'mas_id' => $masyarakat->id
+		]);
 	}
 
 	/**
@@ -158,14 +162,15 @@ class FrontController extends Controller
 	 */
 	public function storeDass(Request $request)
 	{
+		// dd($request->all());
 		//validate form
 		$this->validate($request, [
 			// 'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-			'nik'     => 'required|numeric|min:10'
+			'mas_id'     => 'required|numeric'
 		]);
 
 		//ambil data id & hp masyarakat
-		$masyarakat = Masyarakat::select('nama', 'id', 'hp')->where('nik', $request->nik)->first();
+		$masyarakat = Masyarakat::select('nama', 'id', 'hp')->where('id', $request->mas_id)->first();
 
 		//jumlahkan nilai array
 		$sum_d = array_sum($request->nilai_d);
@@ -246,7 +251,7 @@ class FrontController extends Controller
 		// kirim whatsapp
 		$data = [
 			'phone' => '0'.$masyarakat->hp,
-			'message' => "Halo $masyarakat->nama, berikut adalah hasil survei Anda:\n\n$hasil_text\n\nTerima kasih telah mengikuti survei ini.\n\nJika Anda ingin melakukan konseling, dapat mengklik link berikut: ".route('front.konseling-reg', $masyarakat->id)."\n\nSalam, Denpasar Menyama Bagia"
+			'message' => "Halo $masyarakat->nama, berikut adalah hasil survei Anda:\n\n$hasil_text\n\nTerima kasih telah mengikuti survei ini.\n\nJika Anda ingin melakukan konseling, dapat mengklik link berikut: ".route('front.konseling-store-reg', $masyarakat->id)."\n\nSalam, Denpasar Menyama Bagia"
 		];
 		
 		// script
@@ -339,16 +344,16 @@ class FrontController extends Controller
 	public function validasiOtp(Request $request)
 	{
 		//ambil data masyarakat
-		$masyarakat = Masyarakat::where('id', $request->mas_id)
-			->select('id')
-			->first();
+		// $masyarakat = Masyarakat::where('id', $request->mas_id)
+		// 	->select('id')
+		// 	->first();
 
 		//cek otp
-		$otp = (new Otp)->validate($masyarakat->id, $request->otp);
+		$otp = (new Otp)->validate($request->mas_id, $request->otp);
 
 		if ($otp->status) {
 			// ganti status masyarakat
-			$masyarakat = Masyarakat::where('nik', $masyarakat->nik)
+			$masyarakat = Masyarakat::where('id', $request->mas_id)
 				->update([
 					'status' => '1'
 				]);
@@ -361,7 +366,7 @@ class FrontController extends Controller
 			// jika salah
 			return redirect()->route('front.konseling-reg')->with([
 				'success' => $otp->message,
-				'mas_id' => $masyarakat->id
+				'mas_id' => $request->mas_id
 			]);
 		}
 	}
