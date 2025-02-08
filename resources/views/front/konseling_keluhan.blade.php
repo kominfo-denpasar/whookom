@@ -36,8 +36,9 @@
 				
 			</div>
 
-			<form action="{{route('front.store-reg')}}" method="POST" class="space-y-2">
+			<form action="{{route('front.konseling-keluhan-store')}}" method="POST" class="space-y-2">
 				@csrf
+				<input type="hidden" name="mas_id" value="{{$masyarakat->token}}">
 				<div class="field">
 					<label class="label">Nama Lengkap</label>
 					<div class="field-body">
@@ -164,7 +165,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<textarea class="textarea" autocomplete="off" placeholder="Jl. Nama Jalan, Nomor, Banjar"></textarea>
+								<textarea class="textarea" name="alamat" autocomplete="off" placeholder="Jl. Nama Jalan, Nomor, Banjar"></textarea>
 							</div>
 							<!-- <p class="help">Isi dengan nama lengkap Anda</p> -->
 						</div>
@@ -178,7 +179,7 @@
 						<div class="field-body">
 							<div class="field">
 								<div class="control">
-									<textarea class="textarea" autocomplete="off" placeholder="Saya merasa..."></textarea>
+									<textarea class="textarea" name="keluhan" autocomplete="off" placeholder="Saya merasa..."></textarea>
 								</div>
 								<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
 									<strong class="font-bold">Info: </strong>

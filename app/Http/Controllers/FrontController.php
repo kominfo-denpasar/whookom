@@ -416,6 +416,50 @@ class FrontController extends Controller
 	}
 
 	/**
+	 * simpan data pendaftaran konseling bagian keluhan
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function konselingKeluhanStore(Request $request)
+	{
+		//validate form
+		$this->validate($request, [
+			'nik'   => 'required|numeric',
+			'status_kawin'   => 'required',
+			'pendidikan'   => 'required',
+			'pekerjaan'   => 'required',
+			'email'   => 'required',
+			'kec_id'   => 'required',
+			'desa_id'   => 'required',
+			'alamat'   => 'required',
+			
+			'keluhan'   => 'required',
+			'waktu_kapan'   => 'required',
+			'nilai_mengganggu'   => 'required',
+
+			'mas_id'   => 'required'
+		]);
+
+		//create data
+		$masyarakat = Masyarakat::where(['token' => $request->mas_id])
+		->update([
+			'nama'   			=> $request->nama,
+			'nik'     			=> $request->nik,
+			'status_kawin'     	=> $request->status_kawin,
+			'pendidikan'		=> $request->pendidikan,
+			'pekerjaan'		=> $request->pekerjaan,
+			'email'     => $request->email
+		]);
+
+		//redirect to dass21
+		return redirect()->route('front.survei-dass-21')->with([
+			'warning' => 'Berhasil menyimpan data!',
+			'mas_id' => $masyarakat->token
+		]);
+	}
+
+	/**
 	 * Tes notif
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable
