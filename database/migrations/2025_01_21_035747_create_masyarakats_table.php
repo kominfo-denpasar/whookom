@@ -15,18 +15,23 @@ return new class extends Migration
     {
         Schema::create('masyarakats', function (Blueprint $table) {
             $table->id('id');
-            $table->string('nik', 25);
+            $table->string('nik', 25)->unique()->nullable();
             $table->string('jk', 2);
             $table->string('nama', 200);
             $table->date('tgl_lahir');
-            $table->string('alamat');
-            $table->string('hp');
-            $table->string('email', 50);
-            $table->integer('desa_id');
-            $table->integer('kec_id');
-            $table->integer('user_id');
+            $table->string('alamat')->nullable();
+            $table->string('hp')->unique();
+            $table->string('email', 50)->nullable();
+
+            $table->string('status_kawin', 25)->nullable();
+            $table->string('pendidikan', 25)->nullable();
+            $table->string('pekerjaan', 25)->nullable();
+
+            $table->integer('desa_id')->nullable();
+            $table->integer('kec_id')->nullable();
+            $table->integer('user_id')->nullable();
             $table->integer('status')->default(0);
-            $table->string('token', 50);
+            $table->string('token', 50)->unique();
             $table->timestamps();
         });
     }
