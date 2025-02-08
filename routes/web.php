@@ -19,9 +19,6 @@ Route::get('/', function () {
 });
 */
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
 Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('front.beranda');
 
 Route::get('/survei', [App\Http\Controllers\FrontController::class, 'surveiIntro'])->name('front.survei-intro');
@@ -45,12 +42,17 @@ Route::post('/validasi-otp', [App\Http\Controllers\FrontController::class, 'vali
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('psikologs', App\Http\Controllers\PsikologController::class);
-    Route::resource('masyarakats', App\Http\Controllers\MasyarakatController::class);
-    Route::resource('dassPertanyaans', App\Http\Controllers\dassPertanyaanController::class);
+    Route::prefix('admin')->group(function () {
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        
+        Route::resource('psikologs', App\Http\Controllers\PsikologController::class);
+        Route::resource('masyarakats', App\Http\Controllers\MasyarakatController::class);
+        Route::resource('dassPertanyaans', App\Http\Controllers\dassPertanyaanController::class);
+        Route::resource('dasshasils', App\Http\Controllers\dasshasilController::class);
+        Route::resource('keluhans', App\Http\Controllers\keluhanController::class);
+        Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
+    });
 });
 
 
 Route::get('/notif', [App\Http\Controllers\FrontController::class, 'testNotif']);
-Route::resource('dasshasils', App\Http\Controllers\dasshasilController::class);
-Route::resource('keluhans', App\Http\Controllers\keluhanController::class);

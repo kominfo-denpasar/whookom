@@ -30,7 +30,7 @@
 					</div> -->
 
 					<p class="text-blue-700">
-						Terima kasih telah mau mengajukan pendaftaran konsultasi. Silakan untuk melengkapi data-data berikut ini 🙏🏻
+						Silahkan untuk memilih jadwal dan psikolog yang Anda inginkan. Pastikan jadwal yang Anda pilih sudah sesuai dengan jadwal yang tersedia.
 					</p>
 				</div>
 				
