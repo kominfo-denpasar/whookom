@@ -17,7 +17,9 @@ class MasyarakatRepository extends BaseRepository
         'email',
         'desa_id',
         'kec_id',
-        'user_id'
+        'user_id',
+        'status',
+        'token'
     ];
 
     public function getFieldsSearchable(): array

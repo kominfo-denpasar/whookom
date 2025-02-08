@@ -166,5 +166,17 @@
         "inForm": false,
         "inIndex": false,
         "inView": true
+    },
+    {
+        "name": "token",
+        "dbType": "string",
+        "htmlType": "string",
+        "validations": "",
+        "searchable": false,
+        "fillable": true,
+        "primary": false,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
     }
 ]

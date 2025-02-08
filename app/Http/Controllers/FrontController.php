@@ -9,6 +9,7 @@ use App\Models\dasshasil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class FrontController extends Controller
 {
@@ -49,6 +50,7 @@ class FrontController extends Controller
 	 */
 	public function surveiReg()
 	{
+		// jika sudah ada session token dan warning dari halaman intro maka lanjutkan ke halaman berikut
 		if(Session::get('mas_id') && Session::get('warning')) {
 			return view('front.survei_reg', ['warning' => Session::get('warning'), 'mas_id' => Session::get('mas_id')]);
 		} else {
@@ -98,23 +100,26 @@ class FrontController extends Controller
 	{
 		//validate form
 		$this->validate($request, [
-			'nik'     => 'required|numeric|min:10'
+			'hp'     => 'required|numeric|min:8'
 		]);
 
-		//check nik
-		$masyarakat = Masyarakat::where('nik', $request->nik)->first();
+		//check hp
+		$masyarakat = Masyarakat::where('hp', $request->hp)->first();
 
 		if ($masyarakat) {
-			//jika nik sudah ada 
+			//jika hp sudah ada 
 			return redirect()->route('front.survei-dass-21')->with([
 				'warning' => 'Anda sudah pernah mendaftar sebelumnya, silahkan melanjutkan untuk mengisi survei!',
-				'mas_id' => $masyarakat->id
+				'mas_id' => $masyarakat->token
 			]);
 		} else {
+			// jika belum maka melanjutkan ke halaman berikut serta generate id token
+			$token = uniqid().Str::random(6);
+			
 			return redirect()->route('front.survei-reg')->with([
 				'warning' => 'Silahkan mengisi data registrasi di bawah ini untuk melanjutkan!',
-				'mas_id' => $request->nik,
-				'nik' => $request->nik
+				'mas_id' => $token,
+				'hp' => $request->hp
 			]);
 		}
 	}
@@ -129,28 +134,28 @@ class FrontController extends Controller
 	{
 		//validate form
 		$this->validate($request, [
-			'nik'     => 'required|numeric|min:10',
 			'nama'   => 'required|max:100',
 			'jk'   => 'required',
 			'tgl_lahir'   => 'required',
-			'email'   => 'required',
-			'hp'   => 'required'
+			// 'email'   => 'required',
+			'hp'   => 'required',
+			'mas_id'   => 'required'
 		]);
 
 		//create data
 		$masyarakat = Masyarakat::create([
-			'nik'     	=> $request->nik,
 			'nama'   	=> $request->nama,
 			'jk'     	=> $request->jk,
 			'tgl_lahir'	=> $request->tgl_lahir,
-			'email'     => $request->email,
-			'hp'		=> $request->hp
+			// 'email'     => $request->email,
+			'hp'		=> $request->hp,
+			'token'		=> $request->mas_id
 		]);
 
 		//redirect to dass21
 		return redirect()->route('front.survei-dass-21')->with([
 			'warning' => 'Berhasil menyimpan data!',
-			'mas_id' => $masyarakat->id
+			'mas_id' => $masyarakat->token
 		]);
 	}
 
@@ -166,11 +171,11 @@ class FrontController extends Controller
 		//validate form
 		$this->validate($request, [
 			// 'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-			'mas_id'     => 'required|numeric'
+			'mas_id'     => 'required'
 		]);
 
-		//ambil data id & hp masyarakat
-		$masyarakat = Masyarakat::select('nama', 'id', 'hp')->where('id', $request->mas_id)->first();
+		//ambil data id token & hp masyarakat
+		$masyarakat = Masyarakat::select('nama', 'token', 'hp')->where('token', $request->mas_id)->first();
 
 		//jumlahkan nilai array
 		$sum_d = array_sum($request->nilai_d);
@@ -241,7 +246,7 @@ class FrontController extends Controller
 
 		//create data hasil dass
 		dasshasil::create([
-			'mas_id'     	=> $masyarakat->id,
+			'mas_id'     	=> $masyarakat->token,
 			'nilai_d'   	=> $sum_d,
 			'nilai_s'     	=> $sum_s,
 			'nilai_a'		=> $sum_a,
@@ -251,7 +256,7 @@ class FrontController extends Controller
 		// kirim whatsapp
 		$data = [
 			'phone' => '0'.$masyarakat->hp,
-			'message' => "Halo $masyarakat->nama, berikut adalah hasil survei Anda:\n\n$hasil_text\n\nTerima kasih telah mengikuti survei ini.\n\nJika Anda ingin melakukan konseling, dapat mengklik link berikut: ".route('front.konseling-store-reg', $masyarakat->id)."\n\nSalam, Denpasar Menyama Bagia"
+			'message' => "Halo $masyarakat->nama, berikut adalah hasil survei Anda:\n\n$hasil_text\n\nTerima kasih telah mengikuti survei ini.\n\nJika Anda ingin melakukan konseling, dapat mengklik link berikut: ".route('front.konseling-store-reg', $masyarakat->token)."\n\nSalam, Denpasar Menyama Bagia"
 		];
 		
 		// script
@@ -261,7 +266,7 @@ class FrontController extends Controller
 		return redirect()->route('front.survei-hasil')->with([
 			'success' => 'Berhasil menyimpan data!',
 			'hasil' => $hasil_text,
-			'mas_id' => $masyarakat->id,
+			'mas_id' => $masyarakat->token,
 			'status' => $hasil_status,
 		]);
 	}
@@ -309,14 +314,14 @@ class FrontController extends Controller
 	public function konselingStoreReg($id)
 	{
 		// ambil data masyarakat dan cek apakah belum terverifikasi
-		$masyarakat = Masyarakat::select('id', 'nama', 'hp')
+		$masyarakat = Masyarakat::select('token', 'nama', 'hp')
 			->where([
-				'id' => $id
+				'token' => $id
 			])
 			->first();
 
 		// generate otp
-		$otp = (new Otp)->generate($masyarakat->id, 'numeric', 6, 15);
+		$otp = (new Otp)->generate($masyarakat->token, 'numeric', 6, 15);
 
 		// dd($otp);
 
@@ -332,7 +337,7 @@ class FrontController extends Controller
 		return redirect()->route('front.konseling-reg')
 			->with([
 				'success' => 'Kode OTP berhasil dikirimkan!',
-				'mas_id' => $masyarakat->id
+				'mas_id' => $masyarakat->token
 			]);
 	}
 
@@ -347,13 +352,14 @@ class FrontController extends Controller
 		// $masyarakat = Masyarakat::where('id', $request->mas_id)
 		// 	->select('id')
 		// 	->first();
+		// dd($request->otp);
 
 		//cek otp
 		$otp = (new Otp)->validate($request->mas_id, $request->otp);
 
 		if ($otp->status) {
 			// ganti status masyarakat
-			$masyarakat = Masyarakat::where('id', $request->mas_id)
+			$masyarakat = Masyarakat::where('token', $request->mas_id)
 				->update([
 					'status' => '1'
 				]);
@@ -379,7 +385,7 @@ class FrontController extends Controller
 	public function konselingKeluhan($id)
 	{
 		// cek apakah sudah verifikasi otp
-		$masyarakat = Masyarakat::where('id', $id)
+		$masyarakat = Masyarakat::where('token', $id)
 			->where('status', '1')
 			->first();
 

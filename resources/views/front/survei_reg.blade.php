@@ -38,25 +38,7 @@
 
 			<form action="{{route('front.store-reg')}}" method="POST" class="space-y-2">
 				@csrf
-				<div class="field">
-					<label class="label">NIK</label>
-					<div class="field-body">
-						<div class="field">
-						<div class="control">
-							<input type="text" autocomplete="off" name="nik" value="{{Session::get('nik')}}" class="input @error('title') is-invalid @enderror" required="" readonly>
-						</div>
-						<p class="help">Nomor Induk Kependudukan pada KTP Anda</p>
-						<!-- error message untuk title -->
-						@error('nik')
-							<div class="alert alert-danger mt-2">
-								{{ $message }}
-							</div>
-						@enderror
-						</div>
-					</div>
-				</div>
-				<!-- .field -->
-				
+				<input type="hidden" name="mas_id" value="{{Session::get('mas_id')}}">
 
 				<div class="field">
 					<label class="label">Nama Lengkap</label>
@@ -111,7 +93,7 @@
 									<input class="input" value="+62" size="2" readonly="">
 								</div>
 								<div class="control expanded">
-									<input class="input" type="tel" placeholder="81xxx" name="hp" required="">
+									<input class="input" type="tel" placeholder="81xxx" value="{{Session::get('hp')}}" name="hp" readonly>
 								</div>
 							</div>
 							<p class="help">Tanpa nol depan. Disarankan nomor yang terhubung dengan WhatsApp. Kami menggunakan WhatsApp untuk mengirimkan info ke Anda</p>
@@ -120,7 +102,7 @@
 				</div>
 				<!-- .field -->
 
-				<div class="field">
+				<!-- <div class="field">
 					<label class="label">e-mail</label>
 					<div class="field-body">
 						<div class="field">
@@ -130,7 +112,7 @@
 							<p class="help">e-mail Anda yang masih aktif. Kami juga menggunakan e-mail untuk menyampaikan informasi</p>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- .field -->
 
 				<div class="space-y-2 text-center">

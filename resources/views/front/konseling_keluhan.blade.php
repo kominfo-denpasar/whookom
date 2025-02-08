@@ -39,26 +39,6 @@
 			<form action="{{route('front.store-reg')}}" method="POST" class="space-y-2">
 				@csrf
 				<div class="field">
-					<label class="label">NIK</label>
-					<div class="field-body">
-						<div class="field">
-						<div class="control">
-							<input type="text" autocomplete="off" name="nik" value="{{$masyarakat->nik}}" class="input @error('title') is-invalid @enderror" readonly>
-						</div>
-						<!-- <p class="help">Nomor Induk Kependudukan pada KTP Anda</p> -->
-						<!-- error message untuk title -->
-						@error('nik')
-							<div class="alert alert-danger mt-2">
-								{{ $message }}
-							</div>
-						@enderror
-						</div>
-					</div>
-				</div>
-				<!-- .field -->
-				
-
-				<div class="field">
 					<label class="label">Nama Lengkap</label>
 					<div class="field-body">
 						<div class="field">
@@ -66,6 +46,25 @@
 								<input type="text" autocomplete="off" name="nama" value="{{$masyarakat->nama}}" class="input" readonly>
 							</div>
 							<!-- <p class="help">Isi dengan nama lengkap Anda</p> -->
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">NIK</label>
+					<div class="field-body">
+						<div class="field">
+						<div class="control">
+							<input type="text" autocomplete="off" name="nik" placeholder="5171xxx" class="input @error('title') is-invalid @enderror" required="">
+						</div>
+						<p class="help">Nomor Induk Kependudukan pada KTP Anda</p>
+						<!-- error message untuk title -->
+						@error('nik')
+							<div class="alert alert-danger mt-2">
+								{{ $message }}
+							</div>
+						@enderror
 						</div>
 					</div>
 				</div>
@@ -84,6 +83,45 @@
 								</select>
 							</div>
 							<p class="help">Pilih salah satu</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">Pendidikan</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<input type="text" autocomplete="off" placeholder="Isi..." name="pendidikan" class="input" required="">
+							</div>
+							<p class="help">Pendidikan Terakhir</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">Pekerjaan</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<input type="text" autocomplete="off" placeholder="Isi..." name="pekerjaan" class="input" required="">
+							</div>
+							<p class="help">Pekerjaan Anda saat ini</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">e-mail</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<input type="email" autocomplete="off" name="email" placeholder="nama@gmail.com" class="input" required="">
+							</div>
+							<p class="help">e-mail Anda yang masih aktif. Kami juga menggunakan e-mail untuk menyampaikan informasi</p>
 						</div>
 					</div>
 				</div>

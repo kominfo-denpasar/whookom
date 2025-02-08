@@ -46,7 +46,7 @@
 					</div> -->
 
 					<p class="text-green-700">
-						Mohon untuk menginputkan Nomor Induk Kependudukan (NIK) Anda pada kolom di bawah ini. Terima kasih 🙏🏻
+						Mohon untuk menginputkan Nomor Telpon Anda pada kolom di bawah ini. Terima kasih 🙏🏻
 					</p>
 				</div>
 				
@@ -55,32 +55,35 @@
 			<form action="{{route('front.cek-nik')}}" method="POST" class="space-y-2">
 				@csrf
 				<div class="field">
-					<label class="label">NIK</label>
+					<label class="label">Nomor HP</label>
 					<div class="field-body">
 						<div class="field">
-						
-						<div class="control">
-							<input type="text" autocomplete="off" name="nik" placeholder="517102xxxxx" class="input @error('title') is-invalid @enderror" required="">
-						</div>
-						<p class="help">Nomor Induk Kependudukan pada KTP Anda</p>
-						<!-- error message untuk title -->
-						@error('nik')
-							<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
-								{{ $message }}
+							<div class="field addons">
+								<div class="control">
+									<input class="input" value="+62" size="2" readonly="">
+								</div>
+								<div class="control expanded">
+									<input class="input" type="tel" placeholder="81xxx" name="hp" required="">
+								</div>
 							</div>
-						@enderror
-
-						@if($message = Session::get("error"))
-						<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
-							<strong class="font-bold">Error: </strong>
-							<span class="block sm:inline">{{$message}}</span>
-						</div>
-						@endif
+							<p class="help">Tanpa nol depan. Disarankan nomor yang terhubung dengan WhatsApp. Kami menggunakan WhatsApp untuk mengirimkan info ke Anda</p>
+							<!-- error message untuk title -->
+							@error('hp')
+								<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
+									{{ $message }}
+								</div>
+							@enderror
+							@if($message = Session::get("error"))
+							<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
+								<strong class="font-bold">Error: </strong>
+								<span class="block sm:inline">{{$message}}</span>
+							</div>
+							@endif
 						</div>
 					</div>
 				</div>
 				<!-- .field -->
-
+				 
 				<div class="space-y-2 text-center">
 					<!-- Base -->
 					<button type="submit" class="mt-4 mb-2 group relative inline-block focus:outline-none focus:ring">
