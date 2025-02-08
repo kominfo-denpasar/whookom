@@ -179,7 +179,7 @@
 						<div class="field-body">
 							<div class="field">
 								<div class="control">
-									<textarea class="textarea" name="keluhan" autocomplete="off" placeholder="Saya merasa..."></textarea>
+									<textarea class="textarea" name="keluhan" autocomplete="off" placeholder="Saya merasa..." required=""></textarea>
 								</div>
 								<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
 									<strong class="font-bold">Info: </strong>
@@ -195,27 +195,27 @@
 					<label class="label">Sejak Kapan Anda Rasakan Keluhan atau Ketidaknyamanan ini?</label>
 					<div>
 						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
-							<input type="radio" name="waktu_kapan">
+							<input type="radio" name="waktu_kapan" value="Sejak 2 hari belakangan">
 							<i class="pl-2">Sejak 2 hari belakangan</i>
 						</label>
 
 						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
-							<input type="radio" name="waktu_kapan">
+							<input type="radio" name="waktu_kapan" value="Sejak Seminggu Terakhir">
 							<i class="pl-2">Sejak Seminggu Terakhir</i>
 						</label>
 
 						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
-							<input type="radio" name="waktu_kapan">
+							<input type="radio" name="waktu_kapan" value="Sejak Sebulan Terakhir">
 							<i class="pl-2">Sejak Sebulan Terakhir</i>
 						</label>
 
 						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
-							<input type="radio" name="waktu_kapan">
+							<input type="radio" name="waktu_kapan" value="Sejak setahun terakhir">
 							<i class="pl-2">Sejak setahun terakhir</i>
 						</label>
 
 						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
-							<input type="radio" name="waktu_kapan">
+							<input type="radio" name="waktu_kapan" value="Lebih dari Setahun">
 							<i class="pl-2">Lebih dari Setahun</i>
 						</label>
 					</div>

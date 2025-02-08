@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('keluhans', function (Blueprint $table) {
             $table->id('id');
-            $table->text('Keluhan');
+            $table->text('keluhan');
             $table->string('waktu_kapan');
             $table->integer('nilai_mengganggu');
-            $table->integer('jadwal_id');
+            $table->integer('jadwal_id')->nullable();
             $table->string('mas_id');
-            $table->string('psikolog_id');
+            $table->string('psikolog_id')->nullable();
             $table->timestamps();
         });
     }

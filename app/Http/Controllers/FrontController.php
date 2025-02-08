@@ -5,6 +5,7 @@ use Ichtrojan\Otp\Otp;
 
 use App\Models\Masyarakat;
 use App\Models\dasshasil;
+use App\Models\keluhan;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -404,15 +405,18 @@ class FrontController extends Controller
 	public function konselingJadwal($id)
 	{
 		// cek apakah sudah verifikasi otp
-		$masyarakat = Masyarakat::where('id', $id)
+		$masyarakat = Masyarakat::where('token', $id)
 			->where('status', '1')
 			->first();
 
-		// if(Session::get('keluhan') && $masyarakat) {
+		// cek jika sudah mengisi form keluhan
+		$keluhan = keluhan::where('mas_id', $id)->first();
+
+		if($keluhan && $masyarakat) {
 			return view('front.konseling_jadwal', ['masyarakat' => $masyarakat]);
-		// } else {
-		// 	return redirect()->route('front.survei-intro');
-		// }
+		} else {
+			return redirect()->route('front.survei-intro');
+		}
 	}
 
 	/**
@@ -448,14 +452,24 @@ class FrontController extends Controller
 			'nik'     			=> $request->nik,
 			'status_kawin'     	=> $request->status_kawin,
 			'pendidikan'		=> $request->pendidikan,
-			'pekerjaan'		=> $request->pekerjaan,
-			'email'     => $request->email
+			'pekerjaan'			=> $request->pekerjaan,
+			'email'     		=> $request->email,
+			'kec_id'   			=> $request->kec_id,
+			'desa_id'     		=> $request->desa_id,
+			'alamat'			=> $request->alamat
+		]);
+
+		// create data keluhan
+		$keluhan = keluhan::create([
+			'mas_id'     	=> $request->mas_id,
+			'keluhan'		=> $request->keluhan,
+			'waktu_kapan'	=> $request->waktu_kapan,
+			'nilai_mengganggu'	=> $request->nilai_mengganggu
 		]);
 
 		//redirect to jadwal
-		return redirect()->route('front.konseling-jadwal')->with([
-			'warning' => 'Berhasil menyimpan data!',
-			'mas_id' => $masyarakat->token
+		return redirect()->route('front.konseling-jadwal', $request->mas_id)->with([
+			'mas_id' => $request->mas_id
 		]);
 	}
 

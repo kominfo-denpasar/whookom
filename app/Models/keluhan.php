@@ -9,7 +9,7 @@ class keluhan extends Model
     public $table = 'keluhans';
 
     public $fillable = [
-        'Keluhan',
+        'keluhan',
         'waktu_kapan',
         'nilai_mengganggu',
         'jadwal_id',
@@ -18,7 +18,7 @@ class keluhan extends Model
     ];
 
     protected $casts = [
-        'Keluhan' => 'string',
+        'keluhan' => 'string',
         'waktu_kapan' => 'string',
         'nilai_mengganggu' => 'integer',
         'jadwal_id' => 'integer',
@@ -27,7 +27,7 @@ class keluhan extends Model
     ];
 
     public static array $rules = [
-        'Keluhan' => 'required',
+        'keluhan' => 'required',
         'waktu_kapan' => 'required',
         'nilai_mengganggu' => 'required',
         'jadwal_id' => 'required',
