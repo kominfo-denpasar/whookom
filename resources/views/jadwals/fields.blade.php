@@ -1,19 +1,27 @@
 <!-- Tgl Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('tgl', 'Tgl:') !!}
-    {!! Form::text('tgl', null, ['class' => 'form-control','id'=>'tgl']) !!}
+    {!! Form::text('tgl', null, ['class' => 'form-control', 'id'=>'tgl', 'autocomplete'=>'off']) !!}
 </div>
 
 @push('page_scripts')
-    <script type="text/javascript">
+<!-- <script type="module">        
+    $(document).ready(function() {
         $('#tgl').datepicker()
-    </script>
+    })
+</script> -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="//code.jquery.com/jquery-3.6.0.js"></script>
+<script src="//code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    $('#tgl').datepicker()
+</script>
 @endpush
 
 <!-- Jam Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('jam', 'Jam:') !!}
-    {!! Form::text('jam', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::time('jam', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
 <!-- Kuota Field -->
