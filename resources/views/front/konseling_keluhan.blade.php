@@ -22,6 +22,7 @@
 				<span class="block sm:inline">{{$message}}</span>
 			</div>
 			@endif
+			<h2 class="text-2xl font-bold mb-6 text-center">Pendaftaran Konseling</h2>
 
 			<div class="mt-4 mb-2 space-y-2">
 				<div role="alert" class="rounded border-s-4 border-blue-500 bg-blue-50 p-4">

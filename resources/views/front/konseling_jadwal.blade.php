@@ -39,7 +39,7 @@
 			<form action="{{route('front.konseling-jadwal-store')}}" method="POST" class="space-y-2">
 				@csrf
 
-				<input type="hidden" name="mas_id" value="{{$masyarakat->id}}">
+				<input type="hidden" name="mas_id" value="{{$masyarakat->token}}">
 				<div class="field">
 					<label class="label">Pilih Psikolog</label>
 					<div class="field-body">
