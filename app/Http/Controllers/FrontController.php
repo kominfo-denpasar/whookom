@@ -452,8 +452,8 @@ class FrontController extends Controller
 			'email'     => $request->email
 		]);
 
-		//redirect to dass21
-		return redirect()->route('front.survei-dass-21')->with([
+		//redirect to jadwal
+		return redirect()->route('front.konseling-jadwal')->with([
 			'warning' => 'Berhasil menyimpan data!',
 			'mas_id' => $masyarakat->token
 		]);
