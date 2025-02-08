@@ -45,10 +45,11 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<select name="psikolog_id" class="w-full p-2 input" required="">
+								<select name="psikolog_id" id="psikolog_id" class="w-full p-2 input" required="">
 									<option value="">Pilih</option>
-									<option value="1">Psikolog Ganteng</option>
-									<option value="2">Psikolog Cantik</option>
+									@foreach($psikolog as $data)
+										<option value="{{$data->id}}">{{$data->nama}}</option>
+									@endforeach
 								</select>
 							</div>
 							<p class="help">Pilih salah satu Psikolog yang Anda inginkan</p>
@@ -58,29 +59,19 @@
 				<!-- .field -->
 
 				<div class="field">
-					<label class="label">Tanggal Konseling</label>
+					<label class="label">Tanggal & Jam Konseling</label>
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<input type="date" autocomplete="off" name="tgl_konsul" class="input" required="">
+								<select name="jadwal_id" id="jadwal_id" class="w-full p-2 input" required="">
+									<option value="">Pilih</option>
+								</select>
 							</div>
-							<p class="help">Pilih tanggal kapan Anda ingin melakukan konseling</p>
+							<p class="help">Pilih psikolog dahulu sebelum memilih tanggal & jam konseling</p>
 						</div>
 					</div>
 				</div>
 				<!-- .field -->
-
-				<div class="field">
-					<label class="label">Jam Konseling</label>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input type="time" autocomplete="off" name="jam_konsul" class="input" required="">
-							</div>
-							<p class="help">Pilih jam kapan Anda ingin melakukan konseling</p>
-						</div>
-					</div>
-				</div>
 
 				<div class="border rounded-md p-4 w-full mx-auto max-w-2xl">
 					<div class="field">
@@ -135,3 +126,38 @@
 
 @include('front.modals.survei')
 @endsection
+
+@push('script')
+
+<script type="text/javascript">
+	document.querySelector('#psikolog_id').addEventListener('change', function() {
+		const opsi = document.querySelector('#psikolog_id').value;
+
+		const url = `{{route('front.jadwal-psikolog', ':id')}}`.replace(':id', opsi);
+
+		fetch(url)
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok.');
+				}
+				return response.json();
+			})
+			.then((data) => {
+				// console.log(data);
+				const containerDisplay = document.getElementById('jadwal_id');
+				containerDisplay.innerHTML = "<option value=''>Pilih</option>";
+				data.forEach(result => {
+					const data = `
+						<option value="${result.id}">Tanggal ${result.tgl}, jam ${result.jam} WITA</option>
+					`
+					containerDisplay.insertAdjacentHTML('afterbegin', data)
+				});
+			})
+			.catch((error) => {
+				return error;
+			});
+	});
+
+</script>
+
+@endpush

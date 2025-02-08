@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 use Ichtrojan\Otp\Otp;
 
 use App\Models\Masyarakat;
+use App\Models\Psikolog;
 use App\Models\dasshasil;
 use App\Models\keluhan;
+use App\Models\jadwal;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -412,8 +414,14 @@ class FrontController extends Controller
 		// cek jika sudah mengisi form keluhan
 		$keluhan = keluhan::where('mas_id', $id)->first();
 
+		// get data master psikolog
+		$psikolog = Psikolog::get();
+
 		if($keluhan && $masyarakat) {
-			return view('front.konseling_jadwal', ['masyarakat' => $masyarakat]);
+			return view('front.konseling_jadwal', [
+				'masyarakat' => $masyarakat,
+				'psikolog' => $psikolog
+			]);
 		} else {
 			return redirect()->route('front.survei-intro');
 		}
@@ -471,6 +479,20 @@ class FrontController extends Controller
 		return redirect()->route('front.konseling-jadwal', $request->mas_id)->with([
 			'mas_id' => $request->mas_id
 		]);
+	}
+
+	/**
+	 * Get data jadwal.
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function jadwalPsikolog($id)
+	{
+		// cek apakah sudah verifikasi otp
+		$jadwal = jadwal::where('psikolog_id', $id)
+			->get();
+
+		return response()->json($jadwal);
 	}
 
 	/**
