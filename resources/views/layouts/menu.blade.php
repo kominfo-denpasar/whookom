@@ -34,3 +34,10 @@
         <p>Dasshasils</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('keluhans.index') }}" class="nav-link {{ Request::is('keluhans*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Keluhans</p>
+    </a>
+</li>
