@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class HomePsikologController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,9 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $this->user = $this->getUser();
-            
-        if(!$this->user->hasRole('admin')) return redirect()->route('home-psikolog');
-        else return view('backend/home');
+        return view('backend/home_psikolog');
     }
 }

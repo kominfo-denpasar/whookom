@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use InfyOm\Generator\Utils\ResponseUtil;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * @OA\Server(url="/api")
@@ -33,10 +32,5 @@ class AppBaseController extends Controller
             'success' => true,
             'message' => $message
         ], 200);
-    }
-
-    public function getUser(){
-        // ambil data user
-        return $data = config('roles.models.defaultUser')::find(Auth::id());
     }
 }

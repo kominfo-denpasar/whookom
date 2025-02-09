@@ -49,7 +49,10 @@ Route::group([
     ], 
     function () {
     Route::prefix('admin')->group(function () {
+
+
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        Route::get('/home-psikolog', [App\Http\Controllers\HomePsikologController::class, 'index'])->name('home-psikolog');
         
         Route::resource('psikologs', App\Http\Controllers\PsikologController::class);
         Route::resource('masyarakats', App\Http\Controllers\MasyarakatController::class);
