@@ -52,7 +52,10 @@ Route::group([
 
 
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::get('/home-psikolog', [App\Http\Controllers\HomePsikologController::class, 'index'])->name('home-psikolog');
+        Route::prefix('home-psikolog')->group(function () {
+            Route::get('/', [App\Http\Controllers\HomePsikologController::class, 'index'])->name('home-psikolog');
+            Route::get('/konseling/{id}', [App\Http\Controllers\HomePsikologController::class, 'konseling'])->name('backend.konseling');
+        });
         
         Route::resource('psikologs', App\Http\Controllers\PsikologController::class);
         Route::resource('masyarakats', App\Http\Controllers\MasyarakatController::class);
