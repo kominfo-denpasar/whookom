@@ -597,7 +597,20 @@ class FrontController extends Controller
 	 */
 	public function testHalaman()
 	{
-		return view('front.konseling_final');
+		// fungsi cek user menggunakan modul role
+		$user = config('roles.models.defaultUser')::find(1);
+
+		// attach role admin
+		$user->attachRole(1);
+		
+		// cek apakah rolenya admin
+		if ($user->isAdmin()) {
+			echo "admin";
+		} else {
+			dd($user);
+		}
+
+		// return view('front.konseling_final');
 	}
 
 	/**
