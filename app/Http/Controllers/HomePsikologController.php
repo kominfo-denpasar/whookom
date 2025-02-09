@@ -27,12 +27,22 @@ class HomePsikologController extends Controller
 	}
 
 	/**
-     * Tampilkan detail data konseling. 
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function konseling($id)
-    {
-        return view('backend/konseling');
-    }
+	 * Tampilkan detail data konseling. 
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function konseling($id)
+	{
+		return view('backend/konseling');
+	}
+
+	/**
+	 * Tampilkan laporan detail konseling. 
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function laporanDetail($id)
+	{
+		return view('backend/laporan_detail');
+	}
 }
