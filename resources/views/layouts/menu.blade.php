@@ -64,7 +64,7 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('konselingMasalahs.index') }}" class="nav-link {{ Request::is('konselingMasalahs*') ? 'active' : '' }}">
+    <a href="{{ route('konseling-masalahs.index') }}" class="nav-link {{ Request::is('konseling-masalahs*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Konseling Masalahs</p>
     </a>
