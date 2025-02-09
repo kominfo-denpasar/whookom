@@ -1,7 +1,7 @@
 <!-- Keluhan Field -->
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('Keluhan', 'Keluhan:') !!}
-    {!! Form::textarea('Keluhan', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::label('keluhan', 'Keluhan:') !!}
+    {!! Form::textarea('keluhan', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
 <!-- Waktu Kapan Field -->

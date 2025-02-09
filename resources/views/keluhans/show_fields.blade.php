@@ -1,7 +1,7 @@
 <!-- Keluhan Field -->
 <div class="col-sm-12">
     {!! Form::label('Keluhan', 'Keluhan:') !!}
-    <p>{{ $keluhan->Keluhan }}</p>
+    <p>{{ $keluhan->keluhan }}</p>
 </div>
 
 <!-- Waktu Kapan Field -->
