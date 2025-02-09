@@ -76,7 +76,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $role = config('roles.models.role')::where('name', '=', 'User')->first();  //choose the default role upon user creation.
+        $role = config('roles.models.role')::where('name', '=', 'Psikolog')->first();  //choose the default role upon user creation.
         $user->attachRole($role);
 
         return $user;
