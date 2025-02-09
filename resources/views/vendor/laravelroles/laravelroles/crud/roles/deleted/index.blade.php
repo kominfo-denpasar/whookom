@@ -50,7 +50,7 @@
     @include('laravelroles::laravelroles.modals.confirm-modal',[
         'formTrigger' => 'confirmDestroyRoles',
         'modalClass' => 'danger',
-        'actionBtnIcon' => 'fa-trash-o'
+        'actionBtnIcon' => 'fa-trash'
     ])
 
     @include('laravelroles::laravelroles.modals.confirm-modal',[

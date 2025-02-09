@@ -273,7 +273,7 @@
     @include('laravelroles::laravelroles.modals.confirm-modal',[
         'formTrigger' => 'confirmDelete',
         'modalClass' => 'danger',
-        'actionBtnIcon' => 'fa-trash-o'
+        'actionBtnIcon' => 'fa-trash'
     ])
 
     @include('laravelroles::laravelroles.modals.confirm-modal',[
@@ -285,7 +285,7 @@
     @include('laravelroles::laravelroles.modals.confirm-modal',[
         'formTrigger' => 'confirmDestroyPermissions',
         'modalClass' => 'danger',
-        'actionBtnIcon' => 'fa-trash-o'
+        'actionBtnIcon' => 'fa-trash'
     ])
 
 @endsection

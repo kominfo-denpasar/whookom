@@ -75,7 +75,7 @@
         @include('laravelroles::laravelroles.modals.confirm-modal',[
             'formTrigger' => 'confirmDelete',
             'modalClass' => 'danger',
-            'actionBtnIcon' => 'fa-trash-o'
+            'actionBtnIcon' => 'fa-trash'
         ])
 
     </div>
