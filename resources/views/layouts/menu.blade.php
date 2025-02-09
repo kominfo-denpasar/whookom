@@ -48,3 +48,10 @@
         <p>Jadwals</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('masalahs.index') }}" class="nav-link {{ Request::is('masalahs*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Masalahs</p>
+    </a>
+</li>
