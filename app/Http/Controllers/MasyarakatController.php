@@ -14,8 +14,18 @@ class MasyarakatController extends AppBaseController
     /** @var MasyarakatRepository $masyarakatRepository*/
     private $masyarakatRepository;
 
+    public $user;
+
     public function __construct(MasyarakatRepository $masyarakatRepo)
     {
+        // cek jika user sesuai dengan rolenya untuk akses controller
+        $this->middleware(function ($request, $next) {
+            $this->user = $this->getUser();
+            
+            if(!$this->user->hasRole('admin')) return redirect()->route('home');
+            else return $next($request);
+        });
+
         $this->masyarakatRepository = $masyarakatRepo;
     }
 

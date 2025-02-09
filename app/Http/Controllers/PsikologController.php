@@ -14,8 +14,18 @@ class PsikologController extends AppBaseController
     /** @var PsikologRepository $psikologRepository*/
     private $psikologRepository;
 
+    public $user;
+
     public function __construct(PsikologRepository $psikologRepo)
     {
+        // cek jika user sesuai dengan rolenya untuk akses controller
+        $this->middleware(function ($request, $next) {
+            $this->user = $this->getUser();
+            
+            if(!$this->user->hasRole('admin')) return redirect()->route('home');
+            else return $next($request);
+        });
+
         $this->psikologRepository = $psikologRepo;
     }
 

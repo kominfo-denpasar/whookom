@@ -44,7 +44,10 @@ Route::get('/jadwal/psikolog/{id}', [App\Http\Controllers\FrontController::class
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group([
+    'middleware' => ['auth', 'web']
+    ], 
+    function () {
     Route::prefix('admin')->group(function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         
@@ -54,6 +57,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('dasshasils', App\Http\Controllers\dasshasilController::class);
         Route::resource('keluhans', App\Http\Controllers\keluhanController::class);
         Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
+        Route::resource('masalahs', App\Http\Controllers\MasalahController::class);
+        Route::resource('konselings', App\Http\Controllers\KonselingController::class);
+        Route::resource('konseling-masalahs', App\Http\Controllers\KonselingMasalahController::class);
     });
 });
 
@@ -61,6 +67,3 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/test', [App\Http\Controllers\FrontController::class, 'testHalaman']);
 Route::get('/notif', [App\Http\Controllers\FrontController::class, 'testNotif']);
 
-Route::resource('masalahs', App\Http\Controllers\MasalahController::class);
-Route::resource('konselings', App\Http\Controllers\KonselingController::class);
-Route::resource('konseling-masalahs', App\Http\Controllers\KonselingMasalahController::class);

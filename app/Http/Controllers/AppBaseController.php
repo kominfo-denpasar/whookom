@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use InfyOm\Generator\Utils\ResponseUtil;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @OA\Server(url="/api")
@@ -15,6 +16,7 @@ use InfyOm\Generator\Utils\ResponseUtil;
  */
 class AppBaseController extends Controller
 {
+
     public function sendResponse($result, $message)
     {
         return response()->json(ResponseUtil::makeResponse($message, $result));
@@ -31,5 +33,10 @@ class AppBaseController extends Controller
             'success' => true,
             'message' => $message
         ], 200);
+    }
+
+    public function getUser(){
+        // ambil data user
+        return $data = config('roles.models.defaultUser')::find(Auth::id());
     }
 }
