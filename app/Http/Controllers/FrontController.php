@@ -8,6 +8,7 @@ use App\Models\Psikolog;
 use App\Models\dasshasil;
 use App\Models\keluhan;
 use App\Models\jadwal;
+use App\Models\Konseling;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -559,6 +560,7 @@ class FrontController extends Controller
 				'keluhans.keluhan', 
 				'jadwals.tgl', 
 				'jadwals.jam', 
+				'psikologs.id as psikolog_id',
 				'psikologs.nama as psikolog',
 				'psikologs.hp as psikolog_hp')
 			->where('masyarakats.token', $id)
@@ -566,18 +568,35 @@ class FrontController extends Controller
 		
 		// dd($masyarakat);
 
-		// kirim whatsapp untuk user pemohon & psikolog
-		$data =[
-			'phone' => '0'.$masyarakat->psikolog_hp,
-			'message' => "Halo $masyarakat->psikolog, berikut adalah detail jadwal konseling Anda:\n\nTanggal: $masyarakat->tgl\nJam: $masyarakat->jam\nKlien: $masyarakat->nama\nNomor HP Klien: 0$masyarakat->hp\n\nSalam, Denpasar Menyama Bagia"
-		];
-		$this->notif_wa($data);
+		// cek tabel konseling apakah sudah ada data
+		$cek = Konseling::where('mas_id', $id)->first();
 
-		$data = [
-			'phone' => '0'.$masyarakat->hp,
-			'message' => "Halo $masyarakat->nama, berikut adalah detail jadwal konseling Anda:\n\nTanggal: $masyarakat->tgl\nJam: $masyarakat->jam\nPsikolog: $masyarakat->psikolog\nNomor HP Psikolog: 0$masyarakat->psikolog_hp\n\nSampai jumpa nanti!\n\nSalam, Denpasar Menyama Bagia"
-		];
-		$this->notif_wa($data);
+		if (!$cek) {
+			// jika belum ada data konseling
+			//create data konseling
+			Konseling::create([
+				'hasil'   			=> null,
+				'kesimpulan'   		=> null,
+				'saran'   			=> null,
+				'berkas_pendukung'  => null,
+				'status'   			=> 0,
+				'psikolog_id'   	=> $masyarakat->psikolog_id,
+				'mas_id'   			=> $id
+			]);
+
+			// kirim whatsapp untuk user pemohon & psikolog
+			$data =[
+				'phone' => '0'.$masyarakat->psikolog_hp,
+				'message' => "Halo $masyarakat->psikolog, berikut adalah detail jadwal konseling Anda:\n\nTanggal: $masyarakat->tgl\nJam: $masyarakat->jam\nKlien: $masyarakat->nama\nNomor HP Klien: 0$masyarakat->hp\n\nSalam, Denpasar Menyama Bagia"
+			];
+			$this->notif_wa($data);
+
+			$data = [
+				'phone' => '0'.$masyarakat->hp,
+				'message' => "Halo $masyarakat->nama, berikut adalah detail jadwal konseling Anda:\n\nTanggal: $masyarakat->tgl\nJam: $masyarakat->jam\nPsikolog: $masyarakat->psikolog\nNomor HP Psikolog: 0$masyarakat->psikolog_hp\n\nSampai jumpa nanti!\n\nSalam, Denpasar Menyama Bagia"
+			];
+			$this->notif_wa($data);
+		}
 
 		// cek apakah sudah mengisi semua form konseling
 		if(Session::get('jadwal') && $masyarakat) {
