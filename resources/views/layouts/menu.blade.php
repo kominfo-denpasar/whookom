@@ -62,3 +62,10 @@
         <p>Konselings</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('konselingMasalahs.index') }}" class="nav-link {{ Request::is('konselingMasalahs*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Konseling Masalahs</p>
+    </a>
+</li>

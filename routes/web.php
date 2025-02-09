@@ -63,3 +63,4 @@ Route::get('/notif', [App\Http\Controllers\FrontController::class, 'testNotif'])
 
 Route::resource('masalahs', App\Http\Controllers\MasalahController::class);
 Route::resource('konselings', App\Http\Controllers\KonselingController::class);
+Route::resource('konseling-masalahs', App\Http\Controllers\KonselingMasalahController::class);
