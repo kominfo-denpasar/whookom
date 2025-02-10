@@ -45,4 +45,14 @@ class HomePsikologController extends Controller
 	{
 		return view('backend/laporan_detail');
 	}
+
+	/**
+	 * Tampilkan form evaluasi. 
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function formEvaluasi($id)
+	{
+		return view('backend/evaluasi');
+	}
 }

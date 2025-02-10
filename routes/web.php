@@ -56,6 +56,7 @@ Route::group([
             Route::get('/', [App\Http\Controllers\HomePsikologController::class, 'index'])->name('home-psikolog');
             Route::get('/konseling/{id}', [App\Http\Controllers\HomePsikologController::class, 'konseling'])->name('backend.konseling');
             Route::get('/konseling/laporan-detail/{id}', [App\Http\Controllers\HomePsikologController::class, 'laporanDetail'])->name('backend.laporan-detail');
+            Route::get('/konseling/evaluasi/{id}', [App\Http\Controllers\HomePsikologController::class, 'formEvaluasi'])->name('backend.evaluasi');
         });
         
         Route::resource('psikologs', App\Http\Controllers\PsikologController::class);
