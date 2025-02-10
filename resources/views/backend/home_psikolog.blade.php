@@ -92,19 +92,15 @@
 									<td>
 										1
 									</td>
-									<td>$13 USD</td>
+									<td>[Nama Klien]</td>
 									<td>
-										<small class="text-success mr-1">
-											<i class="fas fa-arrow-up"></i>
-											12%
-										</small>
-										12,000 Sold
+										[Tanggal]
 									</td>
 									<td>
 										<span class="badge bg-danger">Belum</span>
 									</td>
 									<td>
-										<a href="#" class="text-muted">
+										<a href="{{url('admin/home-psikolog/konseling/1')}}" class="text-muted">
 											<i class="fas fa-search"></i>
 										</a>
 									</td>
@@ -124,7 +120,7 @@
 							<img class="profile-user-img img-fluid img-circle" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairNotTooLong&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=CollarSweater&clotheColor=Gray01&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Pale" alt="User profile picture">
 						</div>
 
-						<h3 class="profile-username text-center">Nina Mcintire</h3>
+						<h3 class="profile-username text-center">[Nama Psikolog]</h3>
 
 						<p class="text-muted text-center">Psikolog</p>
 
@@ -136,11 +132,11 @@
 							<b>Nomor HP</b> <a class="float-right">+62 91823101 12</a>
 							</li>
 							<li class="list-group-item">
-							<b>Alamat</b> <a class="float-right">Jl. Hehe</a>
+							<b>Alamat</b> <a class="float-right">Jl. Jalanan</a>
 							</li>
 						</ul>
 
-						<a href="#" class="btn btn-primary btn-block"><b>Detail</b></a>
+						<a href="#!" class="btn btn-primary btn-block"><b>Detail Profil</b></a>
 					</div>
 					<!-- /.card-body -->
 				</div>

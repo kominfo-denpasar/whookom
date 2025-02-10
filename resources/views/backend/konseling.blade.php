@@ -9,7 +9,7 @@
 			</div>
 			<div class="col-sm-6">
 			<ol class="breadcrumb float-sm-right">
-				<li class="breadcrumb-item"><a href="#">Dashboard Psikolog</a></li>
+				<li class="breadcrumb-item"><a href="{{ url('admin/home-psikolog') }}">Dashboard Psikolog</a></li>
 				<li class="breadcrumb-item active">Detail Konseling</li>
 			</ol>
 			</div>
@@ -83,7 +83,7 @@
 							<div class="card-body">
 								<div class="tab-content">
 									<div class="active tab-pane" id="activity">
-										<div class="callout callout-info">
+										<div class="callout callout-danger">
 											<h5>Perhatian!</h5>
 											<p>
 												Konseling terhadap klien ini belum pernah dilakukan. Apakah Anda ingin mengkonfirmasi konseling ini? Pastikan jadwal sudah sesuai.
@@ -145,8 +145,6 @@
 														</tr>
 													</tbody>
 												</table>
-												
-												
 											</div>
 											<!-- /.card-body -->
 										</div>
@@ -161,11 +159,129 @@
 												</div>
 											</div>
 										</div>
+										<!-- /.card -->
+
+										<hr>
+										<div class="callout callout-warning">
+											<h5>Perhatian!</h5>
+											<p>
+												Konseling terhadap klien saat ini sedang dalam proses, mohon inputkan data konseling setelah selesai melakukan assessment pada tab "Input Data Konseling".
+											</p>
+										</div>
+										<!-- .callout -->
+
+										<div class="card card-info shadow-md">
+											<div class="card-body">
+												<p>
+													<b>Catatan:</b> Setelah selesai melakukan assessment, Klient dapat mengisi form evaluasi dengan mengklik tombol di bawah ini.
+												</p>
+												<div class="btn-group float-right">
+													<a href="#!" class="btn btn-primary">Form Evaluasi Klien</a>
+												</div>
+											</div>
+										</div>
+										<!-- /.card -->
+
+										<hr>
+										<div class="callout callout-success">
+											<h5>Perhatian!</h5>
+											<p>
+												Konseling terhadap Klien ini sudah selesai dilakukan. Untuk laporan hasil assessment dapat dilihat dengan mengklik tombol di bawah.
+											</p>
+										</div>
+										<!-- .callout -->
+
+										<div class="card card-info shadow-md">
+											<div class="card-body">
+												<div class="btn-group float-right">
+													<a href="{{url('admin/home-psikolog/konseling/laporan-detail/1')}}" class="btn btn-primary">Laporan Detail Konseling</a>
+													<a href="{{url('admin/home-psikolog/konseling/evaluasi/1')}}" class="btn btn-secondary">Form Evaluasi Klien</a>
+												</div>
+											</div>
+										</div>
+										<!-- /.card -->
 									</div>
 									<!-- /.tab-pane -->
+									 
 									<div class="tab-pane" id="timeline">
 										<!-- The timeline -->
-										tab 2
+										<div class="card card-primary">
+											<div class="card-header">
+												<h3 class="card-title">Keluhan</h3>
+											</div>
+											<div class="card-body">
+												<div class="callout callout-info">
+													<p>[Deskripsi keluhan]</p>
+												</div>
+												<!-- .callout -->
+
+												<div class="callout callout-info">
+													<p>Informasi lanjutan terkait keluhan</p>
+													<ul>
+														<li>Lama waktu Klien merasakan keluhan: <b>[data]</b></li>
+														<li>Tingkat nilai mengganggu pada aktivitas Klien: <b>[data]</b></li>
+													</ul>
+												</div>
+												<!-- .callout -->
+											</div>
+										</div>
+
+										
+										<div class="card card-primary">
+											<div class="card-header">
+												<h3 class="card-title">Skor DASS-21</h3>
+											</div>
+											<!-- /.card-header -->
+											<div class="card-body">
+												<!-- we are adding the accordion ID so Bootstrap's collapse plugin detects it -->
+												<div class="row">
+													<div class="col-lg-4 col-6">
+														<!-- small card -->
+														<div class="small-box bg-info">
+															<div class="inner">
+																<h3>150</h3>
+
+																<p>Kategori Stress</p>
+															</div>
+															<div class="icon">
+																<i class="fas fa-user-plus"></i>
+															</div>
+														</div>
+													</div>
+													<!-- ./col -->
+													<div class="col-lg-4 col-6">
+														<!-- small card -->
+														<div class="small-box bg-success">
+															<div class="inner">
+																<h3>53</h3>
+
+																<p>Kategori Anxiety</p>
+															</div>
+															<div class="icon">
+																<i class="fas fa-user-plus"></i>
+															</div>
+														</div>
+													</div>
+													<!-- ./col -->
+													<div class="col-lg-4 col-6">
+														<!-- small card -->
+														<div class="small-box bg-warning">
+															<div class="inner">
+																<h3>44</h3>
+
+																<p>Kategori Depression</p>
+															</div>
+															<div class="icon">
+																<i class="fas fa-user-plus"></i>
+															</div>
+														</div>
+													</div>
+													<!-- ./col -->
+													
+													</div>
+											</div>
+											<!-- /.card-body -->
+											</div>
 									</div>
 									<!-- /.tab-pane -->
 
