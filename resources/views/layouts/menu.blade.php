@@ -20,20 +20,11 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('jadwals.index') }}" class="nav-link {{ Request::is('jadwals*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-home"></i>
-            <p>Jadwals</p>
-        </a>
-    </li>
-    <li class="nav-item">
         <a href="{{ route('masalahs.index') }}" class="nav-link {{ Request::is('masalahs*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-home"></i>
             <p>Masalahs</p>
         </a>
     </li>
-@endrole
-
-@level(3)
     <li class="nav-item">
         <a href="{{ route('keluhans.index') }}" class="nav-link {{ Request::is('keluhans*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-home"></i>
@@ -44,6 +35,15 @@
         <a href="{{ route('konselings.index') }}" class="nav-link {{ Request::is('konselings*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-home"></i>
             <p>Konselings</p>
+        </a>
+    </li>
+@endrole
+
+@level(3)
+    <li class="nav-item">
+        <a href="{{ route('jadwals.index') }}" class="nav-link {{ Request::is('jadwals*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Jadwals</p>
         </a>
     </li>
 @endrole

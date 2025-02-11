@@ -389,24 +389,36 @@ class FrontController extends Controller
 	public function konselingKeluhan($id)
 	{
 		// cek apakah sudah verifikasi otp & sudah mengisi form keluhan
-		$masyarakat = Masyarakat::join('keluhans', 'masyarakats.token', '=', 'keluhans.mas_id')
-			->select('masyarakats.*', 'keluhans.keluhan')
+		// $masyarakat = Masyarakat::join('keluhans', 'masyarakats.token', '=', 'keluhans.mas_id')
+		// 	->select('masyarakats.*', 'keluhans.keluhan')
+		// 	->where([
+		// 		'masyarakats.token' => $id,
+		// 		'masyarakats.status' => '1'
+		// 	])
+		// 	->first();
+
+		$masyarakat = Masyarakat::select('masyarakats.*')
 			->where([
 				'masyarakats.token' => $id,
 				'masyarakats.status' => '1'
 			])
 			->first();
-		if($masyarakat->keluhan != null) {
+
+		// cek data keluhan
+		$keluhan = keluhan::where('mas_id', $id)->first();
+
+		if($keluhan) {
 			// jika sudah mengisi keluhan & jadwal
 			return redirect()->route('front.konseling-final', $id)->with([
 				'mas_id' => $id,
 				'jadwal' => true
 			]);
-		} elseif (Session::get('keluhan') && $masyarakat->keluhan == null) {
+		} elseif (!$keluhan) {
 			return view('front.konseling_keluhan', ['masyarakat' => $masyarakat]);
 		} else {
 			return redirect()->route('front.survei-intro');
 		}
+		
 	}
 
 	/**
