@@ -9,9 +9,16 @@ class PsikologRepository extends BaseRepository
 {
     protected $fieldSearchable = [
         'nik',
+        'kta',
+        'sipp',
         'nama',
         'hp',
-        'user_id'
+        'alamat_rumah',
+        'alamat_praktek',
+        'kec_id',
+        'desa_id',
+        'user_id',
+        'status'
     ];
 
     public function getFieldsSearchable(): array
