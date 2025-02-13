@@ -27,8 +27,15 @@
 <!-- Field -->
 <div class="form-group col-sm-8 offset-sm-2">
     {!! Form::label('sipp', 'Nomor SIPP') !!}
-    {!! Form::text('kta', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::text('sipp', null, ['class' => 'form-control', 'required']) !!}
     <small>Surat Izin Praktik Psikologi</small>
+</div>
+
+<!-- Field -->
+<div class="form-group col-sm-8 offset-sm-2">
+    {!! Form::label('email', 'e-mail') !!}
+    {!! Form::text('email', null, ['class' => 'form-control', 'required']) !!}
+    <small>Pastikan email yang digunakan aktif karena akan digunakan untuk masuk ke dalam sistem</small>
 </div>
 
 <!-- Field -->

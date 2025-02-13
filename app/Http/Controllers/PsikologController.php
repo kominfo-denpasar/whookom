@@ -9,6 +9,8 @@ use App\Repositories\PsikologRepository;
 use Illuminate\Http\Request;
 use Flash;
 
+use App\Models\User;
+
 class PsikologController extends AppBaseController
 {
     /** @var PsikologRepository $psikologRepository*/
@@ -57,6 +59,20 @@ class PsikologController extends AppBaseController
 
         $psikolog = $this->psikologRepository->create($input);
 
+        // dd($psikolog->id);
+
+        // buat user baru
+		$user = config('roles.models.defaultUser')::create([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'psikolog_id' => $psikolog->id,
+            'password' => bcrypt('AdminPsikolog#25'),
+        ]);
+
+        $role = config('roles.models.role')::where('name', '=', 'Psikolog')->first();  //choose the default role upon user creation.
+        $user->attachRole($role);
+
+        // 
         Flash::success('Psikolog saved successfully.');
 
         return redirect(route('psikologs.index'));
