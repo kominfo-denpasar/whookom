@@ -7,8 +7,8 @@
 	<div class="card">
 		<div class="card-header border-0">
 		<div class="d-flex justify-content-between">
-			<h3 class="card-title">Online Store Visitors</h3>
-			<a href="javascript:void(0);">View Report</a>
+			<h3 class="card-title">Pengunjung yang melakukan survei DASS-21</h3>
+			<a href="javascript:void(0);">Lihat </a>
 		</div>
 		</div>
 		<div class="card-body">
@@ -45,7 +45,7 @@
 
 	<div class="card">
 		<div class="card-header border-0">
-		<h3 class="card-title">Products</h3>
+		<h3 class="card-title">Data Klien yang melakukan konseling</h3>
 		<div class="card-tools">
 			<a href="#" class="btn btn-tool btn-sm">
 			<i class="fas fa-download"></i>
@@ -154,7 +154,7 @@
 	<div class="card">
 		<div class="card-header border-0">
 		<div class="d-flex justify-content-between">
-			<h3 class="card-title">Sales</h3>
+			<h3 class="card-title">Perbandingkan</h3>
 			<a href="javascript:void(0);">View Report</a>
 		</div>
 		</div>
