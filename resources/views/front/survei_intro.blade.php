@@ -16,25 +16,74 @@
 				</div>
 			</div>
 
-			<ul class="mt-4 space-y-2">
-				<li>
-					<a onclick="toggleModal('apaitudass')" class="block h-full rounded-lg border border-gray-700 p-4 hover:border-rose-600">
-						<strong class="font-medium text-black">Apa itu Survei DASS-21?</strong>
+			<h2 class="text-2xl font-bold mb-6 text-center">Perkenalan Diri</h2>
 
-						<p class="mt-1 text-xs font-medium text-gray-500">
-						Ketahui tentang apa itu survei DASS-21
-						</p>
-					</a>
+			<ul class="max-w-2xl mx-auto my-5 divide-y shadow shadow-blue-600 rounded-xl">
+				<li>
+					<details class="group" open>
+						<summary class="flex items-center gap-3 px-4 py-3 font-medium marker:content-none hover:cursor-pointer">
+							<svg class="w-5 h-5 text-gray-500 transition group-open:rotate-90" xmlns="http://www.w3.org/2000/svg"
+								width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+								<path fill-rule="evenodd"
+									d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
+								</path>
+							</svg>
+							<span>Apa itu Survei DASS-21?</span>
+						</summary>
+
+						<article class="px-4 pb-4">
+							<p class="my-2 text-sm">
+                                Survei DASS-21 adalah alat ukur yang digunakan untuk mengukur tingkat depresi, kecemasan, dan stres yang dialami oleh seseorang. Survei ini terdiri dari 21 pertanyaan yang dirancang untuk mengidentifikasi gejala-gejala tersebut dalam diri seseorang.
+                            </p>
+						</article>
+					</details>
 				</li>
-
 				<li>
-					<a onclick="toggleModal('syaratsurvei')" class="block h-full rounded-lg border border-gray-700 p-4 hover:border-rose-600">
-						<strong class="font-medium text-black">Apa yang perlu pahami dan dilakukan sebelum mengisi survei?</strong>
+					<details class="group">
+						<summary class="flex items-center gap-3 px-4 py-3 font-medium marker:content-none hover:cursor-pointer">
+							<svg class="w-5 h-5 text-gray-500 transition group-open:rotate-90" xmlns="http://www.w3.org/2000/svg"
+								width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+								<path fill-rule="evenodd"
+									d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
+								</path>
+							</svg>
+							<span>Apa yang perlu pahami dan dilakukan sebelum mengisi survei?</span>
+						</summary>
 
-						<p class="mt-1 text-xs font-medium text-gray-500">
-						Hal-hal yang perlu diketahui dan dilakukan saat mengisi survei
-						</p>
-					</a>
+						<article class="px-4 pb-4">
+							<p class="text-sm my-2">
+								Sebelum mengisi survei, pastikan Anda berada di tempat yang tenang dan tidak terganggu. Jawablah pertanyaan dengan jujur dan sejujur-jujurnya. Hasil survei ini akan membantu Anda untuk mengetahui tingkat depresi, kecemasan, dan stres yang Anda alami.
+							</p>
+							<p class="text-sm my-2">
+								Hasil survei ini tidak dapat digunakan sebagai alat diagnosis medis. Jika Anda merasa membutuhkan bantuan lebih lanjut, segera hubungi psikolog atau psikiater terdekat.
+							</p>
+							<p class="my-2 text-sm">
+								Hasil dari survei DASS-21 ini bertujuan untuk memberikan gambaran umum mengenai tingkat depresi, kecemasan, dan stres yang dialami responden. Tes ini bukan alat diagnosis medis dan tidak dapat menggantikan evaluasi profesional dari psikolog atau psikiater.
+							</p>
+							<p class="my-2 text-sm">
+								Jika hasil survei menunjukkan tingkat yang tinggi dalam salah satu atau lebih kategori, disarankan untuk berkonsultasi dengan tenaga profesional di bidang kesehatan mental guna mendapatkan penilaian yang lebih akurat dan rekomendasi yang sesuai.
+							</p>
+						</article>
+					</details>
+				</li>
+				<li>
+					<details class="group">
+						<summary class="flex items-center gap-3 px-4 py-3 font-medium marker:content-none hover:cursor-pointer">
+							<svg class="w-5 h-5 text-gray-500 transition group-open:rotate-90" xmlns="http://www.w3.org/2000/svg"
+								width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+								<path fill-rule="evenodd"
+									d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
+								</path>
+							</svg>
+							<span>Hal-hal lain yang ingin ditanyakan</span>
+						</summary>
+
+						<article class="px-4 pb-4">
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et ipsum sapien. Vestibulum molestie
+								porttitor augue vitae vulputate. Aliquam nec ex maximus, suscipit diam vel, tristique tellus. </p>
+						</article>
+					</details>
 				</li>
 
 			</ul>
@@ -49,7 +98,6 @@
 						Mohon untuk menginputkan Nomor Telpon Anda pada kolom di bawah ini. Terima kasih 🙏🏻
 					</p>
 				</div>
-				
 			</div>
 
 			<form action="{{route('front.cek-nik')}}" method="POST" class="space-y-2">
