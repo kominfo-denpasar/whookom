@@ -42,13 +42,13 @@
 								<li class="nav-item active">
 									<a href="#" class="nav-link">
 										<i class="fas fa-filter"></i> Aktif
-										<span class="badge bg-success float-right">12</span>
+										<span class="badge bg-success float-right">-</span>
 									</a>
 								</li>
 								<li class="nav-item">
 									<a href="#" class="nav-link">
 										<i class="fas fa-filter"></i> Tidak Aktif
-										<span class="badge bg-danger float-right">65</span>
+										<span class="badge bg-danger float-right">-</span>
 									</a>
 								</li>
 								<li class="nav-item">

@@ -38,17 +38,20 @@
     {!! Form::textarea('alamat_rumah', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-<!-- Field -->
-<div class="form-group col-sm-8 offset-sm-2">
-    {!! Form::label('alamat_praktek', 'Alamat Praktek') !!}
-    {!! Form::textarea('alamat_praktek', null, ['class' => 'form-control', 'required']) !!}
-</div>
+
 
 <div class="col-md-12">
     <hr>
 </div>
 
 @if(!Route::is('psikologs.edit') )
+
+<!-- Field -->
+<div class="form-group col-sm-8 offset-sm-2">
+    {!! Form::label('alamat_praktek', 'Alamat Praktek') !!}
+    {!! Form::textarea('alamat_praktek', null, ['class' => 'form-control', 'required']) !!}
+</div>
+
 <div class="form-group col-sm-8 offset-sm-2">
     {!! Form::label('kec_id', 'Kecamatan Alamat Praktek') !!}
     <select name="kec_id" id="kec_id" class="form-control" required="">
@@ -63,6 +66,13 @@
     </select>
 </div>
 @else
+
+<!-- Field -->
+<div class="form-group col-sm-8 offset-sm-2">
+    {!! Form::label('alamat_praktek', 'Alamat Praktek') !!}
+    {!! Form::textarea('alamat_praktek', null, ['class' => 'form-control', 'required']) !!}
+</div>
+
 <div class="form-group col-sm-8 offset-sm-2">
 	{!! Form::label('kec_id', 'Kecamatan Alamat Praktek') !!}
 	<input type="text" class="form-control" value="{{ App\Http\Controllers\PsikologController::kec($psikolog->kec_id) }}" readonly>
@@ -80,7 +90,11 @@
 <!-- Field -->
 <div class="form-group col-sm-8 offset-sm-2">
     {!! Form::label('email', 'e-mail') !!}
-    {!! Form::text('email', null, ['class' => 'form-control', 'required']) !!}
+	@if(Route::is('psikologs.edit'))
+    {!! Form::text('email', null, ['class' => 'form-control', 'readonly']) !!}
+	@else
+	{!! Form::text('email', null, ['class' => 'form-control', 'required']) !!}
+	@endif
     <small>Pastikan email yang digunakan aktif karena akan digunakan untuk masuk ke dalam sistem</small>
 </div>
 
@@ -88,10 +102,29 @@
 <!-- Field -->
 <div class="form-group col-sm-8 offset-sm-2">
     {!! Form::label('password', 'Password') !!}
-    {!! Form::text('password', null, ['class' => 'form-control', 'placeholder' => '*********']) !!}
+	<input class="form-control" type="password" name="password" placeholder="*****">
     <small>Isi password jika ingin mengganti, biarkan jika tidak</small>
 </div>
 @endif
+
+<div class="col-md-12">
+    <hr>
+</div>
+
+<div class="form-group col-sm-8 offset-sm-2">
+    {!! Form::label('status', 'Status User') !!}
+    <select name="status" id="status" class="form-control" required="">
+        <option value="">Pilih</option>
+		@if(Route::is('psikologs.edit'))
+		<option value="1" @if($psikolog->status==1) {{ "selected" }} @endif>Aktif</option>
+		<option value="0" @if($psikolog->status==0) {{ "selected" }} @endif>Tidak Aktif</option>
+		@else
+		<option value="1" >Aktif</option>
+		<option value="0" >Tidak Aktif</option>
+		@endif
+    </select>
+	<small>Jika user tidak aktif, user tidak dapat masuk ke dalam sistem.</small>
+</div>
 
 <!-- User Id Field -->
 <!-- <div class="form-group col-sm-6">

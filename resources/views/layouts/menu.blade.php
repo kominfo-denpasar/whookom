@@ -34,18 +34,18 @@
 					<p>Masalah</p>
 				</a>
 			</li>
-			<li class="nav-item">
+			<!-- <li class="nav-item">
 				<a href="{{ route('keluhans.index') }}" class="nav-link {{ Request::is('admin/master/keluhans*') ? 'active' : '' }}">
 					<i class="far fa-circle nav-icon"></i>
 					<p>Keluhan</p>
 				</a>
-			</li>
-			<li class="nav-item">
+			</li> -->
+			<!-- <li class="nav-item">
 				<a href="{{ route('konselings.index') }}" class="nav-link {{ Request::is('admin/master/konselings*') ? 'active' : '' }}">
 					<i class="far fa-circle nav-icon"></i>
 					<p>Konseling</p>
 				</a>
-			</li>
+			</li> -->
 		</ul>
 	</li>
 	

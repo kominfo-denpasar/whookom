@@ -7,11 +7,10 @@ use App\Http\Requests\UpdatePsikologRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\PsikologRepository;
 use Illuminate\Http\Request;
-use App\Models\Psikolog;
+use Illuminate\Support\Facades\Http;
 use Flash;
 
-use Illuminate\Support\Facades\Http;
-
+use App\Models\Psikolog;
 use App\Models\User;
 
 class PsikologController extends AppBaseController
@@ -126,6 +125,15 @@ class PsikologController extends AppBaseController
     {
         $psikolog = $this->psikologRepository->find($id);
 
+        // dd($request->password);
+        if($request->password) {
+            // 
+            // dd($request->password);
+            $data = User::where('psikolog_id', $id)->update([
+                'password' => bcrypt($request->password)
+            ]);
+        }
+
         if (empty($psikolog)) {
             Flash::error('Psikolog not found');
 
@@ -165,13 +173,21 @@ class PsikologController extends AppBaseController
         $data = 'https://emsifa.github.io/api-wilayah-indonesia/api/district/'.$id.'.json';
 
         $res = Http::get($data);
-        return $res->json()['name'];
+        if($res->json()) {
+            return $res->json()['name'];
+        } else {
+            return null;
+        }
     }
 
     public static function desa($id) {
         $data = 'https://emsifa.github.io/api-wilayah-indonesia/api/village/'.$id.'.json';
 
         $res = Http::get($data);
-        return $res->json()['name'];
+        if($res->json()) {
+            return $res->json()['name'];
+        } else {
+            return null;
+        }
     }
 }

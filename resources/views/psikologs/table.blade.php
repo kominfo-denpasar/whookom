@@ -38,7 +38,7 @@
 						</td>
 						<td class="mailbox-subject">{{ $psikolog->nama }}</td>
 						<td class="mailbox-subject"><a href="tel:0{{ $psikolog->hp }}">0{{ $psikolog->hp }}</a></td>
-						<td class="mailbox-name">{{ $psikolog->kec_id }}</td>
+						<td class="mailbox-name">{!! App\Http\Controllers\PsikologController::kec($psikolog->kec_id) !!}</td>
 						<td class="mailbox-name">
 							@if($psikolog->status==0)
 								<span class="badge bg-danger">Tidak Aktif</span>
@@ -57,7 +57,7 @@
 								class='btn btn-default btn-sm'>
 									<i class="far fa-edit"></i>
 								</a>
-								{!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('Are you sure?')"]) !!}
+								{!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('Apa Anda yakin?')"]) !!}
 							</div>
 							{!! Form::close() !!}
 						</td>
