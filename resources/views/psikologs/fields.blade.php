@@ -8,6 +8,7 @@
 <div class="form-group col-sm-8 offset-sm-2">
     {!! Form::label('hp', 'Nomor HP (Whatsapp)') !!}
     {!! Form::text('hp', null, ['class' => 'form-control', 'required']) !!}
+	<small>Input tanpa angka nol depan. Pastikan nomor HP terintegrasi dengan Whatsapp.</small>
 </div>
 
 <!-- Field -->
