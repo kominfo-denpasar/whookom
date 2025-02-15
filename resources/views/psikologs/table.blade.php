@@ -23,12 +23,10 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th></th>
 						<th>Nama</th>
 						<th>Kontak</th>
-						<th>Alamat Praktek</th>
 						<th>Kecamatan Praktek</th>
-						<th>Waktu Regis</th>
+						<th>Status</th>
 						<th colspan="3">Opsi</th>
 					</tr>
 				</thead>
@@ -38,24 +36,28 @@
 						<td>
 							#
 						</td>
-						<td class="mailbox-star"><a href="#"><i class="fas fa-star text-warning"></i></a></td>
 						<td class="mailbox-subject">{{ $psikolog->nama }}</td>
 						<td class="mailbox-subject"><a href="tel:0{{ $psikolog->hp }}">0{{ $psikolog->hp }}</a></td>
-						<td class="mailbox-name">{{ $psikolog->alamat_praktek }}</td>
 						<td class="mailbox-name">{{ $psikolog->kec_id }}</td>
-						<td class="mailbox-date">{{ $psikolog->created_at }}</td>
+						<td class="mailbox-name">
+							@if($psikolog->status==0)
+								<span class="badge bg-danger">Tidak Aktif</span>
+							@else
+								<span class="badge bg-success">Aktif</span>
+							@endif
+						</td>
 						<td class="mailbox-attachment">
 							{!! Form::open(['route' => ['psikologs.destroy', $psikolog->id], 'method' => 'delete']) !!}
 							<div class='btn-group'>
 								<a href="{{ route('psikologs.show', [$psikolog->id]) }}"
-								class='btn btn-default btn-xs'>
+								class='btn btn-default btn-sm'>
 									<i class="far fa-eye"></i>
 								</a>
 								<a href="{{ route('psikologs.edit', [$psikolog->id]) }}"
-								class='btn btn-default btn-xs'>
+								class='btn btn-default btn-sm'>
 									<i class="far fa-edit"></i>
 								</a>
-								{!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+								{!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('Are you sure?')"]) !!}
 							</div>
 							{!! Form::close() !!}
 						</td>

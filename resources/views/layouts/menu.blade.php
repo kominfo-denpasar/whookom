@@ -31,19 +31,19 @@
 			<li class="nav-item">
 				<a href="{{ route('masalahs.index') }}" class="nav-link {{ Request::is('admin/master/masalahs*') ? 'active' : '' }}">
 					<i class="far fa-circle nav-icon"></i>
-					<p>Masalahs</p>
+					<p>Masalah</p>
 				</a>
 			</li>
 			<li class="nav-item">
 				<a href="{{ route('keluhans.index') }}" class="nav-link {{ Request::is('admin/master/keluhans*') ? 'active' : '' }}">
 					<i class="far fa-circle nav-icon"></i>
-					<p>Keluhans</p>
+					<p>Keluhan</p>
 				</a>
 			</li>
 			<li class="nav-item">
 				<a href="{{ route('konselings.index') }}" class="nav-link {{ Request::is('admin/master/konselings*') ? 'active' : '' }}">
 					<i class="far fa-circle nav-icon"></i>
-					<p>Konselings</p>
+					<p>Konseling</p>
 				</a>
 			</li>
 		</ul>
@@ -54,7 +54,7 @@
 @level(3)
 <li class="nav-header">PENGATURAN</li>
 	<li class="nav-item">
-		<a href="{{ route('jadwals.index') }}" class="nav-link {{ Request::is('jadwals*') ? 'active' : '' }}">
+		<a href="{{ route('jadwals.index') }}" class="nav-link {{ Request::is('admin/jadwals*') ? 'active' : '' }}">
 			<i class="nav-icon fas fa-clock"></i>
 			<p>Jadwal Psikolog</p>
 		</a>

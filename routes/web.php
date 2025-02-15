@@ -65,11 +65,12 @@ Route::group([
             Route::resource('dassPertanyaans', App\Http\Controllers\dassPertanyaanController::class);
             Route::resource('dasshasils', App\Http\Controllers\dasshasilController::class);
             Route::resource('keluhans', App\Http\Controllers\keluhanController::class);
-            Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
             Route::resource('masalahs', App\Http\Controllers\MasalahController::class);
             Route::resource('konselings', App\Http\Controllers\KonselingController::class);
             Route::resource('konseling-masalahs', App\Http\Controllers\KonselingMasalahController::class);
         });
+
+        Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
     });
 });
 

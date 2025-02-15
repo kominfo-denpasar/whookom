@@ -63,16 +63,44 @@
 					<!-- /.card -->
 					<div class="card">
 						<div class="card-header">
-							<h3 class="card-title">Catatan</h3>
+						<h3 class="card-title">Wilayah</h3>
 
 							<div class="card-tools">
 								<button type="button" class="btn btn-tool" data-card-widget="collapse">
-									<i class="fas fa-minus"></i>
+								<i class="fas fa-minus"></i>
 								</button>
 							</div>
 						</div>
-						<div class="card-body">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+						<div class="card-body p-0">
+							<ul class="nav nav-pills flex-column">
+								<li class="nav-item">
+								<a class="nav-link">
+									<i class="far fa-circle text-danger"></i>
+									Denpasar Timur
+									<span class="badge bg-secondary float-right">0</span>
+								</a>
+								</li>
+								<li class="nav-item">
+								<a class="nav-link">
+									<i class="far fa-circle text-warning"></i> Denpasar Barat
+									<span class="badge bg-secondary float-right">0</span>
+								</a>
+								</li>
+								<li class="nav-item">
+								<a class="nav-link">
+									<i class="far fa-circle text-primary"></i>
+									Denpasar Selatan
+									<span class="badge bg-secondary float-right">0</span>
+								</a>
+								</li>
+								<li class="nav-item">
+								<a class="nav-link">
+									<i class="far fa-circle text-primary"></i>
+									Denpasar Utara
+									<span class="badge bg-secondary float-right">0</span>
+								</a>
+								</li>
+							</ul>
 						</div>
 						<!-- /.card-body -->
 					</div>
