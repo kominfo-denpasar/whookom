@@ -18,6 +18,18 @@
 
 			<h2 class="text-2xl font-bold mb-6 text-center">Perkenalan Diri</h2>
 
+			<div class="mt-4 mb-2 space-y-2">
+				<div role="alert" class="rounded border-s-4 border-blue-500 bg-blue-50 p-4">
+					<!-- <div class="flex items-center gap-2 text-green-800">
+						<strong class="block font-medium"> Catatan</strong>
+					</div> -->
+
+					<p class="text-blue-700">
+						Ketahui tingkat stress, depresi dan kecemasan Anda sebagai langkah awal untuk mengenali diri sendiri melalui pengisian survei DASS-21.
+					</p>
+				</div>
+			</div>
+
 			<ul class="max-w-2xl mx-auto my-5 divide-y shadow shadow-blue-600 rounded-xl">
 				<li>
 					<details class="group" open>
