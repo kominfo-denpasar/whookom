@@ -111,20 +111,17 @@
     <hr>
 </div>
 
+@if(Route::is('psikologs.edit'))
 <div class="form-group col-sm-8 offset-sm-2">
     {!! Form::label('status', 'Status User') !!}
     <select name="status" id="status" class="form-control" required="">
         <option value="">Pilih</option>
-		@if(Route::is('psikologs.edit'))
 		<option value="1" @if($psikolog->status==1) {{ "selected" }} @endif>Aktif</option>
 		<option value="0" @if($psikolog->status==0) {{ "selected" }} @endif>Tidak Aktif</option>
-		@else
-		<option value="1" >Aktif</option>
-		<option value="0" >Tidak Aktif</option>
-		@endif
     </select>
 	<small>Jika user tidak aktif, user tidak dapat masuk ke dalam sistem.</small>
 </div>
+@endif
 
 <!-- User Id Field -->
 <!-- <div class="form-group col-sm-6">
