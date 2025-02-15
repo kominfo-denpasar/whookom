@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Models\Psikolog;
 use Flash;
 
+use Illuminate\Support\Facades\Http;
+
 use App\Models\User;
 
 class PsikologController extends AppBaseController
@@ -157,5 +159,19 @@ class PsikologController extends AppBaseController
         Flash::success('Psikolog deleted successfully.');
 
         return redirect(route('psikologs.index'));
+    }
+
+    public static function kec($id) {
+        $data = 'https://emsifa.github.io/api-wilayah-indonesia/api/district/'.$id.'.json';
+
+        $res = Http::get($data);
+        return $res->json()['name'];
+    }
+
+    public static function desa($id) {
+        $data = 'https://emsifa.github.io/api-wilayah-indonesia/api/village/'.$id.'.json';
+
+        $res = Http::get($data);
+        return $res->json()['name'];
     }
 }

@@ -48,6 +48,7 @@
     <hr>
 </div>
 
+@if(!Route::is('psikologs.edit') )
 <div class="form-group col-sm-8 offset-sm-2">
     {!! Form::label('kec_id', 'Kecamatan Alamat Praktek') !!}
     <select name="kec_id" id="kec_id" class="form-control" required="">
@@ -61,6 +62,16 @@
         <option value="">Pilih</option>
     </select>
 </div>
+@else
+<div class="form-group col-sm-8 offset-sm-2">
+	{!! Form::label('kec_id', 'Kecamatan Alamat Praktek') !!}
+	<input type="text" class="form-control" value="{{ App\Http\Controllers\PsikologController::kec($psikolog->kec_id) }}" readonly>
+</div>
+<div class="form-group col-sm-8 offset-sm-2">
+	{!! Form::label('kec_id', 'Desa Alamat Praktek') !!}
+	<input type="text" class="form-control" value="{{ App\Http\Controllers\PsikologController::desa($psikolog->desa_id) }}" readonly>
+</div>
+@endif
 
 <div class="col-md-12">
     <hr>
