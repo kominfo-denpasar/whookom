@@ -39,7 +39,7 @@
 
                 <div class="flex flex-wrap gap-4 mt-8 text-center">
                     <a href="{{ url('/survei') }}"
-                        class="block w-full px-12 py-3 text-sm font-medium text-white rounded shadow bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
+                        class="block w-full px-12 py-3 text-lg font-medium text-white rounded shadow bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
                         {{ __('front.get_started') }}
                     </a>
                 </div>
@@ -152,60 +152,26 @@
             </p>
 
             <div class="mt-8 [column-fill:_balance] sm:columns-2 sm:gap-6 lg:columns-3 lg:gap-8">
+
+            @foreach($psikolog as $data)
                 <div class="mb-8 sm:break-inside-avoid">
                     <blockquote class="p-6 rounded-lg shadow-sm bg-gray-50 sm:p-8">
                         <div class="flex items-center gap-4">
                             <img alt=""
                                 src="{{ asset('img/pp_user.jpg') }}"
                                 class="object-cover rounded-full" />
-
                             
                         </div>
-                        <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
+                        <p class="mt-0.5 text-lg font-medium text-gray-900">{{ $data->nama }}</p>
 
                         <p class="mt-4 text-gray-700">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum
-                            incidunt, a consequuntur recusandae ab saepe illo est quia obcaecati neque
-                            quibusdam eius accusamus error officiis atque voluptates magnam!
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                         </p>
                     </blockquote>
                 </div>
+            @endforeach
 
-                <div class="mb-8 sm:break-inside-avoid">
-                    <blockquote class="p-6 rounded-lg shadow-sm bg-gray-50 sm:p-8">
-                        <div class="flex items-center gap-4">
-                            <img alt=""
-                                src="{{ asset('img/pp_user.jpg') }}"
-                                class="object-cover rounded-full" />
-
-                        </div>
-                        <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
-
-                        <p class="mt-4 text-gray-700">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum
-                            incidunt, a consequuntur recusandae ab saepe illo est quia obcaecati neque
-                            quibusdam eius accusamus error officiis atque voluptates magnam!
-                        </p>
-                    </blockquote>
-                </div>
-
-                <div class="mb-8 sm:break-inside-avoid">
-                    <blockquote class="p-6 rounded-lg shadow-sm bg-gray-50 sm:p-8">
-                        <div class="flex items-center gap-4">
-                            <img alt=""
-                                src="{{ asset('img/pp_user.jpg') }}"
-                                class="object-cover rounded-full" />
-
-                        </div>
-                        <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
-
-                        <p class="mt-4 text-gray-700">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum
-                            incidunt, a consequuntur recusandae ab saepe illo est quia obcaecati neque
-                            quibusdam eius accusamus error officiis atque voluptates magnam!
-                        </p>
-                    </blockquote>
-                </div>
+                
             </div>
         </div>
     </section>

@@ -35,7 +35,11 @@ class FrontController extends Controller
 	public function index()
 	{
 		// dd(\App::getLocale());
-		return view('front.home');
+		$psikolog = Psikolog::take(3)->get();
+
+		return view('front.home')->with([
+			'psikolog' => $psikolog
+		]);
 	}
 
 	/**
