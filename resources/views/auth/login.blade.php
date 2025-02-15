@@ -1,9 +1,11 @@
 <x-laravel-ui-adminlte::adminlte-layout>
 
-    <body class="hold-transition login-page">
+    <body class="hold-transition login-page" style="background: #fff;">
         <div class="login-box">
             <div class="login-logo">
-                <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
+                <a href="{{ url('/home') }}">
+                    <img src="{{ asset('img/logo_dmb.png') }}">
+                </a>
             </div>
             <!-- /.login-logo -->
 
@@ -52,7 +54,7 @@
                             <div class="col-md-12 text-center">
                                 {!! HCaptcha::display() !!}
                                 <div>
-                                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                    <button type="submit" class="btn btn-danger btn-block">Login</button>
                                 </div>
                             </div>
                         </div>
