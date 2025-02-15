@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePsikologRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\PsikologRepository;
 use Illuminate\Http\Request;
+use App\Models\Psikolog;
 use Flash;
 
 use App\Models\User;
@@ -99,7 +100,13 @@ class PsikologController extends AppBaseController
      */
     public function edit($id)
     {
-        $psikolog = $this->psikologRepository->find($id);
+        // $psikolog = $this->psikologRepository->find($id);
+
+        $psikolog = psikolog::where('psikologs.id', $id)
+            ->join('users', 'psikologs.id', '=', 'users.psikolog_id')
+            ->select('psikologs.*','users.email')->first();
+
+        // dd($psikolog);
 
         if (empty($psikolog)) {
             Flash::error('Psikolog not found');

@@ -59,15 +59,17 @@ Route::group([
             Route::get('/konseling/evaluasi/{id}', [App\Http\Controllers\HomePsikologController::class, 'formEvaluasi'])->name('backend.evaluasi');
         });
         
-        Route::resource('psikologs', App\Http\Controllers\PsikologController::class);
-        Route::resource('masyarakats', App\Http\Controllers\MasyarakatController::class);
-        Route::resource('dassPertanyaans', App\Http\Controllers\dassPertanyaanController::class);
-        Route::resource('dasshasils', App\Http\Controllers\dasshasilController::class);
-        Route::resource('keluhans', App\Http\Controllers\keluhanController::class);
-        Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
-        Route::resource('masalahs', App\Http\Controllers\MasalahController::class);
-        Route::resource('konselings', App\Http\Controllers\KonselingController::class);
-        Route::resource('konseling-masalahs', App\Http\Controllers\KonselingMasalahController::class);
+        Route::prefix('master')->group(function () {
+            Route::resource('psikologs', App\Http\Controllers\PsikologController::class);
+            Route::resource('masyarakats', App\Http\Controllers\MasyarakatController::class);
+            Route::resource('dassPertanyaans', App\Http\Controllers\dassPertanyaanController::class);
+            Route::resource('dasshasils', App\Http\Controllers\dasshasilController::class);
+            Route::resource('keluhans', App\Http\Controllers\keluhanController::class);
+            Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
+            Route::resource('masalahs', App\Http\Controllers\MasalahController::class);
+            Route::resource('konselings', App\Http\Controllers\KonselingController::class);
+            Route::resource('konseling-masalahs', App\Http\Controllers\KonselingMasalahController::class);
+        });
     });
 });
 

@@ -33,13 +33,6 @@
 
 <!-- Field -->
 <div class="form-group col-sm-8 offset-sm-2">
-    {!! Form::label('email', 'e-mail') !!}
-    {!! Form::text('email', null, ['class' => 'form-control', 'required']) !!}
-    <small>Pastikan email yang digunakan aktif karena akan digunakan untuk masuk ke dalam sistem</small>
-</div>
-
-<!-- Field -->
-<div class="form-group col-sm-8 offset-sm-2">
     {!! Form::label('alamat_rumah', 'Alamat Rumah') !!}
     {!! Form::textarea('alamat_rumah', null, ['class' => 'form-control', 'required']) !!}
 </div>
@@ -71,6 +64,22 @@
 <div class="col-md-12">
     <hr>
 </div>
+
+<!-- Field -->
+<div class="form-group col-sm-8 offset-sm-2">
+    {!! Form::label('email', 'e-mail') !!}
+    {!! Form::text('email', null, ['class' => 'form-control', 'required']) !!}
+    <small>Pastikan email yang digunakan aktif karena akan digunakan untuk masuk ke dalam sistem</small>
+</div>
+
+@if(Route::is('psikologs.edit') )
+<!-- Field -->
+<div class="form-group col-sm-8 offset-sm-2">
+    {!! Form::label('password', 'Password') !!}
+    {!! Form::text('password', null, ['class' => 'form-control', 'placeholder' => '*********']) !!}
+    <small>Isi password jika ingin mengganti, biarkan jika tidak</small>
+</div>
+@endif
 
 <!-- User Id Field -->
 <!-- <div class="form-group col-sm-6">
