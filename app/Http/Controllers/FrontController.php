@@ -34,6 +34,7 @@ class FrontController extends Controller
 	 */
 	public function index()
 	{
+		// dd(\App::getLocale());
 		return view('front.home');
 	}
 
