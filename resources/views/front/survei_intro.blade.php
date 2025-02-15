@@ -107,7 +107,7 @@
 					</div> -->
 
 					<p class="text-green-700">
-						Mohon untuk menginputkan Nomor Telpon Anda pada kolom di bawah ini. Terima kasih 🙏🏻
+						Mohon untuk menginputkan Nomor Telpon Anda pada kolom di bawah ini. Kami akan mengirimkan informasi lanjutan melalui Whatsapp. Terima kasih 🙏🏻
 					</p>
 				</div>
 			</div>
