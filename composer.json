@@ -14,7 +14,8 @@
         "jeremykenedy/laravel-roles": "^11.0",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "scyllaly/hcaptcha": "^4.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
