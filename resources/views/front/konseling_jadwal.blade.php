@@ -59,7 +59,7 @@
 				<!-- .field -->
 
 				<div class="field">
-					<label class="label">Tanggal & Jam Konseling</label>
+					<label class="label">Hari & Jam Konseling</label>
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
@@ -67,7 +67,7 @@
 									<option value="">Pilih</option>
 								</select>
 							</div>
-							<p class="help">Pilih psikolog dahulu sebelum memilih tanggal & jam konseling</p>
+							<p class="help">Pilih psikolog dahulu sebelum memilih hari & jam konseling</p>
 						</div>
 					</div>
 				</div>
@@ -148,7 +148,7 @@
 				containerDisplay.innerHTML = "<option value=''>Pilih</option>";
 				data.forEach(result => {
 					const data = `
-						<option value="${result.id}">Tanggal ${result.tgl}, jam ${result.jam} WITA</option>
+						<option value="${result.id}">Hari ${result.hari}, jam ${result.jam} WITA</option>
 					`
 					containerDisplay.insertAdjacentHTML('afterbegin', data)
 				});

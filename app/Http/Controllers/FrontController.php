@@ -431,6 +431,11 @@ class FrontController extends Controller
 			]);
 		} elseif (!$keluhan) {
 			return view('front.konseling_keluhan', ['masyarakat' => $masyarakat]);
+		} elseif ($keluhan->jadwal_id == null) {
+			//redirect to jadwal
+			return redirect()->route('front.konseling-jadwal', $id)->with([
+				'mas_id' => $id
+			]);
 		} else {
 			return redirect()->route('front.survei-intro');
 		}
@@ -451,8 +456,10 @@ class FrontController extends Controller
 
 		// cek jika sudah mengisi form keluhan
 		$keluhan = keluhan::where([
-			'mas_id' => $id
-		])->first();
+			'mas_id' => $id,
+			'status' => 0,
+		])
+		->first();
 
 		if ($keluhan->psikolog_id != null) {
 			// jika sudah mengisi keluhan & jadwal
@@ -501,7 +508,7 @@ class FrontController extends Controller
 			'mas_id'   => 'required'
 		]);
 
-		//create data
+		//update data
 		$masyarakat = Masyarakat::where(['token' => $request->mas_id])
 		->update([
 			'nama'   			=> $request->nama,
