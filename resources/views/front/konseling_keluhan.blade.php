@@ -58,7 +58,7 @@
 					<div class="field-body">
 						<div class="field">
 						<div class="control">
-							<input type="text" autocomplete="off" name="nik" placeholder="5171xxx" class="input @error('title') is-invalid @enderror" required="">
+							<input type="text" autocomplete="off" name="nik" placeholder="5171xxx" value="{{$masyarakat->nik}}" class="input @error('title') is-invalid @enderror" required="">
 						</div>
 						<p class="help">Nomor Induk Kependudukan pada KTP Anda</p>
 						<!-- error message untuk title -->
@@ -79,9 +79,11 @@
 							<div class="control">
 								<select name="status_kawin" class="w-full p-2 input" required="">
 									<option value="">Pilih</option>
-									<option>Lajang</option>
-									<option>Menikah</option>
-									<option>Cerai</option>
+									<option @if($masyarakat->status_kawin=='Belum Kawin') selected @endif>Belum Kawin</option>
+									<option @if($masyarakat->status_kawin=='Kawin Belum Tercatat') selected @endif>Kawin Belum Tercatat</option>
+									<option @if($masyarakat->status_kawin=='Kawin Tercatat') selected @endif>Kawin Tercatat</option>
+									<option @if($masyarakat->status_kawin=='Cerai Hidup') selected @endif>Cerai Hidup</option>
+									<option @if($masyarakat->status_kawin=='Cerai Mati') selected @endif>Cerai Mati</option>
 								</select>
 							</div>
 							<p class="help">Pilih salah satu</p>
@@ -95,7 +97,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<input type="text" autocomplete="off" placeholder="Isi..." name="pendidikan" class="input" required="">
+								<input type="text" autocomplete="off" placeholder="Isi..." value="{{$masyarakat->pendidikan}}" name="pendidikan" class="input" required="">
 							</div>
 							<p class="help">Pendidikan Terakhir</p>
 						</div>
@@ -108,7 +110,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<input type="text" autocomplete="off" placeholder="Isi..." name="pekerjaan" class="input" required="">
+								<input type="text" autocomplete="off" placeholder="Isi..." value="{{$masyarakat->pekerjaan}}" name="pekerjaan" class="input" required="">
 							</div>
 							<p class="help">Pekerjaan Anda saat ini</p>
 						</div>
@@ -121,7 +123,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<input type="email" autocomplete="off" name="email" placeholder="nama@gmail.com" class="input" required="">
+								<input type="email" autocomplete="off" name="email" placeholder="nama@gmail.com" value="{{$masyarakat->email}}" class="input" required="">
 							</div>
 							<p class="help">e-mail Anda yang masih aktif. Kami juga menggunakan e-mail untuk menyampaikan informasi</p>
 						</div>
@@ -166,7 +168,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<textarea class="textarea" name="alamat" autocomplete="off" placeholder="Jl. Nama Jalan, Nomor, Banjar"></textarea>
+								<textarea class="textarea" name="alamat" autocomplete="off" placeholder="Jl. Nama Jalan, Nomor, Banjar">{!!$masyarakat->alamat!!}</textarea>
 							</div>
 							<!-- <p class="help">Isi dengan nama lengkap Anda</p> -->
 						</div>
