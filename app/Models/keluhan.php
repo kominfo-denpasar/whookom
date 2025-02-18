@@ -19,7 +19,8 @@ class keluhan extends Model
         'jadwal_alt2_tgl',
         'jadwal_alt2_jam',
         'mas_id',
-        'psikolog_id'
+        'psikolog_id',
+        'status'
     ];
 
     protected $casts = [
@@ -33,7 +34,8 @@ class keluhan extends Model
         'jadwal_alt2_tgl' => 'date',
         'jadwal_alt2_jam' => 'string',
         'mas_id' => 'string',
-        'psikolog_id' => 'string'
+        'psikolog_id' => 'string',
+        'status' => 'integer'
     ];
 
     public static array $rules = [

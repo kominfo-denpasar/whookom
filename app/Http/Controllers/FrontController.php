@@ -410,10 +410,21 @@ class FrontController extends Controller
 			->first();
 
 		// cek data keluhan
-		$keluhan = keluhan::where('mas_id', $id)->first();
+		$keluhan = keluhan::where([
+			'mas_id' => $id,
+			'status' => 0
+			])
+		->latest()
+		->first();
 
-		if($keluhan) {
-			// jika sudah mengisi keluhan & jadwal
+		// cek data konseling
+		$konseling = Konseling::where([
+			'mas_id' => $id,
+			'status' => 0
+		])->latest()->first();
+
+		if($keluhan && $konseling) {
+			// jika sudah mengisi keluhan & status konseling belum selesai
 			return redirect()->route('front.konseling-final', $id)->with([
 				'mas_id' => $id,
 				'jadwal' => true
@@ -439,7 +450,9 @@ class FrontController extends Controller
 			->first();
 
 		// cek jika sudah mengisi form keluhan
-		$keluhan = keluhan::where('mas_id', $id)->first();
+		$keluhan = keluhan::where([
+			'mas_id' => $id
+		])->first();
 
 		if ($keluhan->psikolog_id != null) {
 			// jika sudah mengisi keluhan & jadwal
@@ -575,7 +588,7 @@ class FrontController extends Controller
 				'masyarakats.nama', 
 				'masyarakats.hp', 
 				'keluhans.keluhan', 
-				'jadwals.tgl', 
+				'jadwals.hari', 
 				'jadwals.jam', 
 				'psikologs.id as psikolog_id',
 				'psikologs.nama as psikolog',
