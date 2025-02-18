@@ -1,16 +1,18 @@
 <x-laravel-ui-adminlte::adminlte-layout>
 
-    <body class="hold-transition login-page">
+    <body class="hold-transition login-page" style="background: #fff;">
         <div class="login-box">
             <div class="login-logo">
-                <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
+                <a href="{{ url('/home') }}">
+                    <img src="{{ asset('img/logo_dmb.png') }}">
+                </a>
             </div>
             <!-- /.login-logo -->
 
             <!-- /.login-box-body -->
             <div class="card">
                 <div class="card-body login-card-body">
-                    <p class="login-box-msg">Sign in to start your session</p>
+                    <p class="login-box-msg">Input email dan password Anda</p>
 
                     <form method="post" action="{{ url('/login') }}">
                         @csrf
@@ -41,25 +43,37 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-8">
-                                <div class="icheck-primary">
-                                    <input type="checkbox" id="remember">
-                                    <label for="remember">Remember Me</label>
+                            <div class="col-md-12">
+                                @if ($errors->has('h-captcha-response'))
+                                    <div class="alert alert-danger alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        {{ $errors->first('h-captcha-response') }}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="col-md-12 text-center">
+                                {!! HCaptcha::display() !!}
+                                <div>
+                                    <button type="submit" class="btn btn-danger btn-block">Login</button>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                            </div>
+                        <div class="row">
+
+                            
 
                         </div>
                     </form>
 
-                    <p class="mb-1">
-                        <a href="{{ route('password.request') }}">I forgot my password</a>
+                    <!-- <p class="mb-1">
+                        <a href="{{ route('password.request') }}">Lupa password</a>
                     </p>
                     <p class="mb-0">
                         <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
+                    </p> -->
+                    <p class="my-2">
+                        Pemerintah Kota Denpasar &copy; 2025
                     </p>
                 </div>
                 <!-- /.login-card-body -->
@@ -67,5 +81,6 @@
 
         </div>
         <!-- /.login-box -->
+        {!! HCaptcha::renderJs('id') !!}
     </body>
 </x-laravel-ui-adminlte::adminlte-layout>

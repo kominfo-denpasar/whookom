@@ -16,10 +16,14 @@ class Masyarakat extends Model
         'alamat',
         'hp',
         'email',
+        'status_kawin',
+        'pendidikan',
+        'pekerjaan',
         'desa_id',
         'kec_id',
         'user_id',
-        'status'
+        'status',
+        'token'
     ];
 
     protected $casts = [
@@ -29,10 +33,14 @@ class Masyarakat extends Model
         'alamat' => 'string',
         'hp' => 'string',
         'email' => 'string',
+        'status_kawin' => 'string',
+        'pendidikan' => 'string',
+        'pekerjaan' => 'string',
         'desa_id' => 'integer',
         'kec_id' => 'integer',
         'user_id' => 'integer',
-        'status' => 'integer'
+        'status' => 'integer',
+        'token' => 'string'
     ];
 
     public static array $rules = [

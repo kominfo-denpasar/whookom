@@ -7,15 +7,29 @@ use App\Http\Requests\UpdatePsikologRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\PsikologRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Flash;
+
+use App\Models\Psikolog;
+use App\Models\User;
 
 class PsikologController extends AppBaseController
 {
     /** @var PsikologRepository $psikologRepository*/
     private $psikologRepository;
 
+    public $user;
+
     public function __construct(PsikologRepository $psikologRepo)
     {
+        // cek jika user sesuai dengan rolenya untuk akses controller
+        $this->middleware(function ($request, $next) {
+            $this->user = $this->getUser();
+            
+            if(!$this->user->hasRole('admin')) return redirect()->route('home');
+            else return $next($request);
+        });
+
         $this->psikologRepository = $psikologRepo;
     }
 
@@ -47,6 +61,20 @@ class PsikologController extends AppBaseController
 
         $psikolog = $this->psikologRepository->create($input);
 
+        // dd($psikolog->id);
+
+        // buat user baru
+		$user = config('roles.models.defaultUser')::create([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'psikolog_id' => $psikolog->id,
+            'password' => bcrypt('AdminPsikolog#25'),
+        ]);
+
+        $role = config('roles.models.role')::where('name', '=', 'Psikolog')->first();  //choose the default role upon user creation.
+        $user->attachRole($role);
+
+        // 
         Flash::success('Psikolog saved successfully.');
 
         return redirect(route('psikologs.index'));
@@ -73,7 +101,13 @@ class PsikologController extends AppBaseController
      */
     public function edit($id)
     {
-        $psikolog = $this->psikologRepository->find($id);
+        // $psikolog = $this->psikologRepository->find($id);
+
+        $psikolog = psikolog::where('psikologs.id', $id)
+            ->join('users', 'psikologs.id', '=', 'users.psikolog_id')
+            ->select('psikologs.*','users.email')->first();
+
+        // dd($psikolog);
 
         if (empty($psikolog)) {
             Flash::error('Psikolog not found');
@@ -90,6 +124,15 @@ class PsikologController extends AppBaseController
     public function update($id, UpdatePsikologRequest $request)
     {
         $psikolog = $this->psikologRepository->find($id);
+
+        // dd($request->password);
+        if($request->password) {
+            // 
+            // dd($request->password);
+            $data = User::where('psikolog_id', $id)->update([
+                'password' => bcrypt($request->password)
+            ]);
+        }
 
         if (empty($psikolog)) {
             Flash::error('Psikolog not found');
@@ -124,5 +167,27 @@ class PsikologController extends AppBaseController
         Flash::success('Psikolog deleted successfully.');
 
         return redirect(route('psikologs.index'));
+    }
+
+    public static function kec($id) {
+        $data = 'https://emsifa.github.io/api-wilayah-indonesia/api/district/'.$id.'.json';
+
+        $res = Http::get($data);
+        if($res->json()) {
+            return $res->json()['name'];
+        } else {
+            return null;
+        }
+    }
+
+    public static function desa($id) {
+        $data = 'https://emsifa.github.io/api-wilayah-indonesia/api/village/'.$id.'.json';
+
+        $res = Http::get($data);
+        if($res->json()) {
+            return $res->json()['name'];
+        } else {
+            return null;
+        }
     }
 }

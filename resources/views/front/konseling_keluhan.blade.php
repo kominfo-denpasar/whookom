@@ -22,6 +22,7 @@
 				<span class="block sm:inline">{{$message}}</span>
 			</div>
 			@endif
+			<h2 class="text-2xl font-bold mb-6 text-center">Pendaftaran Konseling</h2>
 
 			<div class="mt-4 mb-2 space-y-2">
 				<div role="alert" class="rounded border-s-4 border-blue-500 bg-blue-50 p-4">
@@ -36,28 +37,9 @@
 				
 			</div>
 
-			<form action="{{route('front.store-reg')}}" method="POST" class="space-y-2">
+			<form action="{{route('front.konseling-keluhan-store')}}" method="POST" class="space-y-2">
 				@csrf
-				<div class="field">
-					<label class="label">NIK</label>
-					<div class="field-body">
-						<div class="field">
-						<div class="control">
-							<input type="text" autocomplete="off" name="nik" value="{{$masyarakat->nik}}" class="input @error('title') is-invalid @enderror" readonly>
-						</div>
-						<!-- <p class="help">Nomor Induk Kependudukan pada KTP Anda</p> -->
-						<!-- error message untuk title -->
-						@error('nik')
-							<div class="alert alert-danger mt-2">
-								{{ $message }}
-							</div>
-						@enderror
-						</div>
-					</div>
-				</div>
-				<!-- .field -->
-				
-
+				<input type="hidden" name="mas_id" value="{{$masyarakat->token}}">
 				<div class="field">
 					<label class="label">Nama Lengkap</label>
 					<div class="field-body">
@@ -66,6 +48,25 @@
 								<input type="text" autocomplete="off" name="nama" value="{{$masyarakat->nama}}" class="input" readonly>
 							</div>
 							<!-- <p class="help">Isi dengan nama lengkap Anda</p> -->
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">NIK</label>
+					<div class="field-body">
+						<div class="field">
+						<div class="control">
+							<input type="text" autocomplete="off" name="nik" placeholder="5171xxx" class="input @error('title') is-invalid @enderror" required="">
+						</div>
+						<p class="help">Nomor Induk Kependudukan pada KTP Anda</p>
+						<!-- error message untuk title -->
+						@error('nik')
+							<div class="alert alert-danger mt-2">
+								{{ $message }}
+							</div>
+						@enderror
 						</div>
 					</div>
 				</div>
@@ -84,6 +85,45 @@
 								</select>
 							</div>
 							<p class="help">Pilih salah satu</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">Pendidikan</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<input type="text" autocomplete="off" placeholder="Isi..." name="pendidikan" class="input" required="">
+							</div>
+							<p class="help">Pendidikan Terakhir</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">Pekerjaan</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<input type="text" autocomplete="off" placeholder="Isi..." name="pekerjaan" class="input" required="">
+							</div>
+							<p class="help">Pekerjaan Anda saat ini</p>
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+
+				<div class="field">
+					<label class="label">e-mail</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="control">
+								<input type="email" autocomplete="off" name="email" placeholder="nama@gmail.com" class="input" required="">
+							</div>
+							<p class="help">e-mail Anda yang masih aktif. Kami juga menggunakan e-mail untuk menyampaikan informasi</p>
 						</div>
 					</div>
 				</div>
@@ -126,7 +166,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<textarea class="textarea" autocomplete="off" placeholder="Jl. Nama Jalan, Nomor, Banjar"></textarea>
+								<textarea class="textarea" name="alamat" autocomplete="off" placeholder="Jl. Nama Jalan, Nomor, Banjar"></textarea>
 							</div>
 							<!-- <p class="help">Isi dengan nama lengkap Anda</p> -->
 						</div>
@@ -140,7 +180,7 @@
 						<div class="field-body">
 							<div class="field">
 								<div class="control">
-									<textarea class="textarea" autocomplete="off" placeholder="Saya merasa..."></textarea>
+									<textarea class="textarea" name="keluhan" autocomplete="off" placeholder="Saya merasa..." required=""></textarea>
 								</div>
 								<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
 									<strong class="font-bold">Info: </strong>
@@ -156,27 +196,27 @@
 					<label class="label">Sejak Kapan Anda Rasakan Keluhan atau Ketidaknyamanan ini?</label>
 					<div>
 						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
-							<input type="radio" name="waktu_kapan">
+							<input type="radio" name="waktu_kapan" value="Sejak 2 hari belakangan">
 							<i class="pl-2">Sejak 2 hari belakangan</i>
 						</label>
 
 						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
-							<input type="radio" name="waktu_kapan">
+							<input type="radio" name="waktu_kapan" value="Sejak Seminggu Terakhir">
 							<i class="pl-2">Sejak Seminggu Terakhir</i>
 						</label>
 
 						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
-							<input type="radio" name="waktu_kapan">
+							<input type="radio" name="waktu_kapan" value="Sejak Sebulan Terakhir">
 							<i class="pl-2">Sejak Sebulan Terakhir</i>
 						</label>
 
 						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
-							<input type="radio" name="waktu_kapan">
+							<input type="radio" name="waktu_kapan" value="Sejak setahun terakhir">
 							<i class="pl-2">Sejak setahun terakhir</i>
 						</label>
 
 						<label class="flex bg-gray-100 text-gray-700 rounded-md px-3 py-2 my-3  hover:bg-indigo-300 cursor-pointer ">
-							<input type="radio" name="waktu_kapan">
+							<input type="radio" name="waktu_kapan" value="Lebih dari Setahun">
 							<i class="pl-2">Lebih dari Setahun</i>
 						</label>
 					</div>

@@ -10,22 +10,36 @@ class Psikolog extends Model
 
     public $fillable = [
         'nik',
+        'kta',
+        'sipp',
         'nama',
         'hp',
-        'user_id'
+        'alamat_rumah',
+        'alamat_praktek',
+        'kec_id',
+        'desa_id',
+        'user_id',
+        'status'
     ];
 
     protected $casts = [
         'nik' => 'string',
+        'kta' => 'string',
+        'sipp' => 'string',
         'nama' => 'string',
         'hp' => 'string',
-        'user_id' => 'integer'
+        'alamat_rumah' => 'string',
+        'alamat_praktek' => 'string',
+        'kec_id' => 'string',
+        'desa_id' => 'string',
+        'user_id' => 'integer',
+        'status' => 'string'
     ];
 
     public static array $rules = [
-        'nik' => 'required',
         'nama' => 'required',
-        'hp' => 'required'
+        'hp' => 'required',
+        'alamat_praktek' => 'required'
     ];
 
     

@@ -46,6 +46,24 @@
     {!! Form::text('email', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
+<!-- Hp Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('status_kawin', 'Status Kawin:') !!}
+    {!! Form::text('status_kawin', null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- Hp Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('pendidikan', 'Pendidikan:') !!}
+    {!! Form::text('pendidikan', null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- Hp Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('pekerjaan', 'Pekerjaan:') !!}
+    {!! Form::text('pekerjaan', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Desa Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('desa_id', 'Desa Id:') !!}

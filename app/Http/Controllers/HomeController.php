@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $this->user = $this->getUser();
+            
+        if(!$this->user->hasRole('admin')) return redirect()->route('home-psikolog');
+        else return view('backend/home');
     }
 }

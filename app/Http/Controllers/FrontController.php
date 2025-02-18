@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 use Ichtrojan\Otp\Otp;
 
 use App\Models\Masyarakat;
+use App\Models\Psikolog;
 use App\Models\dasshasil;
+use App\Models\keluhan;
+use App\Models\jadwal;
+use App\Models\Konseling;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class FrontController extends Controller
 {
@@ -29,7 +34,12 @@ class FrontController extends Controller
 	 */
 	public function index()
 	{
-		return view('front.home');
+		// dd(\App::getLocale());
+		$psikolog = Psikolog::take(3)->get();
+
+		return view('front.home')->with([
+			'psikolog' => $psikolog
+		]);
 	}
 
 	/**
@@ -49,6 +59,7 @@ class FrontController extends Controller
 	 */
 	public function surveiReg()
 	{
+		// jika sudah ada session token dan warning dari halaman intro maka lanjutkan ke halaman berikut
 		if(Session::get('mas_id') && Session::get('warning')) {
 			return view('front.survei_reg', ['warning' => Session::get('warning'), 'mas_id' => Session::get('mas_id')]);
 		} else {
@@ -98,23 +109,26 @@ class FrontController extends Controller
 	{
 		//validate form
 		$this->validate($request, [
-			'nik'     => 'required|numeric|min:10'
+			'hp'     => 'required|numeric|min:8'
 		]);
 
-		//check nik
-		$masyarakat = Masyarakat::where('nik', $request->nik)->first();
+		//check hp
+		$masyarakat = Masyarakat::where('hp', $request->hp)->first();
 
 		if ($masyarakat) {
-			//jika nik sudah ada 
+			//jika hp sudah ada 
 			return redirect()->route('front.survei-dass-21')->with([
 				'warning' => 'Anda sudah pernah mendaftar sebelumnya, silahkan melanjutkan untuk mengisi survei!',
-				'mas_id' => $masyarakat->id
+				'mas_id' => $masyarakat->token
 			]);
 		} else {
+			// jika belum maka melanjutkan ke halaman berikut serta generate id token
+			$token = uniqid().Str::random(6);
+			
 			return redirect()->route('front.survei-reg')->with([
 				'warning' => 'Silahkan mengisi data registrasi di bawah ini untuk melanjutkan!',
-				'mas_id' => $request->nik,
-				'nik' => $request->nik
+				'mas_id' => $token,
+				'hp' => $request->hp
 			]);
 		}
 	}
@@ -129,28 +143,28 @@ class FrontController extends Controller
 	{
 		//validate form
 		$this->validate($request, [
-			'nik'     => 'required|numeric|min:10',
 			'nama'   => 'required|max:100',
 			'jk'   => 'required',
 			'tgl_lahir'   => 'required',
-			'email'   => 'required',
-			'hp'   => 'required'
+			// 'email'   => 'required',
+			'hp'   => 'required',
+			'mas_id'   => 'required'
 		]);
 
 		//create data
 		$masyarakat = Masyarakat::create([
-			'nik'     	=> $request->nik,
 			'nama'   	=> $request->nama,
 			'jk'     	=> $request->jk,
 			'tgl_lahir'	=> $request->tgl_lahir,
-			'email'     => $request->email,
-			'hp'		=> $request->hp
+			// 'email'     => $request->email,
+			'hp'		=> $request->hp,
+			'token'		=> $request->mas_id
 		]);
 
 		//redirect to dass21
 		return redirect()->route('front.survei-dass-21')->with([
 			'warning' => 'Berhasil menyimpan data!',
-			'mas_id' => $masyarakat->id
+			'mas_id' => $masyarakat->token
 		]);
 	}
 
@@ -166,11 +180,11 @@ class FrontController extends Controller
 		//validate form
 		$this->validate($request, [
 			// 'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-			'mas_id'     => 'required|numeric'
+			'mas_id'     => 'required'
 		]);
 
-		//ambil data id & hp masyarakat
-		$masyarakat = Masyarakat::select('nama', 'id', 'hp')->where('id', $request->mas_id)->first();
+		//ambil data id token & hp masyarakat
+		$masyarakat = Masyarakat::select('nama', 'token', 'hp')->where('token', $request->mas_id)->first();
 
 		//jumlahkan nilai array
 		$sum_d = array_sum($request->nilai_d);
@@ -241,7 +255,7 @@ class FrontController extends Controller
 
 		//create data hasil dass
 		dasshasil::create([
-			'mas_id'     	=> $masyarakat->id,
+			'mas_id'     	=> $masyarakat->token,
 			'nilai_d'   	=> $sum_d,
 			'nilai_s'     	=> $sum_s,
 			'nilai_a'		=> $sum_a,
@@ -251,7 +265,7 @@ class FrontController extends Controller
 		// kirim whatsapp
 		$data = [
 			'phone' => '0'.$masyarakat->hp,
-			'message' => "Halo $masyarakat->nama, berikut adalah hasil survei Anda:\n\n$hasil_text\n\nTerima kasih telah mengikuti survei ini.\n\nJika Anda ingin melakukan konseling, dapat mengklik link berikut: ".route('front.konseling-store-reg', $masyarakat->id)."\n\nSalam, Denpasar Menyama Bagia"
+			'message' => "Halo $masyarakat->nama, berikut adalah hasil survei Anda:\n\n$hasil_text\n\nTerima kasih telah mengikuti survei ini.\n\nJika Anda ingin melakukan konseling, dapat mengklik link berikut: ".route('front.konseling-store-reg', $masyarakat->token)."\n\nSalam, Denpasar Menyama Bagia"
 		];
 		
 		// script
@@ -261,7 +275,7 @@ class FrontController extends Controller
 		return redirect()->route('front.survei-hasil')->with([
 			'success' => 'Berhasil menyimpan data!',
 			'hasil' => $hasil_text,
-			'mas_id' => $masyarakat->id,
+			'mas_id' => $masyarakat->token,
 			'status' => $hasil_status,
 		]);
 	}
@@ -309,14 +323,14 @@ class FrontController extends Controller
 	public function konselingStoreReg($id)
 	{
 		// ambil data masyarakat dan cek apakah belum terverifikasi
-		$masyarakat = Masyarakat::select('id', 'nama', 'hp')
+		$masyarakat = Masyarakat::select('token', 'nama', 'hp')
 			->where([
-				'id' => $id
+				'token' => $id
 			])
 			->first();
 
 		// generate otp
-		$otp = (new Otp)->generate($masyarakat->id, 'numeric', 6, 15);
+		$otp = (new Otp)->generate($masyarakat->token, 'numeric', 6, 15);
 
 		// dd($otp);
 
@@ -332,7 +346,7 @@ class FrontController extends Controller
 		return redirect()->route('front.konseling-reg')
 			->with([
 				'success' => 'Kode OTP berhasil dikirimkan!',
-				'mas_id' => $masyarakat->id
+				'mas_id' => $masyarakat->token
 			]);
 	}
 
@@ -347,13 +361,14 @@ class FrontController extends Controller
 		// $masyarakat = Masyarakat::where('id', $request->mas_id)
 		// 	->select('id')
 		// 	->first();
+		// dd($request->otp);
 
 		//cek otp
 		$otp = (new Otp)->validate($request->mas_id, $request->otp);
 
 		if ($otp->status) {
 			// ganti status masyarakat
-			$masyarakat = Masyarakat::where('id', $request->mas_id)
+			$masyarakat = Masyarakat::where('token', $request->mas_id)
 				->update([
 					'status' => '1'
 				]);
@@ -378,16 +393,37 @@ class FrontController extends Controller
 	 */
 	public function konselingKeluhan($id)
 	{
-		// cek apakah sudah verifikasi otp
-		$masyarakat = Masyarakat::where('id', $id)
-			->where('status', '1')
+		// cek apakah sudah verifikasi otp & sudah mengisi form keluhan
+		// $masyarakat = Masyarakat::join('keluhans', 'masyarakats.token', '=', 'keluhans.mas_id')
+		// 	->select('masyarakats.*', 'keluhans.keluhan')
+		// 	->where([
+		// 		'masyarakats.token' => $id,
+		// 		'masyarakats.status' => '1'
+		// 	])
+		// 	->first();
+
+		$masyarakat = Masyarakat::select('masyarakats.*')
+			->where([
+				'masyarakats.token' => $id,
+				'masyarakats.status' => '1'
+			])
 			->first();
 
-		// if(Session::get('keluhan') && $masyarakat) {
+		// cek data keluhan
+		$keluhan = keluhan::where('mas_id', $id)->first();
+
+		if($keluhan) {
+			// jika sudah mengisi keluhan & jadwal
+			return redirect()->route('front.konseling-final', $id)->with([
+				'mas_id' => $id,
+				'jadwal' => true
+			]);
+		} elseif (!$keluhan) {
 			return view('front.konseling_keluhan', ['masyarakat' => $masyarakat]);
-		// } else {
-		// 	return redirect()->route('front.survei-intro');
-		// }
+		} else {
+			return redirect()->route('front.survei-intro');
+		}
+		
 	}
 
 	/**
@@ -398,15 +434,219 @@ class FrontController extends Controller
 	public function konselingJadwal($id)
 	{
 		// cek apakah sudah verifikasi otp
-		$masyarakat = Masyarakat::where('id', $id)
+		$masyarakat = Masyarakat::where('token', $id)
 			->where('status', '1')
 			->first();
 
-		// if(Session::get('keluhan') && $masyarakat) {
-			return view('front.konseling_jadwal', ['masyarakat' => $masyarakat]);
-		// } else {
-		// 	return redirect()->route('front.survei-intro');
-		// }
+		// cek jika sudah mengisi form keluhan
+		$keluhan = keluhan::where('mas_id', $id)->first();
+
+		if ($keluhan->psikolog_id != null) {
+			// jika sudah mengisi keluhan & jadwal
+			return redirect()->route('front.konseling-final', $id)->with([
+				'mas_id' => $id,
+				'jadwal' => true
+			]);
+		} elseif ($keluhan && $masyarakat) {
+			// jika sudah mengisi keluhan tetapi belum mengisi jadwal
+
+			// get data master psikolog
+			$psikolog = Psikolog::get();
+
+			return view('front.konseling_jadwal', [
+				'masyarakat' => $masyarakat,
+				'psikolog' => $psikolog
+			]);
+		} else {
+			return redirect()->route('front.survei-intro');
+		}
+	}
+
+	/**
+	 * simpan data pendaftaran konseling bagian keluhan
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function konselingKeluhanStore(Request $request)
+	{
+		//validate form
+		$this->validate($request, [
+			'nik'   => 'required|numeric',
+			'status_kawin'   => 'required',
+			'pendidikan'   => 'required',
+			'pekerjaan'   => 'required',
+			'email'   => 'required',
+			'kec_id'   => 'required',
+			'desa_id'   => 'required',
+			'alamat'   => 'required',
+			
+			'keluhan'   => 'required',
+			'waktu_kapan'   => 'required',
+			'nilai_mengganggu'   => 'required',
+
+			'mas_id'   => 'required'
+		]);
+
+		//create data
+		$masyarakat = Masyarakat::where(['token' => $request->mas_id])
+		->update([
+			'nama'   			=> $request->nama,
+			'nik'     			=> $request->nik,
+			'status_kawin'     	=> $request->status_kawin,
+			'pendidikan'		=> $request->pendidikan,
+			'pekerjaan'			=> $request->pekerjaan,
+			'email'     		=> $request->email,
+			'kec_id'   			=> $request->kec_id,
+			'desa_id'     		=> $request->desa_id,
+			'alamat'			=> $request->alamat
+		]);
+
+		// create data keluhan
+		$keluhan = keluhan::create([
+			'mas_id'     	=> $request->mas_id,
+			'keluhan'		=> $request->keluhan,
+			'waktu_kapan'	=> $request->waktu_kapan,
+			'nilai_mengganggu'	=> $request->nilai_mengganggu
+		]);
+
+		//redirect to jadwal
+		return redirect()->route('front.konseling-jadwal', $request->mas_id)->with([
+			'mas_id' => $request->mas_id
+		]);
+	}
+
+	/**
+	 * Get data jadwal.
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function jadwalPsikolog($id)
+	{
+		// cek apakah sudah verifikasi otp
+		$jadwal = jadwal::where('psikolog_id', $id)
+			->get();
+
+		return response()->json($jadwal);
+	}
+
+	/**
+	 * simpan data pendaftaran konseling bagian jadwal
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function konselingJadwalStore(Request $request)
+	{
+		//validate form
+		$this->validate($request, [
+			'psikolog_id'   => 'required',
+			'jadwal_id'   => 'required',
+			'mas_id'   => 'required'
+		]);
+
+		// updata data keluhan
+		$keluhan = keluhan::where(['mas_id' => $request->mas_id])
+		->update([
+			'psikolog_id'   	=> $request->psikolog_id,
+			'jadwal_id'     	=> $request->jadwal_id
+		]);
+
+		//redirect to konseling final
+		return redirect()->route('front.konseling-final', $request->mas_id)->with([
+			'mas_id' => $request->mas_id,
+			'jadwal' => true
+		]);
+	}
+
+	/**
+	 * Halaman final konseling.
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function konselingFinal($id)
+	{
+		//ambil data join masyarakat, keluhan dan jadwal
+		$masyarakat = Masyarakat::join('keluhans', 'masyarakats.token', '=', 'keluhans.mas_id')
+			->join('jadwals', 'keluhans.jadwal_id', '=', 'jadwals.id')
+			->join('psikologs', 'keluhans.psikolog_id', '=', 'psikologs.id')
+			->select(
+				'masyarakats.nik', 
+				'masyarakats.nama', 
+				'masyarakats.hp', 
+				'keluhans.keluhan', 
+				'jadwals.tgl', 
+				'jadwals.jam', 
+				'psikologs.id as psikolog_id',
+				'psikologs.nama as psikolog',
+				'psikologs.hp as psikolog_hp')
+			->where('masyarakats.token', $id)
+			->first();
+		
+		// dd($masyarakat);
+
+		// cek tabel konseling apakah sudah ada data
+		$cek = Konseling::where('mas_id', $id)->first();
+
+		if (!$cek) {
+			// jika belum ada data konseling
+			//create data konseling
+			Konseling::create([
+				'hasil'   			=> null,
+				'kesimpulan'   		=> null,
+				'saran'   			=> null,
+				'berkas_pendukung'  => null,
+				'status'   			=> 0,
+				'psikolog_id'   	=> $masyarakat->psikolog_id,
+				'mas_id'   			=> $id
+			]);
+
+			// kirim whatsapp untuk user pemohon & psikolog
+			$data =[
+				'phone' => '0'.$masyarakat->psikolog_hp,
+				'message' => "Halo $masyarakat->psikolog, berikut adalah detail jadwal konseling Anda:\n\nTanggal: $masyarakat->tgl\nJam: $masyarakat->jam\nKlien: $masyarakat->nama\nNomor HP Klien: 0$masyarakat->hp\n\nSalam, Denpasar Menyama Bagia"
+			];
+			$this->notif_wa($data);
+
+			$data = [
+				'phone' => '0'.$masyarakat->hp,
+				'message' => "Halo $masyarakat->nama, berikut adalah detail jadwal konseling Anda:\n\nTanggal: $masyarakat->tgl\nJam: $masyarakat->jam\nPsikolog: $masyarakat->psikolog\nNomor HP Psikolog: 0$masyarakat->psikolog_hp\n\nSampai jumpa nanti!\n\nSalam, Denpasar Menyama Bagia"
+			];
+			$this->notif_wa($data);
+		}
+
+		// cek apakah sudah mengisi semua form konseling
+		if(Session::get('jadwal') && $masyarakat) {
+			return view('front.konseling_final', [
+				'mas_id' => $id, 
+				'masyarakat' => $masyarakat]
+			);
+		} else {
+			return redirect()->route('front.survei-intro');
+		}
+	}
+
+	/**
+	 * Tes halaman
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function testHalaman()
+	{
+		// fungsi cek user menggunakan modul role
+		$user = config('roles.models.defaultUser')::find(1);
+
+		// attach role admin
+		$user->attachRole(1);
+		
+		// cek apakah rolenya admin
+		if ($user->isAdmin()) {
+			echo "admin";
+		} else {
+			dd($user);
+		}
+
+		// return view('front.konseling_final');
 	}
 
 	/**

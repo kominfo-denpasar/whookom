@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('dasshasils', function (Blueprint $table) {
             $table->id('id');
-            $table->integer('mas_id')->unsigned();
+            $table->string('mas_id', 50);
             $table->integer('nilai_d');
             $table->integer('nilai_s');
             $table->integer('nilai_a');

@@ -20,27 +20,32 @@
 				@if(count($dasshasil) > 0)
 				<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative my-2" role="alert">
 					<span class="block sm:inline">
-						Anda sudah pernah mengisi survei sebelumnya. Berikut adalah riwayat pengisian survei Anda.<br>
+						Anda sudah pernah mengisi survei sebelumnya.<br>
 					</span>
 				</div>
-				<ul class="mt-2 space-y-2">
-					@foreach($dasshasil as $d)
-					<li>
-						<a onclick="toggleModal('apaitudass')" class="block h-full rounded-lg border border-gray-700 p-4 hover:border-rose-600">
-							<strong class="font-medium text-black">Survei {{$d->created_at}}</strong>
-
-							<p class="mt-1 text-xs font-medium text-gray-500">
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates iure ipsa ipsum tenetur, molestias atque nam itaque nisi ex reiciendis laboriosam qui optio, quia, est voluptate iste culpa deleniti architecto.
-							</p>
-						</a>
-					</li>
-					@endforeach
-				</ul>
+				
 				
 				<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative my-2" role="alert">
 					<strong class="font-bold">Info: </strong>
-					<span class="block sm:inline">Anda masih dapat mengisi survei lagi jika perlu. Atau ingin mengajukan pendaftaran untuk konseling? <a href="{{route('front.konseling-store-reg', Session::get('mas_id'))}}"><strong class="font-bold">Klik di sini</strong></a> untuk mengajukan pendaftaran konseling.</span>
+					<span class="block sm:inline">Anda masih dapat mengisi survei lagi jika perlu. Atau ingin mengajukan pendaftaran untuk konseling? Klik tombol di bawah untuk mengajukan pendaftaran konseling/Login untuk melihat informasi pendaftaran jika sebelumnya sudah pernah melakukan pendaftaran konseling.</span>
 				</div>
+
+				<div class="text-center">
+					<!-- Base -->
+					<a href="{{route('front.konseling-store-reg', Session::get('mas_id'))}}" class="group relative inline-block focus:outline-none focus:ring">
+						<span
+							class="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-yellow-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"
+						></span>
+
+						<span
+							class="relative inline-block border-2 border-current px-8 py-3 text-sm font-bold tracking-widest text-black group-active:text-opacity-75">
+							Konseling / Login
+						</span>
+					</a>
+				</div>
+
+				<hr class="my-6">
+
 				@elseif($message = Session::get("warning"))
 				<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative my-2" role="alert">
 					<strong class="font-bold">Info: </strong>
