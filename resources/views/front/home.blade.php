@@ -20,7 +20,7 @@
     </section> -->
 
     <section
-        class="relative bg-[url('http://dmb.test/img/banner_dmb.jpg')] bg-cover bg-center bg-no-repeat">
+        class="relative bg-[url('https://dev-8.denpasarkota.go.id/dmb/img/banner_dmb.jpg')] bg-cover bg-center bg-no-repeat">
 
         <div
             class="absolute inset-0 bg-white/75 lg:bg-transparent lg:from-white/95 lg:to-white/25 lg:bg-gradient-to-r sm:bg-gradient-to-l">

@@ -23,7 +23,12 @@ class HomePsikologController extends Controller
 	 */
 	public function index()
 	{
-		return view('backend/home_psikolog');
+		// cek supaya hanya user psikolog yang dapat mengakses
+		if($this->getUser()->hasRole('psikolog')) {
+			return view('backend/home_psikolog');
+		} else {
+			return redirect()->route('home');
+		}
 	}
 
 	/**

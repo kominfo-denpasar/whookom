@@ -10,23 +10,22 @@ class jadwal extends Model
     public $table = 'jadwals';
 
     public $fillable = [
-        'tgl',
+        'hari',
         'jam',
         'kuota',
         'psikolog_id'
     ];
 
     protected $casts = [
-        'tgl' => 'date',
+        'hari' => 'string',
         'jam' => 'string',
         'kuota' => 'integer',
         'psikolog_id' => 'string'
     ];
 
     public static array $rules = [
-        'tgl' => 'required',
-        'jam' => 'required',
-        'kuota' => 'required'
+        'hari' => 'required',
+        'jam' => 'required'
     ];
 
     /**

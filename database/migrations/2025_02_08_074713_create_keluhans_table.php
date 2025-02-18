@@ -19,6 +19,12 @@ return new class extends Migration
             $table->string('waktu_kapan');
             $table->integer('nilai_mengganggu');
             $table->integer('jadwal_id')->nullable();
+            $table->date('jadwal_tgl')->nullable();
+            $table->string('jadwal_jam')->nullable();
+            $table->date('jadwal_alt_tgl')->nullable();
+            $table->string('jadwal_alt_jam')->nullable();
+            $table->date('jadwal_alt2_tgl')->nullable();
+            $table->string('jadwal_alt2_jam')->nullable();
             $table->string('mas_id');
             $table->string('psikolog_id')->nullable();
             $table->timestamps();
