@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('jadwal_alt2_jam')->nullable();
             $table->string('mas_id');
             $table->string('psikolog_id')->nullable();
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
