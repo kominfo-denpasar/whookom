@@ -614,8 +614,11 @@ class FrontController extends Controller
 		
 		// dd($masyarakat);
 
-		// cek tabel konseling apakah sudah ada data
-		$cek = Konseling::where('mas_id', $id)->first();
+		// cek tabel konseling apakah sudah ada data yg statusnya belum
+		$cek = Konseling::where([
+				'mas_id' => $id,
+				'status' => 0
+			])->first();
 
 		if (!$cek) {
 			// jika belum ada data konseling

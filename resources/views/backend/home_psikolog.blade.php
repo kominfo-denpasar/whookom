@@ -98,7 +98,13 @@
 										{{$k->created_at}}
 									</td>
 									<td>
-										<span class="badge bg-danger">Belum</span>
+										@if($k->status == 2)
+											<span class="badge bg-success">Selesai</span>
+										@elseif($k->status == 1)
+											<span class="badge bg-warning">On Progress</span>
+										@else
+											<span class="badge bg-danger">Belum</span>
+										@endif
 									</td>
 									<td>
 										<a href="{{url('admin/home-psikolog/konseling/'.$k->token)}}" class="text-muted">
