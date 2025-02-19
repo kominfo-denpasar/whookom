@@ -92,7 +92,8 @@ class HomePsikologController extends Controller
 				'masyarakats.pendidikan',
 				'masyarakats.alamat', 
 				'masyarakats.token', 
-				'keluhans.*', 
+				'keluhans.*',
+				'keluhans.id as keluhan_id', 
 				'konselings.id as konseling_id',
 				'konselings.hasil', 
 				'psikologs.nama as psikolog_nama',
@@ -103,18 +104,24 @@ class HomePsikologController extends Controller
 			)
 			->first();
 
-		$riwayat_konseling = Konseling::where('mas_id', $data->token)
-			->where('id', '<>', $data->konseling_id)
-			->orderBy('created_at', 'desc')
-			->get();
+		if($data) {
+			$riwayat_konseling = keluhan::where([
+				'mas_id' => $data->token,
+			])
+				->where('id', '<>', $data->keluhan_id)
+				->orderBy('created_at', 'desc')
+				->get();
+			// dd($riwayat_konseling);
 
-		// dd($data);
-
-		return view('backend/konseling')->with([
-			'data' => $data,
-			'riwayat_konseling' => $riwayat_konseling,
-			'user' => $this->getUser()
-		]);
+			return view('backend/konseling')->with([
+				'data' => $data,
+				'riwayat_konseling' => $riwayat_konseling,
+				'user' => $this->getUser()
+			]);
+		} else {
+			return redirect()->route('home');
+		}
+			
 	}
 
 	/**

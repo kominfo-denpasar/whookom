@@ -8,6 +8,12 @@ class keluhan extends Model
 {
     public $table = 'keluhans';
 
+    protected $dates = [
+        'jadwal_tgl',
+        'jadwal_alt_tgl',
+        'jadwal_alt2_tgl'
+    ];
+
     public $fillable = [
         'keluhan',
         'waktu_kapan',

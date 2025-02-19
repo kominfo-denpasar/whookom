@@ -106,10 +106,10 @@
 									<div class="active tab-pane" id="activity">
 
 										@if($data->status==0)
-										<div class="callout callout-danger">
+										<div class="alert alert-danger">
 											<h5>Perhatian!</h5>
 											<p>
-												Konseling terhadap klien ini belum pernah dilakukan. Apakah Anda ingin mengkonfirmasi konseling ini? Pastikan jadwal sudah sesuai.
+												Konseling terhadap klien ini belum pernah dilakukan. Jika Anda ingin mengkonfirmasi konseling ini, pastikan jadwal sudah sesuai dengan mengklik salah satu tombol di bawah.
 											</p>
 										</div>
 										<!-- .callout -->
@@ -134,7 +134,7 @@
 														</tr>
 														<tr>
 															<td class="text-right">Jam</td>
-															<td><b>{{$data->jamnya}}</b></td>
+															<td><b>{{$data->jamnya}} WITA</b></td>
 														</tr>
 													</tbody>
 												</table>
@@ -160,11 +160,11 @@
 													<tbody>
 														<tr>
 															<td style="width:20%" class="text-right">Tanggal</td>
-															<td><b>{{$data->jadwal_alt_tgl}}</b></td>
+															<td><b>{{ \Carbon\Carbon::parse($data->jadwal_alt_tgl)->format('d/m/Y')}}</b></td>
 														</tr>
 														<tr>
 															<td class="text-right">Jam</td>
-															<td><b>{{$data->jadwal_alt_jam}}</b></td>
+															<td><b>{{ \Carbon\Carbon::parse($data->jadwal_alt_jam)->format('h:i')}} WITA</b></td>
 														</tr>
 													</tbody>
 												</table>
@@ -178,15 +178,55 @@
 												<div class="btn-group float-right">
 													<button type="button" class="btn btn-primary">Konfirmasi Jadwal Utama</button>
 													<button type="button" class="btn btn-info">Konfirmasi Jadwal Alternatif</button>
-													<button type="button" class="btn btn-danger">Batalkan</button>
 												</div>
 											</div>
 										</div>
 										<!-- /.card -->
+										<hr>
+
+										<div class="callout callout-info">
+											<h5></h5>
+											<p>
+												Jika kedua tanggal di atas tidak dapat dilakukan, Anda dapat melakukan pengajuan ulang tanggal yang telah disepakati bersama klien di bawah ini.
+											</p>
+										</div>
+
+										<form action="{{url('admin/home-psikolog/konseling/jadwal')}}" method="POST" class="form-horizontal">
+											@csrf
+											<input type="hidden" name="keluhan_id" value="?">
+											
+											<div class="form-group row">
+												<label for="field" class="col-sm-2 col-form-label">Tanggal</label>
+												<div class="col-sm-10">
+													<input class="form-control" id="jadwal_alt2_tgl" type="date" name="jadwal_alt2_tgl">
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<label for="field" class="col-sm-2 col-form-label">Jam</label>
+												<div class="col-sm-10">
+													<input class="form-control" id="jadwal_alt2_jam" type="time" name="jadwal_alt2_jam">
+												</div>
+											</div>
+											<!-- <div class="form-group row">
+												<div class="offset-sm-2 col-sm-10">
+													<div class="checkbox">
+														<label>
+															<input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+														</label>
+													</div>
+												</div>
+											</div> -->
+											<div class="form-group row">
+												<div class="offset-sm-2 col-sm-10">
+													<button type="submit" class="btn btn-success">Submit Jadwal Ulang</button>
+												</div>
+											</div>
+										</form>
 
 										@elseif($data->status==1)
 										<hr>
-										<div class="callout callout-warning">
+										<div class="alert alert-warning">
 											<h5>Perhatian!</h5>
 											<p>
 												Konseling terhadap klien saat ini sedang dalam proses, mohon inputkan data konseling setelah selesai melakukan assessment pada tab "Input Data Konseling".
@@ -195,13 +235,44 @@
 										<!-- .callout -->
 
 										<div class="card card-info shadow-md">
+											<!-- /.card-header -->
+											<div class="card-header">
+												<h3 class="card-title">Informasi Detail</h3>
+
+												<div class="card-tools">
+													<button type="button" class="btn btn-tool" data-card-widget="collapse">
+													<i class="fas fa-minus"></i>
+													</button>
+												</div>
+												<!-- /.card-tools -->
+											</div>
+											<div class="card-body">
+												<table class="table table-bordered">
+													<tbody>
+														<tr>
+															<td style="width:20%" class="text-right">Tanggal Konseling</td>
+															<td><b>{{$data->jadwal_alt_tgl}}</b></td>
+														</tr>
+														<tr>
+															<td class="text-right">Jam</td>
+															<td><b>{{$data->jadwal_alt_jam}} WITA</b></td>
+														</tr>
+														<tr>
+															<td class="text-right">Waktu Konseling dimulai</td>
+															<td><b>{{$data->updated_at}}</b></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<!-- /.card-body -->
+										</div>
+										<!-- /.card -->
+
+										<div class="card card-info shadow-md">
 											<div class="card-body">
 												<p>
-													<b>Catatan:</b> Setelah selesai melakukan assessment, Klient dapat mengisi form evaluasi dengan mengklik tombol di bawah ini.
+													<b>Catatan:</b> Setelah selesai melakukan assessment, mohon untuk menginputkan data pada tab 'Input Data Konseling' supaya status konseling menjadi selesai. Formulir evaluasi dapat diisi oleh Klien pada tab 'Formulir Evaluasi'.
 												</p>
-												<div class="btn-group float-right">
-													<a href="#!" class="btn btn-primary">Form Evaluasi Klien</a>
-												</div>
 											</div>
 										</div>
 										<!-- /.card -->
