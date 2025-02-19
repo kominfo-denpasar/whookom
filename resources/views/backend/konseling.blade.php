@@ -423,9 +423,10 @@
 											</div>
 											<!-- /.card-header -->
 											<div class="card-body">
-												<form action="{{route('backend.storeHasil')}}" method="POST" class="form-horizontal">
+												<form enctype="multipart/form-data" action="{{route('backend.storeHasil')}}" method="POST" class="form-horizontal">
 													@csrf
 													<input type="hidden" name="mas_id" value="{{$data->token}}">
+													<input type="hidden" name="keluhan_id" value="{{$data->keluhan_id}}">
 													<div class="form-group row">
 														<label for="inputExperience" class="col-sm-2 col-form-label">Hasil Assessment</label>
 														<div class="col-sm-10">
@@ -439,20 +440,14 @@
 															<!-- checkbox -->
 															<div class="row">
 																<div class="col-md-6">
+																	@foreach($masalah as $m)
 																	<div class="form-check">
-																		<input name="masalah[]" value="test" class="form-check-input" type="checkbox">
-																		<label class="form-check-label">Penyakit 1</label>
+																		<input name="masalah[]" value="{{$m->id}}" class="form-check-input" type="checkbox">
+																		<label class="form-check-label">{{$m->nama}}</label>
 																	</div>
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox">
-																		<label class="form-check-label">Penyakit 2</label>
-																	</div>
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox">
-																		<label class="form-check-label">Penyakit n</label>
-																	</div>
+																	@endforeach
 																</div>
-																<div class="col-md-6">
+																<!-- <div class="col-md-6">
 																	<div class="form-check">
 																		<input class="form-check-input" type="checkbox">
 																		<label class="form-check-label">Penyakit n</label>
@@ -465,7 +460,7 @@
 																		<input class="form-check-input" type="checkbox">
 																		<label class="form-check-label">Penyakit n</label>
 																	</div>
-																</div>
+																</div> -->
 															</div>
 														</div>
 													</div>

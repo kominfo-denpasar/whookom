@@ -8,6 +8,7 @@ use App\Models\Masyarakat;
 use App\Models\Psikolog;
 use App\Models\Konseling;
 use App\Models\keluhan;
+use App\Models\Masalah;
 
 use Carbon\Carbon;
 
@@ -113,6 +114,7 @@ class HomePsikologController extends Controller
 				return redirect()->route('home-psikolog')->with('message', 'Anda tidak memiliki akses ke halaman ini');
 			}
 
+			// get data riwayat konseling
 			$riwayat_konseling = keluhan::where([
 				'mas_id' => $data->token,
 			])
@@ -121,8 +123,12 @@ class HomePsikologController extends Controller
 				->get();
 			// dd($riwayat_konseling);
 
+			// get data masalah
+			$masalah = Masalah::get();
+
 			return view('backend/konseling')->with([
 				'data' => $data,
+				'masalah' => $masalah,
 				'riwayat_konseling' => $riwayat_konseling,
 				'user' => $this->getUser()
 			]);
@@ -202,6 +208,7 @@ class HomePsikologController extends Controller
 		//validate form
 		$this->validate($request, [
 			'mas_id'     	=> 'required',
+			'keluhan_id'    => 'required',
 			'hasil'     	=> 'required',
 			'masalah'     	=> 'required|array',
 			'kesimpulan'    => 'required',
@@ -209,14 +216,43 @@ class HomePsikologController extends Controller
 			'berkas_pendukung'     	=> 'required|file|mimes:jpg,jpeg,png|max:2048'
 		]);
 
-		dd($request->all());
+		// dd($request->all());
+		// simpan file berkas pendukung
+		$berkas_pendukung = $request->file('berkas_pendukung');
+		$berkas_pendukung_name = time().'_'.$berkas_pendukung->getClientOriginalName();
+		$berkas_pendukung->move(public_path('uploads/berkas_pendukung'), $berkas_pendukung_name);
 
+		// update data konseling
+		$konseling = Konseling::where([
+			'psikolog_id' => $this->getUser()->psikolog_id,
+			'mas_id' => $request->mas_id,
+			'status' => 1
+		])->update([
+			'hasil' => $request->hasil,
+			'kesimpulan' => $request->kesimpulan,
+			'saran' => $request->saran,
+			'berkas_pendukung' => $berkas_pendukung_name,
+			'status' => 2,
+			'updated_at' => Carbon::now()
+		]);
+
+		// insert data masalah
+		$masalah = [];
+		foreach($request->masalah as $key => $value) {
+			$masalah[] = [
+				'konseling_id' => $konseling->id,
+				'masalah_id' => $value,
+				'created_at' => Carbon::now(),
+				'updated_at' => Carbon::now()
+			];
+		}
+		$masalah = Masalah::insert($masalah);
 		
 
-		// if($keluhan && $konseling) {
-		// 	return redirect()->route('backend.konseling', $request->keluhan_id)->with('success', 'Berhasil melakukan update');
-		// } else {
-		// 	return redirect()->route('backend.konseling', $request->keluhan_id)->with('error', 'Gagal melakukan update');
-		// }
+		if($konseling && $masalah) {
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('success', 'Berhasil melakukan update data hasil konseling');
+		} else {
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('error', 'Gagal melakukan update data hasil konseling');
+		}
 	}
 }
