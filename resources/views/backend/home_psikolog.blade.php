@@ -28,7 +28,7 @@
 						<div class="info-box-content">
 							<span class="info-box-text">Konseling Belum</span>
 							<span class="info-box-number">
-								<h3>10</h3>
+								<h3>{{$dashboard['konseling_belum']}}</h3>
 							</span>
 						</div>
 						<!-- /.info-box-content -->
@@ -42,7 +42,7 @@
 						<div class="info-box-content">
 							<span class="info-box-text">Konseling On Progress</span>
 							<span class="info-box-number">
-								<h3>10</h3>
+								<h3>{{$dashboard['konseling_on_progress']}}</h3>
 							</span>
 						</div>
 						<!-- /.info-box-content -->
@@ -56,7 +56,7 @@
 						<div class="info-box-content">
 							<span class="info-box-text">Konseling Selesai</span>
 							<span class="info-box-number">
-								<h3>10</h3>
+								<h3>{{$dashboard['konseling_selesai']}}</h3>
 							</span>
 						</div>
 						<!-- /.info-box-content -->
@@ -88,23 +88,25 @@
 								</tr>
 							</thead>
 							<tbody>
+							@foreach($keluhan as $k)
 								<tr>
 									<td>
-										1
+										{{$loop->iteration}}
 									</td>
-									<td>[Nama Klien]</td>
+									<td>{{$k->nama}}</td>
 									<td>
-										[Tanggal]
+										{{$k->created_at}}
 									</td>
 									<td>
 										<span class="badge bg-danger">Belum</span>
 									</td>
 									<td>
-										<a href="{{url('admin/home-psikolog/konseling/1')}}" class="text-muted">
+										<a href="{{url('admin/home-psikolog/konseling/'.$k->token)}}" class="text-muted">
 											<i class="fas fa-search"></i>
 										</a>
 									</td>
 								</tr>
+							@endforeach
 							</tbody>
 						</table>
 					</div>
@@ -120,19 +122,25 @@
 							<img class="profile-user-img img-fluid img-circle" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairNotTooLong&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=CollarSweater&clotheColor=Gray01&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Pale" alt="User profile picture">
 						</div>
 
-						<h3 class="profile-username text-center">[Nama Psikolog]</h3>
+						<h3 class="profile-username text-center">{{$psikolog->nama}}</h3>
 
 						<p class="text-muted text-center">Psikolog</p>
 
 						<ul class="list-group list-group-unbordered mb-3">
 							<li class="list-group-item">
-							<b>SIPP</b> <a class="float-right">123921125</a>
+							<b>KTA</b> <a class="float-right">{{$psikolog->kta}}</a>
 							</li>
 							<li class="list-group-item">
-							<b>Nomor HP</b> <a class="float-right">+62 91823101 12</a>
+							<b>SIPP</b> <a class="float-right">{{$psikolog->sipp}}</a>
 							</li>
 							<li class="list-group-item">
-							<b>Alamat</b> <a class="float-right">Jl. Jalanan</a>
+							<b>E-mail</b> <a class="float-right">{{$user->email}}</a>
+							</li>
+							<li class="list-group-item">
+							<b>Nomor HP</b> <a class="float-right">{{$psikolog->hp}}</a>
+							</li>
+							<li class="list-group-item">
+							<b>Alamat Praktek</b> <a class="float-right">{{$psikolog->alamat_praktek}}</a>
 							</li>
 						</ul>
 
