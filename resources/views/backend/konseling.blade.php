@@ -33,6 +33,13 @@
 							{{ session('error') }}
 						</div>
 						@endif
+						@if($errors->any())
+						<div class="alert alert-danger">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<h5><i class="icon fas fa-ban"></i>Mohon cek field!</h5>
+							{!! implode('', $errors->all('<div>:message</div>')) !!}
+						</div>
+						@endif
 					</div>
 				</div>
 				<div class="row">
@@ -92,7 +99,7 @@
 								@else
 								<ol class="text-muted">
 									@foreach($riwayat_konseling as $r)
-									<li><span>{{$r->created_at}}</span>&nbsp; 
+									<li><span>{{ \Carbon\Carbon::parse($r->created_at)->format('d/m/Y - h:i')}}</span>&nbsp; 
 										<a href="{{url('admin/home-psikolog/konseling/'.$r->id)}}">
 											<i class="fas fa-search fa-xs"></i>
 										</a>
@@ -404,91 +411,105 @@
 										<div class="callout callout-danger">
 											<h5>Perhatian!</h5>
 											<p>
-												Mohon untuk mengkonfirmasi konseling pada tab informasi terlebih dahulu sebelum menginputkan hasil konseling.
+											@if($data->status==0) Mohon untuk mengkonfirmasi konseling pada tab 'informasi' terlebih dahulu sebelum menginputkan hasil konseling. @endif
+											Inputkan data sesuai dengan field yang tersedia.
 											</p>
 										</div>
 										<!-- .callout -->
-										<form class="form-horizontal">
-											<div class="form-group row">
-												<label for="inputExperience" class="col-sm-2 col-form-label">Hasil Assessment</label>
-												<div class="col-sm-10">
-													<textarea class="form-control" id="hasil" placeholder="hasil" disabled></textarea>
-												</div>
-											</div>
 
-											<div class="form-group row">
-												<label for="masalah" class="col-sm-2 col-form-label">Masalah</label>
-												<div class="col-sm-10">
-													<!-- checkbox -->
-													<div class="row">
-														<div class="col-md-6">
-															<div class="form-check">
-																<input class="form-check-input" type="checkbox">
-																<label class="form-check-label">Penyakit 1</label>
-															</div>
-															<div class="form-check">
-																<input class="form-check-input" type="checkbox">
-																<label class="form-check-label">Penyakit 2</label>
-															</div>
-															<div class="form-check">
-																<input class="form-check-input" type="checkbox">
-																<label class="form-check-label">Penyakit n</label>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-check">
-																<input class="form-check-input" type="checkbox">
-																<label class="form-check-label">Penyakit n</label>
-															</div>
-															<div class="form-check">
-																<input class="form-check-input" type="checkbox">
-																<label class="form-check-label">Penyakit n</label>
-															</div>
-															<div class="form-check">
-																<input class="form-check-input" type="checkbox">
-																<label class="form-check-label">Penyakit n</label>
-															</div>
+										<div class="card card-primary">
+											<div class="card-header">
+												<h3 class="card-title">Form Input Data Konseling</h3>
+											</div>
+											<!-- /.card-header -->
+											<div class="card-body">
+												<form action="{{route('backend.storeHasil')}}" method="POST" class="form-horizontal">
+													@csrf
+													<input type="hidden" name="mas_id" value="{{$data->token}}">
+													<div class="form-group row">
+														<label for="inputExperience" class="col-sm-2 col-form-label">Hasil Assessment</label>
+														<div class="col-sm-10">
+															<textarea class="form-control" name="hasil" id="hasil" placeholder="hasil" @if($data->status==0)disabled @endif></textarea>
 														</div>
 													</div>
-												</div>
-											</div>
-											<div class="form-group row">
-												<label for="inputExperience" class="col-sm-2 col-form-label">Kesimpulan</label>
-												<div class="col-sm-10">
-													<textarea class="form-control" id="inputExperience" placeholder="kesimpulan" disabled></textarea>
-												</div>
-											</div>
-											<div class="form-group row">
-												<label for="inputExperience" class="col-sm-2 col-form-label">Saran</label>
-												<div class="col-sm-10">
-													<textarea class="form-control" id="inputExperience" placeholder="saran" disabled></textarea>
-												</div>
-											</div>
-											<div class="form-group row">
-												<label for="customFile" class="col-sm-2 col-form-label">Dokumentasi</label>
 
-												<div class="col-sm-10">
-													<div class="custom-file">
-														<input type="file" class="custom-file-input form-control" id="customFile">
-														<label class="custom-file-label" for="customFile">Pilh Berkas</label>
+													<div class="form-group row">
+														<label for="masalah" class="col-sm-2 col-form-label">Masalah</label>
+														<div class="col-sm-10">
+															<!-- checkbox -->
+															<div class="row">
+																<div class="col-md-6">
+																	<div class="form-check">
+																		<input name="masalah[]" value="test" class="form-check-input" type="checkbox">
+																		<label class="form-check-label">Penyakit 1</label>
+																	</div>
+																	<div class="form-check">
+																		<input class="form-check-input" type="checkbox">
+																		<label class="form-check-label">Penyakit 2</label>
+																	</div>
+																	<div class="form-check">
+																		<input class="form-check-input" type="checkbox">
+																		<label class="form-check-label">Penyakit n</label>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="form-check">
+																		<input class="form-check-input" type="checkbox">
+																		<label class="form-check-label">Penyakit n</label>
+																	</div>
+																	<div class="form-check">
+																		<input class="form-check-input" type="checkbox">
+																		<label class="form-check-label">Penyakit n</label>
+																	</div>
+																	<div class="form-check">
+																		<input class="form-check-input" type="checkbox">
+																		<label class="form-check-label">Penyakit n</label>
+																	</div>
+																</div>
+															</div>
+														</div>
 													</div>
-												</div>
-											</div>
-											<!-- <div class="form-group row">
-												<div class="offset-sm-2 col-sm-10">
-													<div class="checkbox">
-														<label>
-															<input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-														</label>
+													<div class="form-group row">
+														<label for="inputExperience" class="col-sm-2 col-form-label">Kesimpulan</label>
+														<div class="col-sm-10">
+															<textarea name="kesimpulan" class="form-control" id="inputExperience" placeholder="kesimpulan" @if($data->status==0)disabled @endif></textarea>
+														</div>
 													</div>
-												</div>
-											</div> -->
-											<div class="form-group row">
-												<div class="offset-sm-2 col-sm-10">
-													<button type="submit" class="btn btn-success" disabled>Kirim Data</button>
-												</div>
+													<div class="form-group row">
+														<label for="inputExperience" class="col-sm-2 col-form-label">Saran</label>
+														<div class="col-sm-10">
+															<textarea name="saran" class="form-control" id="inputExperience" placeholder="saran" @if($data->status==0)disabled @endif></textarea>
+														</div>
+													</div>
+													<div class="form-group row">
+														<label for="customFile" class="col-sm-2 col-form-label">Dokumentasi</label>
+
+														<div class="col-sm-10">
+															<div class="custom-file">
+																<input type="file" name="berkas_pendukung" class="custom-file-input form-control" id="customFile">
+																<label class="custom-file-label" for="customFile">Pilh Berkas</label>
+															</div>
+														</div>
+													</div>
+													<!-- <div class="form-group row">
+														<div class="offset-sm-2 col-sm-10">
+															<div class="checkbox">
+																<label>
+																	<input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+																</label>
+															</div>
+														</div>
+													</div> -->
+													<div class="form-group row">
+														<div class="offset-sm-2 col-sm-10">
+															<button type="submit" class="btn btn-success" @if($data->status==0)disabled @endif>Kirim Data</button>
+														</div>
+													</div>
+												</form>
 											</div>
-										</form>
+											<!-- /.card-body -->
+										</div>
+										<!-- /.card -->
 									</div>
 									<!-- /.tab-pane -->
 

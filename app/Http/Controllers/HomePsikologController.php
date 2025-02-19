@@ -106,7 +106,13 @@ class HomePsikologController extends Controller
 			)
 			->first();
 
+		// cek apakah ada data, jika iya maka tampilkan halaman detail konseling
 		if($data) {
+			// cek apakah psikolog yang login adalah psikolog yang ditunjuk
+			if($data->psikolog_id != $this->getUser()->psikolog_id) {
+				return redirect()->route('home-psikolog')->with('message', 'Anda tidak memiliki akses ke halaman ini');
+			}
+
 			$riwayat_konseling = keluhan::where([
 				'mas_id' => $data->token,
 			])
@@ -121,7 +127,7 @@ class HomePsikologController extends Controller
 				'user' => $this->getUser()
 			]);
 		} else {
-			return redirect()->route('home');
+			return redirect()->route('home-psikolog')->with('message', 'Tidak ada data yang ditemukan');
 		}
 			
 	}
@@ -184,5 +190,33 @@ class HomePsikologController extends Controller
 		} else {
 			return redirect()->route('backend.konseling', $request->keluhan_id)->with('error', 'Gagal melakukan update');
 		}
+	}
+
+	/**
+	 * input data hasil konseling. 
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function storeHasil(Request $request)
+	{
+		//validate form
+		$this->validate($request, [
+			'mas_id'     	=> 'required',
+			'hasil'     	=> 'required',
+			'masalah'     	=> 'required|array',
+			'kesimpulan'    => 'required',
+			'saran'     	=> 'required',
+			'berkas_pendukung'     	=> 'required|file|mimes:jpg,jpeg,png|max:2048'
+		]);
+
+		dd($request->all());
+
+		
+
+		// if($keluhan && $konseling) {
+		// 	return redirect()->route('backend.konseling', $request->keluhan_id)->with('success', 'Berhasil melakukan update');
+		// } else {
+		// 	return redirect()->route('backend.konseling', $request->keluhan_id)->with('error', 'Gagal melakukan update');
+		// }
 	}
 }
