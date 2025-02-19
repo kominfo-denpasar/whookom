@@ -82,8 +82,8 @@
 											<td data-label="Deskripsi" class="font-bold">{{$masyarakat->keluhan}}</td>
 										</tr>
 										<tr>
-											<td data-label="Kolom" class="text-right">Tanggal Konseling</td>
-											<td data-label="Deskripsi" class="font-bold">{{$masyarakat->tgl}}</td>
+											<td data-label="Kolom" class="text-right">Hari Konseling</td>
+											<td data-label="Deskripsi" class="font-bold">{{$masyarakat->hari}}</td>
 										</tr>
 										<tr>
 											<td data-label="Kolom" class="text-right">Jam Konseling</td>
@@ -96,6 +96,10 @@
 										<tr>
 											<td data-label="Kolom" class="text-right">Kontak Psikolog</td>
 											<td data-label="Deskripsi" class="font-bold">{{$masyarakat->psikolog_hp}}</td>
+										</tr>
+										<tr>
+											<td data-label="Kolom" class="text-right">Alamat Psikolog</td>
+											<td data-label="Deskripsi" class="font-bold">{{$masyarakat->alamat_praktek}}</td>
 										</tr>
 									</tbody>
 								</table>

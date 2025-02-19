@@ -79,7 +79,7 @@
 						<div class="field-body">
 							<div class="field">
 								<div class="control">
-									<input type="date" autocomplete="off" name="tgl_konsul_alt" class="input" required="">
+									<input type="date" autocomplete="off" name="jadwal_alt_tgl" class="input" required="">
 								</div>
 								<p class="help">Pilih tanggal kapan Anda ingin melakukan konseling</p>
 							</div>
@@ -92,7 +92,7 @@
 						<div class="field-body">
 							<div class="field">
 								<div class="control">
-									<input type="time" autocomplete="off" name="jam_konsul_alt" class="input" required="">
+									<input type="time" autocomplete="off" name="jadwal_alt_jam" class="input" required="">
 								</div>
 								<p class="help">Pilih jam kapan Anda ingin melakukan konseling</p>
 							</div>
