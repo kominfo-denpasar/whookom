@@ -162,6 +162,7 @@
 								<div class="control">
 									<select name="kec_id" id="kec_id" class="w-full p-2 input" required="">
 										<option value="">Pilih</option>
+										<option value="99">Luar Denpasar</option>
 									</select>
 								</div>
 								<p class="help">Pilih salah satu</p>
@@ -177,6 +178,7 @@
 								<div class="control">
 									<select name="desa_id" id="desa_id" class="w-full p-2 input" required="">
 										<option value="">Pilih</option>
+										<option value="99">Luar Denpasar</option>
 									</select>
 								</div>
 								<p class="help">Pilih salah satu</p>
