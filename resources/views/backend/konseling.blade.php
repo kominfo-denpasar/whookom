@@ -3,22 +3,38 @@
 @section('content') 
 	<section class="content-header">
 		<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-			<h1>Detail Konseling</h1>
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1>Detail Konseling</h1>
+				</div>
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="{{ url('admin/home-psikolog') }}">Dashboard Psikolog</a></li>
+						<li class="breadcrumb-item active">Detail Konseling</li>
+					</ol>
+				</div>
 			</div>
-			<div class="col-sm-6">
-			<ol class="breadcrumb float-sm-right">
-				<li class="breadcrumb-item"><a href="{{ url('admin/home-psikolog') }}">Dashboard Psikolog</a></li>
-				<li class="breadcrumb-item active">Detail Konseling</li>
-			</ol>
-			</div>
-		</div>
 		</div><!-- /.container-fluid -->
 	</section>
 
 	<section class="content">
 			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						@if(session('success'))
+						<div class="alert alert-success alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							{{ session('success') }}
+						</div>
+						@endif
+						@if(session('error'))
+						<div class="alert alert-danger">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							{{ session('error') }}
+						</div>
+						@endif
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-3">
 
@@ -193,7 +209,7 @@
 
 										<form action="{{url('admin/home-psikolog/konseling/jadwal')}}" method="POST" class="form-horizontal">
 											@csrf
-											<input type="hidden" name="keluhan_id" value="?">
+											<input type="hidden" name="keluhan_id" value="{{$data->keluhan_id}}">
 											
 											<div class="form-group row">
 												<label for="field" class="col-sm-2 col-form-label">Tanggal</label>
@@ -251,15 +267,15 @@
 													<tbody>
 														<tr>
 															<td style="width:20%" class="text-right">Tanggal Konseling</td>
-															<td><b>{{$data->jadwal_alt_tgl}}</b></td>
+															<td><b>{{ \Carbon\Carbon::parse($data->jadwal_alt2_tgl)->format('d/m/Y')}}</b></td>
 														</tr>
 														<tr>
 															<td class="text-right">Jam</td>
-															<td><b>{{$data->jadwal_alt_jam}} WITA</b></td>
+															<td><b>{{ \Carbon\Carbon::parse($data->jadwal_alt2_jam)->format('h:i')}} WITA</b></td>
 														</tr>
 														<tr>
 															<td class="text-right">Waktu Konseling dimulai</td>
-															<td><b>{{$data->updated_at}}</b></td>
+															<td><b>{{ \Carbon\Carbon::parse($data->updated_at)->format('d/m/Y - h:i')}} WITA</b></td>
 														</tr>
 													</tbody>
 												</table>

@@ -57,6 +57,7 @@ Route::group([
             Route::get('/konseling/{id}', [App\Http\Controllers\HomePsikologController::class, 'konseling'])->name('backend.konseling');
             Route::get('/konseling/laporan-detail/{id}', [App\Http\Controllers\HomePsikologController::class, 'laporanDetail'])->name('backend.laporan-detail');
             Route::get('/konseling/evaluasi/{id}', [App\Http\Controllers\HomePsikologController::class, 'formEvaluasi'])->name('backend.evaluasi');
+            Route::post('/konseling/jadwal', [App\Http\Controllers\HomePsikologController::class, 'storeJadwal'])->name('backend.storeJadwal');
         });
         
         Route::prefix('master')->group(function () {

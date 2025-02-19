@@ -9,6 +9,8 @@ use App\Models\Psikolog;
 use App\Models\Konseling;
 use App\Models\keluhan;
 
+use Carbon\Carbon;
+
 class HomePsikologController extends Controller
 {
 	/**
@@ -142,5 +144,45 @@ class HomePsikologController extends Controller
 	public function formEvaluasi($id)
 	{
 		return view('backend/evaluasi');
+	}
+
+	/**
+	 * store jadwal fix. 
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function storeJadwal(Request $request)
+	{
+		//validate form
+		$this->validate($request, [
+			'keluhan_id'     => 'required',
+			'jadwal_alt2_tgl'     => 'required',
+			'jadwal_alt2_jam'     => 'required'
+		]);
+
+		// dd($request->all());
+
+		// update keluhan dan konseling
+		$keluhan = keluhan::find($request->keluhan_id);
+		$keluhan->jadwal_alt2_tgl = $request->jadwal_alt2_tgl;
+		$keluhan->jadwal_alt2_jam = $request->jadwal_alt2_jam;
+		$keluhan->status = 1;
+		$keluhan->updated_at = Carbon::now();
+		$keluhan->save(['timestamps' => FALSE]);
+
+		$konseling = Konseling::where([
+			'psikolog_id' => $this->getUser()->psikolog_id,
+			'mas_id' => $keluhan->mas_id,
+			'status' => 0
+		])->latest()->first();
+		$konseling->status = 1;
+		$konseling->updated_at = Carbon::now();
+		$konseling->save(['timestamps' => FALSE]);
+
+		if($keluhan && $konseling) {
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('success', 'Berhasil melakukan update');
+		} else {
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('error', 'Gagal melakukan update');
+		}
 	}
 }
