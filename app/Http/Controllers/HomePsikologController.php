@@ -34,11 +34,10 @@ class HomePsikologController extends Controller
 			$psikolog = Psikolog::where('id', $this->getUser()->psikolog_id)->first();
 
 			// get data keluhan masyarakat yang ditangani oleh psikolog
-			$keluhan = keluhan::where(
-				'psikolog_id', $this->getUser()->psikolog_id
-				)
+			$keluhan = keluhan::where('psikolog_id', $this->getUser()->psikolog_id)
 				->join('masyarakats', 'keluhans.mas_id', '=', 'masyarakats.token')
 				->select('keluhans.*', 'masyarakats.nama', 'masyarakats.hp', 'masyarakats.token')
+				->orderBy('keluhans.created_at', 'desc')
 				->get();
 			
 			// dd($keluhan);
