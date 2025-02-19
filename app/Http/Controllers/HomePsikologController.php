@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Masyarakat;
 use App\Models\Psikolog;
 use App\Models\Konseling;
 use App\Models\keluhan;
@@ -36,7 +37,7 @@ class HomePsikologController extends Controller
 			// get data keluhan masyarakat yang ditangani oleh psikolog
 			$keluhan = keluhan::where('psikolog_id', $this->getUser()->psikolog_id)
 				->join('masyarakats', 'keluhans.mas_id', '=', 'masyarakats.token')
-				->select('keluhans.*', 'masyarakats.nama', 'masyarakats.hp', 'masyarakats.token')
+				->select('keluhans.*', 'masyarakats.nama', 'masyarakats.hp')
 				->orderBy('keluhans.created_at', 'desc')
 				->get();
 			
@@ -76,7 +77,44 @@ class HomePsikologController extends Controller
 	 */
 	public function konseling($id)
 	{
-		return view('backend/konseling');
+		// ambil data keluhan, konseling, dass dan detail masyarakat/klien
+		$data = Masyarakat::where('keluhans.id', $id)
+			->join('keluhans', 'masyarakats.token', '=', 'keluhans.mas_id')
+			->join('konselings', 'masyarakats.token', '=', 'konselings.mas_id')
+			->join('psikologs', 'konselings.psikolog_id', '=', 'psikologs.id')
+			->join('dasshasils', 'masyarakats.token', '=', 'dasshasils.mas_id')
+			->join('jadwals', 'keluhans.jadwal_id', '=', 'jadwals.id')
+			->select(
+				'masyarakats.nama',
+				'masyarakats.nik',
+				'masyarakats.hp',
+				'masyarakats.pekerjaan',
+				'masyarakats.pendidikan',
+				'masyarakats.alamat', 
+				'masyarakats.token', 
+				'keluhans.*', 
+				'konselings.id as konseling_id',
+				'konselings.hasil', 
+				'psikologs.nama as psikolog_nama',
+				'psikologs.id as psikolog_id', 
+				'dasshasils.*',
+				'jadwals.hari',
+				'jadwals.jam as jamnya',
+			)
+			->first();
+
+		$riwayat_konseling = Konseling::where('mas_id', $data->token)
+			->where('id', '<>', $data->konseling_id)
+			->orderBy('created_at', 'desc')
+			->get();
+
+		// dd($data);
+
+		return view('backend/konseling')->with([
+			'data' => $data,
+			'riwayat_konseling' => $riwayat_konseling,
+			'user' => $this->getUser()
+		]);
 	}
 
 	/**

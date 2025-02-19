@@ -107,7 +107,7 @@
 										@endif
 									</td>
 									<td>
-										<a href="{{url('admin/home-psikolog/konseling/'.$k->token)}}" class="text-muted">
+										<a href="{{url('admin/home-psikolog/konseling/'.$k->id)}}" class="text-muted">
 											<i class="fas fa-search"></i>
 										</a>
 									</td>
@@ -143,7 +143,7 @@
 							<b>E-mail</b> <a class="float-right">{{$user->email}}</a>
 							</li>
 							<li class="list-group-item">
-							<b>Nomor HP</b> <a class="float-right">{{$psikolog->hp}}</a>
+							<b>Nomor HP</b> <a class="float-right">(+62) {{$psikolog->hp}}</a>
 							</li>
 							<li class="list-group-item">
 							<b>Alamat Praktek</b> <a class="float-right">{{$psikolog->alamat_praktek}}</a>
