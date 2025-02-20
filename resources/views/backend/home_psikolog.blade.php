@@ -122,7 +122,12 @@
 									<td>
 										<a href="{{url('admin/home-psikolog/konseling/'.$k->id)}}" class="text-muted">
 											<i class="fas fa-search"></i>
-										</a>
+										</a>&nbsp;
+										@if($k->status == 2)
+											<a href="{{route('backend.laporan-detail', $k->id)}}" class="text-muted">
+												<i class="fas fa-print"></i>
+											</a>
+										@endif
 									</td>
 								</tr>
 							@endforeach

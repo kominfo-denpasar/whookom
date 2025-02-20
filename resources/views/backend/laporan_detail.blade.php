@@ -24,14 +24,14 @@
 				<div class="col-12">
 					<div class="callout callout-info">
 						<h5><i class="fas fa-info"></i> Perhatian:</h5>
-						Berikut adalah laporan detail konseling. Gunakan tombol export untuk mendownload dalam format PDF.
+						Berikut adalah laporan detail konseling. Gunakan tombol export di bawah untuk mendownload dalam format PDF.
 					</div>
 				</div>
 				<!-- .col-12 -->
 
 				<div class="offset-2 col-8">
 					<!-- Main content -->
-					<div class="invoice p-3 mb-3">
+					<div class="invoice p-4 mb-4">
 					<!-- title row -->
 					<div class="row">
 						<div class="col-12">
