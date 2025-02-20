@@ -230,15 +230,21 @@ class HomePsikologController extends Controller
 		)
 		->first();
 
+		// get data masalah
+		$masalah = Masalah::get();
+
 		// get data konseling masalah
 		$konseling_masalah = KonselingMasalah::where('konseling_id', $data->konseling_id)->get();
 		$konseling_masalah = $konseling_masalah->map(function($item) {
 			return $item->masalah_id;
 		})->toArray();
 
+		// dd($konseling_masalah);
+
 		return view('backend/laporan_detail')->with([
 			'data' => $data,
 			'konseling' => $konseling,
+			'masalah' => $masalah,
 			'konseling_masalah' => $konseling_masalah,
 			'user' => $this->getUser()
 		]);

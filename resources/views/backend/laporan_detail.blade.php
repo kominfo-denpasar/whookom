@@ -61,7 +61,7 @@
 							:&nbsp; {{$data->psikolog_nama}}<br>
 							:&nbsp; {{$data->nama}}<br>
 							:&nbsp; {{$data->jk}}<br>
-							:&nbsp; {{\Carbon\Carbon::parse($data->tgl_lahir)->format('d/m/Y')}}<br>
+							:&nbsp; {{\Carbon\Carbon::parse($data->tgl_lahir)->format('d M Y')}} / ({{\Carbon\Carbon::parse($data->tgl_lahir)->age}} Tahun)<br>
 							:&nbsp; {{$data->pendidikan}}<br>
 							:&nbsp; {{$data->pekerjaan}}<br>
 							:&nbsp; {{App\Http\Controllers\PsikologController::kec($data->kec_id)}}<br>
@@ -105,10 +105,16 @@
 								<tbody>
 									<tr>
 										<td width="50%">
-											[list masalah]
+											@foreach($masalah as $key => $m)
+												@if(in_array($m->id, $konseling_masalah))
+													<i class="fas fa-check-square"></i>&nbsp; {{$m->nama}}<br>
+												@else
+												<i class="fas fa-square"></i>&nbsp; {{$m->nama}}<br>
+												@endif
+											@endforeach
 										</td>
 										<td>
-											[list deskripsi masalah]
+											
 										</td>
 									</tr>
 								</tbody>
