@@ -457,7 +457,7 @@
 													<div class="form-group row">
 														<label for="inputExperience" class="col-sm-2 col-form-label">Hasil Assessment</label>
 														<div class="col-sm-10">
-															<textarea class="form-control" name="hasil" id="hasil" placeholder="hasil" @if($data->status==0)disabled @endif>{!!$data->hasil!!}</textarea>
+															<textarea class="form-control" name="hasil" id="hasil" placeholder="hasil" @if($data->status==0)disabled @endif>{!!$konseling['hasil']!!}</textarea>
 															<small>Inputkan data berdasarkan field yang diminta</small>
 														</div>
 													</div>
@@ -495,14 +495,14 @@
 													<div class="form-group row">
 														<label for="inputExperience" class="col-sm-2 col-form-label">Kesimpulan</label>
 														<div class="col-sm-10">
-															<textarea name="kesimpulan" class="form-control" id="inputExperience" placeholder="kesimpulan" value="{{$data->kesimpulan}}" @if($data->status==0)disabled @endif>{!!$data->kesimpulan!!}</textarea>
+															<textarea name="kesimpulan" class="form-control" id="inputExperience" placeholder="kesimpulan" @if($data->status==0)disabled @endif>{!!$konseling['kesimpulan']!!}</textarea>
 															<small>Inputkan data berdasarkan field yang diminta</small>
 														</div>
 													</div>
 													<div class="form-group row">
 														<label for="inputExperience" class="col-sm-2 col-form-label">Saran</label>
 														<div class="col-sm-10">
-															<textarea name="saran" class="form-control" id="inputExperience" placeholder="saran" @if($data->status==0)disabled @endif>{!!$data->saran!!}</textarea>
+															<textarea name="saran" class="form-control" id="inputExperience" placeholder="saran" @if($data->status==0)disabled @endif>{!!$konseling['saran']!!}</textarea>
 															<small>Inputkan data berdasarkan field yang diminta</small>
 														</div>
 													</div>
@@ -510,8 +510,8 @@
 														<label for="customFile" class="col-sm-2 col-form-label">Dokumentasi</label>
 
 														<div class="col-sm-10">
-															@if($data->berkas_pendukung)
-															<img class="img-fluid" src="{{asset('uploads/berkas_pendukung/'.$data->berkas_pendukung)}}">
+															@if($konseling['berkas_pendukung'])
+															<img class="img-fluid" src="{{asset('uploads/berkas_pendukung/'.$konseling['berkas_pendukung'])}}">
 															@endif
 															<div class="custom-file">
 																@if($data->status!=0)

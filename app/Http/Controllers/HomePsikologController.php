@@ -100,10 +100,6 @@ class HomePsikologController extends Controller
 				'keluhans.*',
 				'keluhans.id as keluhan_id', 
 				'konselings.id as konseling_id',
-				'konselings.hasil',
-				'konselings.kesimpulan',
-				'konselings.saran',
-				'konselings.berkas_pendukung', 
 				'psikologs.nama as psikolog_nama',
 				'psikologs.id as psikolog_id', 
 				'dasshasils.*',
@@ -133,16 +129,47 @@ class HomePsikologController extends Controller
 			// get data masalah
 			$masalah = Masalah::get();
 
-			// get data konseling masalah
-			$konseling_masalah = KonselingMasalah::where('konseling_id', $data->konseling_id)->get();
-			$konseling_masalah = $konseling_masalah->map(function($item) {
-				return $item->masalah_id;
-			})->toArray();
+			// status == 0 -> konseling belum mulai
+			if($data->status!=0) {
+				// get data konseling
+				$konseling = Konseling::where('id', $data->konseling_id)
+				->select(
+					'hasil',
+					'kesimpulan',
+					'saran',
+					'berkas_pendukung', 
+				)
+				->first();
+
+				$konseling = [
+					'hasil' => $konseling->hasil,
+					'kesimpulan' => $konseling->kesimpulan,
+					'saran' => $konseling->saran,
+					'berkas_pendukung' => $konseling->berkas_pendukung
+				];
+
+				// get data konseling masalah
+				$konseling_masalah = KonselingMasalah::where('konseling_id', $data->konseling_id)->get();
+				$konseling_masalah = $konseling_masalah->map(function($item) {
+					return $item->masalah_id;
+				})->toArray();
+			} else {
+				$konseling = [
+					'hasil' => null,
+					'kesimpulan' => null,
+					'saran' => null,
+					'berkas_pendukung' => null
+				];
+				$konseling_masalah = [];
+			}
+
+			// dd($data->konseling_id);
 
 			return view('backend/konseling')->with([
 				'data' => $data,
 				'masalah' => $masalah,
 				'riwayat_konseling' => $riwayat_konseling,
+				'konseling' => $konseling,
 				'konseling_masalah' => $konseling_masalah,
 				'user' => $this->getUser()
 			]);
