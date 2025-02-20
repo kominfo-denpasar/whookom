@@ -59,7 +59,7 @@
 				<!-- .field -->
 
 				<div class="field">
-					<label class="label">Tanggal & Jam Konseling</label>
+					<label class="label">Hari & Jam Konseling</label>
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
@@ -67,7 +67,7 @@
 									<option value="">Pilih</option>
 								</select>
 							</div>
-							<p class="help">Pilih psikolog dahulu sebelum memilih tanggal & jam konseling</p>
+							<p class="help">Pilih psikolog dahulu sebelum memilih hari & jam konseling</p>
 						</div>
 					</div>
 				</div>
@@ -79,7 +79,7 @@
 						<div class="field-body">
 							<div class="field">
 								<div class="control">
-									<input type="date" autocomplete="off" name="tgl_konsul_alt" class="input" required="">
+									<input type="date" autocomplete="off" name="jadwal_alt_tgl" class="input" required="">
 								</div>
 								<p class="help">Pilih tanggal kapan Anda ingin melakukan konseling</p>
 							</div>
@@ -92,7 +92,7 @@
 						<div class="field-body">
 							<div class="field">
 								<div class="control">
-									<input type="time" autocomplete="off" name="jam_konsul_alt" class="input" required="">
+									<input type="time" autocomplete="off" name="jadwal_alt_jam" class="input" required="">
 								</div>
 								<p class="help">Pilih jam kapan Anda ingin melakukan konseling</p>
 							</div>
@@ -148,7 +148,7 @@
 				containerDisplay.innerHTML = "<option value=''>Pilih</option>";
 				data.forEach(result => {
 					const data = `
-						<option value="${result.id}">Tanggal ${result.tgl}, jam ${result.jam} WITA</option>
+						<option value="${result.id}">Hari ${result.hari}, jam ${result.jam} WITA</option>
 					`
 					containerDisplay.insertAdjacentHTML('afterbegin', data)
 				});

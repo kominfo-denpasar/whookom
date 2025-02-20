@@ -1,10 +1,20 @@
 <!-- need to remove -->
+@role('admin', true)
 <li class="nav-item">
 	<a href="{{ route('home') }}" class="nav-link {{ Request::is('admin/home') ? 'active' : '' }}">
 		<i class="nav-icon fas fa-home"></i>
 		<p>Dashboard</p>
 	</a>
 </li>
+@endrole
+@role('psikolog', true)
+<li class="nav-item">
+	<a href="{{ url('/admin/home-psikolog') }}" class="nav-link {{ Request::is('admin/home-psikolog*') ? 'active' : '' }}">
+		<i class="nav-icon fas fa-home"></i>
+		<p>Dashboard Psikolog</p>
+	</a>
+</li>
+@endrole
 
 @role('admin', true)
 	<li class="nav-item {{ request()->is('admin/master/*') ? 'menu-open' : '' }}">

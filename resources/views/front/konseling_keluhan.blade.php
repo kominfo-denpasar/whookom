@@ -58,7 +58,7 @@
 					<div class="field-body">
 						<div class="field">
 						<div class="control">
-							<input type="text" autocomplete="off" name="nik" placeholder="5171xxx" value="{{$masyarakat->nik}}" class="input @error('title') is-invalid @enderror" required="">
+							<input type="text" autocomplete="off" name="nik" placeholder="5171xxx" value="{{$masyarakat->nik}}" class="input @error('title') is-invalid @enderror" @if($masyarakat->nik!=null) readonly @else required="" @endif>
 						</div>
 						<p class="help">Nomor Induk Kependudukan pada KTP Anda</p>
 						<!-- error message untuk title -->
@@ -123,7 +123,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<input type="email" autocomplete="off" name="email" placeholder="nama@gmail.com" value="{{$masyarakat->email}}" class="input" required="">
+								<input type="email" autocomplete="off" name="email" placeholder="nama@gmail.com" value="{{$masyarakat->email}}" class="input" @if($masyarakat->email!=null) readonly @else required="" @endif>
 							</div>
 							<p class="help">e-mail Anda yang masih aktif. Kami juga menggunakan e-mail untuk menyampaikan informasi</p>
 						</div>
@@ -133,42 +133,68 @@
 
 				<hr class="pt-4">
 
-				<div class="field">
-					<label class="label">Kecamatan</label>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<select name="kec_id" id="kec_id" class="w-full p-2 input" required="">
-									<option value="">Pilih</option>
-								</select>
+				@if($masyarakat->kec_id!=null)
+					<div class="field">
+						<label class="label">Kecamatan</label>
+						<div class="field-body">
+							<div class="field">
+								<div class="control">
+									<input type="text" name="kec_id" autocomplete="off" value="{{ App\Http\Controllers\PsikologController::kec($masyarakat->kec_id) }}" class="input" readonly>
+								</div>
 							</div>
-							<p class="help">Pilih salah satu</p>
 						</div>
 					</div>
-				</div>
-				<!-- .field -->
+					<div class="field">
+						<label class="label">Kelurahan/Desa</label>
+						<div class="field-body">
+							<div class="field">
+								<div class="control">
+									<input type="text" name="desa_id" autocomplete="off" value="{{ App\Http\Controllers\PsikologController::desa($masyarakat->desa_id) }}" class="input" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+				@else
+					<div class="field">
+						<label class="label">Kecamatan</label>
+						<div class="field-body">
+							<div class="field">
+								<div class="control">
+									<select name="kec_id" id="kec_id" class="w-full p-2 input" required="">
+										<option value="">Pilih</option>
+										<option value="99">Luar Denpasar</option>
+									</select>
+								</div>
+								<p class="help">Pilih salah satu</p>
+							</div>
+						</div>
+					</div>
+					<!-- .field -->
 
-				<div class="field">
-					<label class="label">Kelurahan/Desa</label>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<select name="desa_id" id="desa_id" class="w-full p-2 input" required="">
-									<option value="">Pilih</option>
-								</select>
+					<div class="field">
+						<label class="label">Kelurahan/Desa</label>
+						<div class="field-body">
+							<div class="field">
+								<div class="control">
+									<select name="desa_id" id="desa_id" class="w-full p-2 input" required="">
+										<option value="">Pilih</option>
+										<option value="99">Luar Denpasar</option>
+									</select>
+								</div>
+								<p class="help">Pilih salah satu</p>
 							</div>
-							<p class="help">Pilih salah satu</p>
 						</div>
 					</div>
-				</div>
-				<!-- .field -->
+					<!-- .field -->
+
+				@endif
 
 				<div class="field">
 					<label class="label">Alamat Tempat Tinggal</label>
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<textarea class="textarea" name="alamat" autocomplete="off" placeholder="Jl. Nama Jalan, Nomor, Banjar">{!!$masyarakat->alamat!!}</textarea>
+								<textarea @if($masyarakat->alamat!=null) readonly @else required="" @endif class="textarea" name="alamat" autocomplete="off" placeholder="Jl. Nama Jalan, Nomor, Banjar">{!!$masyarakat->alamat!!}</textarea>
 							</div>
 							<!-- <p class="help">Isi dengan nama lengkap Anda</p> -->
 						</div>

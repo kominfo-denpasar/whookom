@@ -3,7 +3,7 @@
     <body class="hold-transition login-page" style="background: #fff;">
         <div class="login-box">
             <div class="login-logo">
-                <a href="{{ url('/home') }}">
+                <a href="{{ url('/') }}">
                     <img src="{{ asset('img/logo_dmb.png') }}">
                 </a>
             </div>
