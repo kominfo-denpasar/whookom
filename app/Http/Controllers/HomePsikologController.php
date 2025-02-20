@@ -186,7 +186,68 @@ class HomePsikologController extends Controller
 	 */
 	public function laporanDetail($id)
 	{
-		return view('backend/laporan_detail');
+
+		// ambil data keluhan, konseling, dass dan detail masyarakat/klien
+		$data = Masyarakat::where('keluhans.id', $id)
+			->join('keluhans', 'masyarakats.token', '=', 'keluhans.mas_id')
+			->join('konselings', 'masyarakats.token', '=', 'konselings.mas_id')
+			->join('psikologs', 'konselings.psikolog_id', '=', 'psikologs.id')
+			->join('dasshasils', 'masyarakats.token', '=', 'dasshasils.mas_id')
+			->join('jadwals', 'keluhans.jadwal_id', '=', 'jadwals.id')
+			->select(
+				'masyarakats.nama',
+				'masyarakats.nik',
+				'masyarakats.jk',
+				'masyarakats.tgl_lahir',
+				'masyarakats.hp',
+				'masyarakats.pekerjaan',
+				'masyarakats.pendidikan',
+				'masyarakats.kec_id',
+				'masyarakats.alamat', 
+				'masyarakats.token',
+				'keluhans.id as keluhan_id',
+				'keluhans.keluhan', 
+				'keluhans.jadwal_alt2_tgl as tanggalnya', 
+				'konselings.id as konseling_id',
+				'psikologs.nama as psikolog_nama',
+				'psikologs.sipp',
+				'psikologs.id as psikolog_id', 
+				'dasshasils.*',
+				'jadwals.hari',
+				'jadwals.jam as jamnya',
+			)
+			->first();
+		
+		// dd($data);
+
+		// get data konseling
+		$konseling = Konseling::where('id', $data->konseling_id)
+		->select(
+			'hasil',
+			'kesimpulan',
+			'saran',
+			'berkas_pendukung', 
+		)
+		->first();
+
+		// get data masalah
+		$masalah = Masalah::get();
+
+		// get data konseling masalah
+		$konseling_masalah = KonselingMasalah::where('konseling_id', $data->konseling_id)->get();
+		$konseling_masalah = $konseling_masalah->map(function($item) {
+			return $item->masalah_id;
+		})->toArray();
+
+		// dd($konseling_masalah);
+
+		return view('backend/laporan_detail')->with([
+			'data' => $data,
+			'konseling' => $konseling,
+			'masalah' => $masalah,
+			'konseling_masalah' => $konseling_masalah,
+			'user' => $this->getUser()
+		]);
 	}
 
 	/**
