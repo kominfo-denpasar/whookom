@@ -58,11 +58,9 @@
 			</li> -->
 		</ul>
 	</li>
-	
 @endrole
-
-@level(3)
 <li class="nav-header">PENGATURAN</li>
+@level(3)
 	<li class="nav-item">
 		<a href="{{ route('jadwals.index') }}" class="nav-link {{ Request::is('admin/jadwals*') ? 'active' : '' }}">
 			<i class="nav-icon fas fa-clock"></i>

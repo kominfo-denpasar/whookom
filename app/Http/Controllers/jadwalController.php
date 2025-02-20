@@ -9,6 +9,8 @@ use App\Repositories\jadwalRepository;
 use Illuminate\Http\Request;
 use Flash;
 
+use App\Models\jadwal;
+
 class jadwalController extends AppBaseController
 {
     /** @var jadwalRepository $jadwalRepository*/
@@ -24,10 +26,19 @@ class jadwalController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $jadwals = $this->jadwalRepository->paginate(10);
+        // $jadwals = $this->jadwalRepository->paginate(10);
+        // get data jadwal
+        $jadwals = jadwal::where('psikolog_id', $this->getUser()->psikolog_id)
+            ->join('psikologs', 'jadwals.psikolog_id', '=', 'psikologs.id')
+            ->select('jadwals.*', 'psikologs.nama')            
+            ->paginate(10);
 
+        // dd($jadwals);
         return view('jadwals.index')
-            ->with('jadwals', $jadwals);
+            ->with([
+                'jadwals' => $jadwals,
+                'user' => $this->getUser()
+            ]);
     }
 
     /**
@@ -35,7 +46,7 @@ class jadwalController extends AppBaseController
      */
     public function create()
     {
-        return view('jadwals.create');
+        return view('jadwals.create')->with('user', $this->getUser());
     }
 
     /**
@@ -81,7 +92,7 @@ class jadwalController extends AppBaseController
             return redirect(route('jadwals.index'));
         }
 
-        return view('jadwals.edit')->with('jadwal', $jadwal);
+        return view('jadwals.edit')->with('jadwal', $jadwal)->with('user', $this->getUser());
     }
 
     /**

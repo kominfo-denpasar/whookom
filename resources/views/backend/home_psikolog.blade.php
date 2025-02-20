@@ -163,7 +163,7 @@
 							</li>
 						</ul>
 
-						<a href="#!" class="btn btn-primary btn-block"><b>Detail Profil</b></a>
+						<a href="{{route('backend.profil')}}" class="btn btn-primary btn-block"><b>Detail Profil</b></a>
 					</div>
 					<!-- /.card-body -->
 				</div>

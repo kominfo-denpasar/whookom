@@ -50,8 +50,9 @@ Route::group([
     function () {
     Route::prefix('admin')->group(function () {
 
-
+        Route::get('/profil', [App\Http\Controllers\HomeController::class, 'profil'])->name('backend.profil');
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
         Route::prefix('home-psikolog')->group(function () {
             Route::get('/', [App\Http\Controllers\HomePsikologController::class, 'index'])->name('home-psikolog');
             Route::get('/konseling/{id}', [App\Http\Controllers\HomePsikologController::class, 'konseling'])->name('backend.konseling');

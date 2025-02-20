@@ -23,7 +23,12 @@ Jadwal Details
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @include('jadwals.show_fields')
+                    <!-- Psikolog Id Field -->
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -28,4 +28,14 @@ class HomeController extends Controller
         if(!$this->user->hasRole('admin')) return redirect()->route('home-psikolog');
         else return view('backend/home');
     }
+
+    /**
+	 * Tampilkan profil. 
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function profil()
+	{
+		return view('backend/profil'); 
+	}
 }

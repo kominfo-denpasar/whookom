@@ -1,7 +1,8 @@
 <!-- Tgl Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('tgl', 'Tgl:') !!}
-    {!! Form::text('tgl', null, ['class' => 'form-control', 'id'=>'tgl', 'autocomplete'=>'off']) !!}
+    {!! Form::label('Hari', 'Hari:') !!}
+    {!! Form::select('hari', ['' => '- Pilih -', 'Senin' => 'Senin', 'Selasa' => 'Selasa', 'Rabu' => 'Rabu', 'Kamis' => 'Kamis', 'Jumat' => 'Jumat', 'Sabtu' => 'Sabtu', 'Minggu' => 'Minggu'], null, ['class' => 'form-control', 'required']) !!}
+    <small>Pilih salah satu hari</small>
 </div>
 
 @push('page_scripts')
@@ -10,28 +11,26 @@
         $('#tgl').datepicker()
     })
 </script> -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 <script src="//code.jquery.com/jquery-3.6.0.js"></script>
 <script src="//code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script type="text/javascript">
     $('#tgl').datepicker()
-</script>
+</script> -->
 @endpush
 
 <!-- Jam Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('jam', 'Jam:') !!}
-    {!! Form::time('jam', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::label('jam', 'Jam') !!}
+    {!! Form::text('jam', null, ['class' => 'form-control', 'required', 'placeholder' => 'xx:xx - xx:xx']) !!}
+    <small>Inputkan rentang jam praktek Anda dalam format waktu 24 jam. (Misal: 10:00 - 13:00)</small>
 </div>
 
 <!-- Kuota Field -->
-<div class="form-group col-sm-6">
+<!-- <div class="form-group col-sm-6">
     {!! Form::label('kuota', 'Kuota:') !!}
     {!! Form::number('kuota', null, ['class' => 'form-control', 'required']) !!}
-</div>
+</div> -->
 
 <!-- Psikolog Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('psikolog_id', 'Psikolog Id:') !!}
-    {!! Form::text('psikolog_id', null, ['class' => 'form-control']) !!}
-</div>
+<input type="hidden" name="psikolog_id" value="{{ $user->psikolog_id }}">
