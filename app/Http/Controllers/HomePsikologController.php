@@ -91,6 +91,7 @@ class HomePsikologController extends Controller
 			->select(
 				'masyarakats.nama',
 				'masyarakats.nik',
+				'masyarakats.jk',
 				'masyarakats.hp',
 				'masyarakats.pekerjaan',
 				'masyarakats.pendidikan',

@@ -49,7 +49,11 @@
 						<div class="card card-primary card-outline">
 							<div class="card-body box-profile">
 								<div class="text-center">
+									@if($data->jk=="P")
 									<img class="profile-user-img img-fluid img-circle" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairNotTooLong&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=CollarSweater&clotheColor=Gray01&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Pale" alt="User profile picture">
+									@else
+									<img class="profile-user-img img-fluid img-circle" src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=CollarSweater&clotheColor=PastelOrange&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Pale" alt="User profile picture">
+									@endif
 								</div>
 
 								<h3 class="profile-username text-center">{{$data->nama}}</h3>
@@ -326,7 +330,7 @@
 										<div class="card card-info shadow-md">
 											<div class="card-body">
 												<div class="btn-group float-right">
-													<a href="{{url('admin/home-psikolog/konseling/laporan-detail/1')}}" class="btn btn-primary">Laporan Detail Konseling</a>
+													<a href="{{route('backend.laporan-detail', $data->keluhan_id)}}" class="btn btn-primary">Laporan Detail Konseling</a>
 												</div>
 											</div>
 										</div>
@@ -544,26 +548,35 @@
 
 									<div class="tab-pane" id="evaluasi">
 										<div class="col-11">
+											<div class="callout callout-info">
+												<h5>Perhatian!</h5>
+												<p>
+													Formulir ini ditujukan untuk klien yang telah selesai melakukan konseling. Mohon untuk mengisi formulir evaluasi dengan jujur dan benar. 
+												</p>
+											</div>
+											<!-- .callout -->
+											
+											<hr>
 											<div class="form-group">
 												<label>Seberapa membantu layanan konseling yang diberikan?
 												</label>
 												<select class="form-control">
-													<option>option 1</option>
-													<option>option 2</option>
-													<option>option 3</option>
-													<option>option 4</option>
-													<option>option 5</option>
+													<option value="">Pilih</option>
+													<option>Sangat Membantu</option>
+													<option>Membantu</option>
+													<option>Cukup Membantu</option>
+													<option>Kurang Membantu</option>
 												</select>
 											</div>
 											<div class="form-group">
 												<label>Setelah konseling, seberapa mengganggu keluhan yang Anda rasakan pada aktivitas sehari-hari?
 												</label>
 												<select class="form-control">
-													<option>option 1</option>
-													<option>option 2</option>
-													<option>option 3</option>
-													<option>option 4</option>
-													<option>option 5</option>
+													<option>Pilih</option>
+													<option>Sangat Membantu</option>
+													<option>Membantu</option>
+													<option>Cukup Membantu</option>
+													<option>Kurang Membantu</option>
 												</select>
 											</div>
 											<div class="form-group">
