@@ -30,7 +30,7 @@
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <a href="#" class="btn btn-default btn-flat">Profil</a>
+                                <a href="{{route('backend.profil')}}" class="btn btn-default btn-flat">Profil</a>
                                 <a href="#" class="btn btn-default btn-flat float-right"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Keluar

@@ -29,6 +29,11 @@
 					</tr>
 				</thead>
 				<tbody>
+                @if($jadwals->isEmpty())
+                    <tr>
+                        <td colspan="4" class="text-center">- Belum ada data, silahkan menambahkan dengan mengklik tombol <a href="{{route('jadwals.create')}}">tambah</a> -</td>
+                    </tr>
+                @endif
                 @foreach($jadwals as $jadwal)
                     <tr>
                         <td>#</td>
