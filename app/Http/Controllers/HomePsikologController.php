@@ -9,6 +9,7 @@ use App\Models\Psikolog;
 use App\Models\Konseling;
 use App\Models\keluhan;
 use App\Models\Masalah;
+use App\Models\KonselingMasalah;
 
 use Carbon\Carbon;
 
@@ -98,7 +99,10 @@ class HomePsikologController extends Controller
 				'keluhans.*',
 				'keluhans.id as keluhan_id', 
 				'konselings.id as konseling_id',
-				'konselings.hasil', 
+				'konselings.hasil',
+				'konselings.kesimpulan',
+				'konselings.saran',
+				'konselings.berkas_pendukung', 
 				'psikologs.nama as psikolog_nama',
 				'psikologs.id as psikolog_id', 
 				'dasshasils.*',
@@ -106,6 +110,8 @@ class HomePsikologController extends Controller
 				'jadwals.jam as jamnya',
 			)
 			->first();
+		
+		// dd($data);
 
 		// cek apakah ada data, jika iya maka tampilkan halaman detail konseling
 		if($data) {
@@ -126,10 +132,17 @@ class HomePsikologController extends Controller
 			// get data masalah
 			$masalah = Masalah::get();
 
+			// get data konseling masalah
+			$konseling_masalah = KonselingMasalah::where('konseling_id', $data->konseling_id)->get();
+			$konseling_masalah = $konseling_masalah->map(function($item) {
+				return $item->masalah_id;
+			})->toArray();
+
 			return view('backend/konseling')->with([
 				'data' => $data,
 				'masalah' => $masalah,
 				'riwayat_konseling' => $riwayat_konseling,
+				'konseling_masalah' => $konseling_masalah,
 				'user' => $this->getUser()
 			]);
 		} else {
@@ -199,6 +212,48 @@ class HomePsikologController extends Controller
 	}
 
 	/**
+	 * update jadwal utama atau alternatif. 
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function updateJadwal(Request $request)
+	{
+		if($request->jenis=='utama') {
+			// update jadwal utama
+			$keluhan = keluhan::find($request->keluhan_id);
+			$keluhan->jadwal_alt2_tgl = Carbon::now()->format('Y-m-d');
+			$keluhan->jadwal_alt2_jam = Carbon::now()->format('H:i');
+			$keluhan->status = 1;
+			$keluhan->updated_at = Carbon::now();
+			$keluhan->save(['timestamps' => FALSE]);
+		} else {
+			// update jadwal alternatif
+			$keluhan = keluhan::find($request->keluhan_id);
+			$keluhan->jadwal_alt2_tgl = $request->jadwal_alt_tgl;
+			$keluhan->jadwal_alt2_jam = $request->jadwal_alt_jam;
+			$keluhan->status = 1;
+			$keluhan->updated_at = Carbon::now();
+			$keluhan->save(['timestamps' => FALSE]);
+		}
+
+		$konseling = Konseling::where([
+			'psikolog_id' => $this->getUser()->psikolog_id,
+			'mas_id' => $keluhan->mas_id,
+			'status' => 0
+		])->latest()->first();
+		$konseling->status = 1;
+		$konseling->updated_at = Carbon::now();
+		$konseling->save(['timestamps' => FALSE]);
+
+		if($keluhan && $konseling) {
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('success', 'Berhasil melakukan update');
+		} else {
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('error', 'Gagal melakukan update');
+		}
+
+	}
+
+	/**
 	 * input data hasil konseling. 
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable
@@ -209,6 +264,7 @@ class HomePsikologController extends Controller
 		$this->validate($request, [
 			'mas_id'     	=> 'required',
 			'keluhan_id'    => 'required',
+			'konseling_id'  => 'required',
 			'hasil'     	=> 'required',
 			'masalah'     	=> 'required|array',
 			'kesimpulan'    => 'required',
@@ -236,17 +292,110 @@ class HomePsikologController extends Controller
 			'updated_at' => Carbon::now()
 		]);
 
+		// update data keluhan
+		$keluhan = keluhan::find($request->keluhan_id);
+		$keluhan->status = 2;
+		$keluhan->updated_at = Carbon::now();
+		$keluhan->save(['timestamps' => FALSE]);
+
 		// insert data masalah
 		$masalah = [];
 		foreach($request->masalah as $key => $value) {
 			$masalah[] = [
-				'konseling_id' => $konseling->id,
+				'konseling_id' => $request->konseling_id,
 				'masalah_id' => $value,
 				'created_at' => Carbon::now(),
 				'updated_at' => Carbon::now()
 			];
 		}
-		$masalah = Masalah::insert($masalah);
+		$masalah = KonselingMasalah::insert($masalah);
+		
+
+		if($konseling && $masalah) {
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('success', 'Berhasil melakukan update data hasil konseling');
+		} else {
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('error', 'Gagal melakukan update data hasil konseling');
+		}
+	}
+
+	/**
+	 * update data hasil konseling. 
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function updateHasil(Request $request)
+	{
+		//validate form
+		$this->validate($request, [
+			'mas_id'     	=> 'required',
+			'keluhan_id'    => 'required',
+			'konseling_id'  => 'required',
+			'hasil'     	=> 'required',
+			'masalah'     	=> 'required|array',
+			'kesimpulan'    => 'required',
+			'saran'     	=> 'required',
+			'berkas_pendukung'     	=> 'file|mimes:jpg,jpeg,png|max:2048'
+		]);
+
+		// jika ada file berkas pendukung
+		if($request->hasFile('berkas_pendukung')) {
+			// hapus file lama
+			$old_berkas_pendukung = Konseling::where('id', $request->konseling_id)->first();
+			if($old_berkas_pendukung->berkas_pendukung) {
+				$old_file = public_path('uploads/berkas_pendukung/'.$old_berkas_pendukung->berkas_pendukung);
+				if(file_exists($old_file)) {
+					unlink($old_file);
+				}
+			}
+			
+			// simpan file berkas pendukung
+			$berkas_pendukung = $request->file('berkas_pendukung');
+			$berkas_pendukung_name = time().'_'.$berkas_pendukung->getClientOriginalName();
+			$berkas_pendukung->move(public_path('uploads/berkas_pendukung'), $berkas_pendukung_name);
+
+			$konseling = Konseling::where([
+				'id' => $request->konseling_id
+			])->update([
+				'hasil' => $request->hasil,
+				'kesimpulan' => $request->kesimpulan,
+				'saran' => $request->saran,
+				'berkas_pendukung' => $berkas_pendukung_name,
+				'status' => 2,
+				'updated_at' => Carbon::now()
+			]);
+		} else {
+			// update data konseling tanpa berkas pendukung
+			$konseling = Konseling::where([
+				'id' => $request->konseling_id
+			])->update([
+				'hasil' => $request->hasil,
+				'kesimpulan' => $request->kesimpulan,
+				'saran' => $request->saran,
+				'status' => 2,
+				'updated_at' => Carbon::now()
+			]);
+		}
+
+		// update data keluhan
+		$keluhan = keluhan::find($request->keluhan_id);
+		$keluhan->status = 2;
+		$keluhan->updated_at = Carbon::now();
+		$keluhan->save(['timestamps' => FALSE]);
+
+		// update data masalah
+		KonselingMasalah::where('konseling_id', $request->konseling_id)->delete();
+
+		// insert data masalah baru
+		$masalah = [];
+		foreach($request->masalah as $key => $value) {
+			$masalah[] = [
+				'konseling_id' => $request->konseling_id,
+				'masalah_id' => $value,
+				'created_at' => Carbon::now(),
+				'updated_at' => Carbon::now()
+			];
+		}
+		$masalah = KonselingMasalah::insert($masalah);
 		
 
 		if($konseling && $masalah) {

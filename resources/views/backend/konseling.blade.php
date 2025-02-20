@@ -92,7 +92,7 @@
 
 								<hr>
 								<strong><i class="far fa-file-alt mr-1"></i> Riwayat Konseling</strong>
-								@if(!$riwayat_konseling)
+								@if($riwayat_konseling->isEmpty())
 								<p class="text-muted">
 									<small>- Belum ada data konseling lainnya -</small>
 								</p>
@@ -199,8 +199,20 @@
 										<div class="card card-info shadow-md">
 											<div class="card-body">
 												<div class="btn-group float-right">
-													<button type="button" class="btn btn-primary">Konfirmasi Jadwal Utama</button>
-													<button type="button" class="btn btn-info">Konfirmasi Jadwal Alternatif</button>
+													<form action="{{route('backend.updateJadwal')}}" method="POST">
+														@csrf
+														<input type="hidden" name="keluhan_id" value="{{$data->keluhan_id}}">
+														<input type="hidden" name="jenis" value="utama">
+														<button type="submit" class="btn btn-primary">Konfirmasi Jadwal Utama</button>
+													</form>
+													<form action="{{route('backend.updateJadwal')}}" method="POST">
+														@csrf
+														<input type="hidden" name="keluhan_id" value="{{$data->keluhan_id}}">
+														<input type="hidden" name="jenis" value="alternatif">
+														<input type="hidden" name="jadwal_alt2_tgl" value="{{$data->jadwal_alt_tgl}}">
+														<input type="hidden" name="jadwal_alt2_jam" value="{{$data->jadwal_alt_jam}}">
+														<button type="submit" class="btn btn-info">Konfirmasi Jadwal Alternatif</button>
+													</form>
 												</div>
 											</div>
 										</div>
@@ -281,7 +293,7 @@
 															<td><b>{{ \Carbon\Carbon::parse($data->jadwal_alt2_jam)->format('h:i')}} WITA</b></td>
 														</tr>
 														<tr>
-															<td class="text-right">Waktu Konseling dimulai</td>
+															<td class="text-right">Waktu Dikonfirmasi</td>
 															<td><b>{{ \Carbon\Carbon::parse($data->updated_at)->format('d/m/Y - h:i')}} WITA</b></td>
 														</tr>
 													</tbody>
@@ -303,7 +315,7 @@
 										@elseif($data->status==2)
 
 										<hr>
-										<div class="callout callout-success">
+										<div class="alert alert-success">
 											<h5>Perhatian!</h5>
 											<p>
 												Konseling terhadap Klien ini sudah selesai dilakukan. Untuk laporan hasil assessment dapat dilihat dengan mengklik tombol di bawah.
@@ -315,7 +327,6 @@
 											<div class="card-body">
 												<div class="btn-group float-right">
 													<a href="{{url('admin/home-psikolog/konseling/laporan-detail/1')}}" class="btn btn-primary">Laporan Detail Konseling</a>
-													<a href="{{url('admin/home-psikolog/konseling/evaluasi/1')}}" class="btn btn-secondary">Form Evaluasi Klien</a>
 												</div>
 											</div>
 										</div>
@@ -411,8 +422,13 @@
 										<div class="callout callout-danger">
 											<h5>Perhatian!</h5>
 											<p>
-											@if($data->status==0) Mohon untuk mengkonfirmasi konseling pada tab 'informasi' terlebih dahulu sebelum menginputkan hasil konseling. @endif
-											Inputkan data sesuai dengan field yang tersedia.
+											@if($data->status==0) 
+												Mohon untuk mengkonfirmasi konseling pada tab 'informasi' terlebih dahulu sebelum menginputkan hasil konseling. 
+											@elseif($data->status==2)
+												Anda sudah menginputkan data konseling sebelumnya. Jika ingin mengubah data, silahkan inputkan kembali data yang baru.
+											@else
+												Anda sedang dalam proses konseling. Mohon untuk menginputkan data konseling setelah selesai melakukan assessment.
+											@endif
 											</p>
 										</div>
 										<!-- .callout -->
@@ -423,14 +439,22 @@
 											</div>
 											<!-- /.card-header -->
 											<div class="card-body">
+												@if($data->status!=2)
 												<form enctype="multipart/form-data" action="{{route('backend.storeHasil')}}" method="POST" class="form-horizontal">
+												@else
+												<form enctype="multipart/form-data" action="{{route('backend.updateHasil', $data->konseling_id)}}" method="POST" class="form-horizontal">
+												@endif
 													@csrf
 													<input type="hidden" name="mas_id" value="{{$data->token}}">
 													<input type="hidden" name="keluhan_id" value="{{$data->keluhan_id}}">
+													<input type="hidden" name="konseling_id" value="{{$data->konseling_id}}">
+
+
 													<div class="form-group row">
 														<label for="inputExperience" class="col-sm-2 col-form-label">Hasil Assessment</label>
 														<div class="col-sm-10">
-															<textarea class="form-control" name="hasil" id="hasil" placeholder="hasil" @if($data->status==0)disabled @endif></textarea>
+															<textarea class="form-control" name="hasil" id="hasil" placeholder="hasil" @if($data->status==0)disabled @endif>{!!$data->hasil!!}</textarea>
+															<small>Inputkan data berdasarkan field yang diminta</small>
 														</div>
 													</div>
 
@@ -442,7 +466,7 @@
 																<div class="col-md-6">
 																	@foreach($masalah as $m)
 																	<div class="form-check">
-																		<input name="masalah[]" value="{{$m->id}}" class="form-check-input" type="checkbox">
+																		<input name="masalah[]" value="{{$m->id}}" {{ in_array($m->id, $konseling_masalah) ? 'checked' : '' }} class="form-check-input" type="checkbox">
 																		<label class="form-check-label">{{$m->nama}}</label>
 																	</div>
 																	@endforeach
@@ -467,23 +491,33 @@
 													<div class="form-group row">
 														<label for="inputExperience" class="col-sm-2 col-form-label">Kesimpulan</label>
 														<div class="col-sm-10">
-															<textarea name="kesimpulan" class="form-control" id="inputExperience" placeholder="kesimpulan" @if($data->status==0)disabled @endif></textarea>
+															<textarea name="kesimpulan" class="form-control" id="inputExperience" placeholder="kesimpulan" value="{{$data->kesimpulan}}" @if($data->status==0)disabled @endif>{!!$data->kesimpulan!!}</textarea>
+															<small>Inputkan data berdasarkan field yang diminta</small>
 														</div>
 													</div>
 													<div class="form-group row">
 														<label for="inputExperience" class="col-sm-2 col-form-label">Saran</label>
 														<div class="col-sm-10">
-															<textarea name="saran" class="form-control" id="inputExperience" placeholder="saran" @if($data->status==0)disabled @endif></textarea>
+															<textarea name="saran" class="form-control" id="inputExperience" placeholder="saran" @if($data->status==0)disabled @endif>{!!$data->saran!!}</textarea>
+															<small>Inputkan data berdasarkan field yang diminta</small>
 														</div>
 													</div>
 													<div class="form-group row">
 														<label for="customFile" class="col-sm-2 col-form-label">Dokumentasi</label>
 
 														<div class="col-sm-10">
+															@if($data->berkas_pendukung)
+															<img class="img-fluid" src="{{asset('uploads/berkas_pendukung/'.$data->berkas_pendukung)}}">
+															@endif
 															<div class="custom-file">
+																@if($data->status!=0)
 																<input type="file" name="berkas_pendukung" class="custom-file-input form-control" id="customFile">
-																<label class="custom-file-label" for="customFile">Pilh Berkas</label>
+																<label class="custom-file-label" for="customFile">Pilih Berkas</label>
+																@else
+																<small>xxx</small>
+																@endif
 															</div>
+															<small>Input file yang berekstensi jpg, jpeg dan png</small>
 														</div>
 													</div>
 													<!-- <div class="form-group row">
