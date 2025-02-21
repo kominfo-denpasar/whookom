@@ -414,17 +414,26 @@ class FrontController extends Controller
 			'mas_id' => $id,
 			'status' => 0
 			])
-		->latest()
+		->orWhere([
+			'mas_id' => $id,
+			'status' => 1
+		])
 		->first();
 
 		// cek data konseling
 		$konseling = Konseling::where([
 			'mas_id' => $id,
 			'status' => 0
-		])->latest()->first();
+		])->orWhere([
+			'mas_id' => $id,
+			'status' => 1
+		])->first();
+
+		// dd($keluhan);
 
 		if($keluhan && $konseling) {
-			// jika sudah mengisi keluhan & status konseling belum selesai
+			// dd('test');
+			// jika sudah mengisi keluhan & status konseling belum disetujui dan belum selesai
 			return redirect()->route('front.konseling-final', $id)->with([
 				'mas_id' => $id,
 				'jadwal' => true
@@ -563,6 +572,7 @@ class FrontController extends Controller
 			'psikolog_id'   => 'required',
 			'jadwal_id'   => 'required',
 			'mas_id'   => 'required',
+			'jadwal_tgl'   => 'required',
 			'jadwal_alt_tgl'   => 'required',
 			'jadwal_alt_jam'   => 'required'
 		]);
@@ -572,6 +582,7 @@ class FrontController extends Controller
 		->update([
 			'psikolog_id'   	=> $request->psikolog_id,
 			'jadwal_id'     	=> $request->jadwal_id,
+			'jadwal_tgl'     	=> $request->jadwal_tgl,
 			'jadwal_alt_tgl'   	=> $request->jadwal_alt_tgl,
 			'jadwal_alt_jam'   	=> $request->jadwal_alt_jam
 		]);
@@ -608,8 +619,11 @@ class FrontController extends Controller
 			->where([
 				'masyarakats.token' => $id,
 				'keluhans.status' => 0
-			]
-			)
+			])
+			->orWhere([
+				'masyarakats.token' => $id,
+				'keluhans.status' => 1
+			])
 			->first();
 		
 		// dd($masyarakat);

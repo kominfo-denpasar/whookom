@@ -139,7 +139,8 @@
 						<div class="field-body">
 							<div class="field">
 								<div class="control">
-									<input type="text" name="kec_id" autocomplete="off" value="{{ App\Http\Controllers\PsikologController::kec($masyarakat->kec_id) }}" class="input" readonly>
+									<input type="hidden" name="kec_id" value="{{$masyarakat->kec_id}}">
+									<input type="text" autocomplete="off" value="{{ App\Http\Controllers\PsikologController::kec($masyarakat->kec_id) }}" class="input" readonly>
 								</div>
 							</div>
 						</div>
@@ -149,7 +150,8 @@
 						<div class="field-body">
 							<div class="field">
 								<div class="control">
-									<input type="text" name="desa_id" autocomplete="off" value="{{ App\Http\Controllers\PsikologController::desa($masyarakat->desa_id) }}" class="input" readonly>
+									<input type="hidden" name="desa_id" value="{{$masyarakat->desa_id}}">
+									<input type="text" autocomplete="off" value="{{ App\Http\Controllers\PsikologController::desa($masyarakat->desa_id) }}" class="input" readonly>
 								</div>
 							</div>
 						</div>

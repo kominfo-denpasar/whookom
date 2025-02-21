@@ -293,6 +293,13 @@ class HomePsikologController extends Controller
 		$konseling->updated_at = Carbon::now();
 		$konseling->save(['timestamps' => FALSE]);
 
+		// kirim notifikasi ke masyarakat
+		// $data = [
+		// 	'phone' => '0'.$masyarakat->hp,
+		// 	'message' => "Halo $masyarakat->nama, berikut adalah detail jadwal konseling Anda:\n\nTanggal: $masyarakat->hari\nJam: $masyarakat->jam\nPsikolog: $masyarakat->psikolog\nNomor HP Psikolog: 0$masyarakat->psikolog_hp\nAlamat Praktek Psikolog: 0$masyarakat->alamat_praktek\n\nSampai jumpa nanti!\n\nSalam, Denpasar Menyama Bagia"
+		// ];
+		// $this->notif_wa($data);
+
 		if($keluhan && $konseling) {
 			return redirect()->route('backend.konseling', $request->keluhan_id)->with('success', 'Berhasil melakukan update');
 		} else {
@@ -310,8 +317,8 @@ class HomePsikologController extends Controller
 		if($request->jenis=='utama') {
 			// update jadwal utama
 			$keluhan = keluhan::find($request->keluhan_id);
-			$keluhan->jadwal_alt2_tgl = Carbon::now()->format('Y-m-d');
-			$keluhan->jadwal_alt2_jam = Carbon::now()->format('H:i');
+			$keluhan->jadwal_alt2_tgl = $request->jadwal_tgl;
+			$keluhan->jadwal_alt2_jam = $request->jadwal_jam;
 			$keluhan->status = 1;
 			$keluhan->updated_at = Carbon::now();
 			$keluhan->save(['timestamps' => FALSE]);
@@ -334,6 +341,14 @@ class HomePsikologController extends Controller
 		$konseling->updated_at = Carbon::now();
 		$konseling->save(['timestamps' => FALSE]);
 
+		// kirim notifikasi ke masyarakat
+		// $data = [
+		// 	'phone' => '0'.$masyarakat->hp,
+		// 	'message' => "Halo $masyarakat->nama, berikut adalah detail jadwal konseling Anda:\n\nTanggal: $masyarakat->hari\nJam: $masyarakat->jam\nPsikolog: $masyarakat->psikolog\nNomor HP Psikolog: 0$masyarakat->psikolog_hp\nAlamat Praktek Psikolog: 0$masyarakat->alamat_praktek\n\nSampai jumpa nanti!\n\nSalam, Denpasar Menyama Bagia"
+		// ];
+		// $this->notif_wa($data);
+
+		// 
 		if($keluhan && $konseling) {
 			return redirect()->route('backend.konseling', $request->keluhan_id)->with('success', 'Berhasil melakukan update');
 		} else {
