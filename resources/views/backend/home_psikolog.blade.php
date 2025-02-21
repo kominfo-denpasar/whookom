@@ -76,12 +76,12 @@
 				<div class="card">
 					<div class="card-header border-0">
 						<h3 class="card-title">
-							List Klien yang registrasi konseling
+							<b>List Klien Registrasi Konseling</b>
 						</h3>
 						<div class="card-tools">
-							<a href="#" class="btn btn-tool btn-sm">
+							<!-- <a href="#" class="btn btn-tool btn-sm">
 								<i class="fas fa-bars"></i>
-							</a>
+							</a> -->
 						</div>
 					</div>
 					<div class="card-body table-responsive p-0">
@@ -108,7 +108,7 @@
 									</td>
 									<td>{{$k->nama}}</td>
 									<td>
-										{{$k->created_at}}
+										{{ \Carbon\Carbon::parse($k->created_at)->format('d/m/Y | h:i')}} WITA
 									</td>
 									<td>
 										@if($k->status == 2)
