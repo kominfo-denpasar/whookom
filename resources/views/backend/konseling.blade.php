@@ -157,7 +157,7 @@
 													<tbody>
 														<tr>
 															<td style="width:20%" class="text-right">Hari</td>
-															<td><b>{{$data->hari}}</b></td>
+															<td><b>{{$data->hari}}</b> ({{ \Carbon\Carbon::parse($data->jadwal_tgl)->format('d/m/Y')}})</td>
 														</tr>
 														<tr>
 															<td class="text-right">Jam</td>
