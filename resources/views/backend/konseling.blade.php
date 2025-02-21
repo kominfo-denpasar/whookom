@@ -207,6 +207,8 @@
 														@csrf
 														<input type="hidden" name="keluhan_id" value="{{$data->keluhan_id}}">
 														<input type="hidden" name="jenis" value="utama">
+														<input type="hidden" name="jadwal_tgl" value="{{$data->jadwal_tgl}}">
+														<input type="hidden" name="jadwal_jam" value="{{$data->jamnya}}">
 														<button type="submit" class="btn btn-primary">Konfirmasi Jadwal Utama</button>
 													</form>
 													<form action="{{route('backend.updateJadwal')}}" method="POST">
