@@ -70,6 +70,18 @@
 							<p class="help">Pilih psikolog dahulu sebelum memilih hari & jam konseling</p>
 						</div>
 					</div>
+					<div class="field">
+						<label class="label">Tanggal Konseling</label>
+						<div class="field-body">
+							<div class="field">
+								<div class="control">
+									<input type="date" autocomplete="off" name="jadwal_tgl" class="input" required="">
+								</div>
+								<p class="help">Pilih tanggal kapan Anda ingin melakukan konseling</p>
+							</div>
+						</div>
+					</div>
+					<!-- .field -->
 				</div>
 				<!-- .field -->
 

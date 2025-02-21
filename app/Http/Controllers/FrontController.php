@@ -563,6 +563,7 @@ class FrontController extends Controller
 			'psikolog_id'   => 'required',
 			'jadwal_id'   => 'required',
 			'mas_id'   => 'required',
+			'jadwal_tgl'   => 'required',
 			'jadwal_alt_tgl'   => 'required',
 			'jadwal_alt_jam'   => 'required'
 		]);
@@ -572,6 +573,7 @@ class FrontController extends Controller
 		->update([
 			'psikolog_id'   	=> $request->psikolog_id,
 			'jadwal_id'     	=> $request->jadwal_id,
+			'jadwal_tgl'     	=> $request->jadwal_tgl,
 			'jadwal_alt_tgl'   	=> $request->jadwal_alt_tgl,
 			'jadwal_alt_jam'   	=> $request->jadwal_alt_jam
 		]);
