@@ -10,6 +10,7 @@ return [
     'faq' => 'FAQ',
     'link-eksternal' => 'Link Eksternal',
     'get_started' => 'Saya ingin bahagia!',
+    'alt_intro' => 'Periksa DASS-21',
     'intro' => 'Hai teman-teman! Kalau kalian pernah merasa sedih atau bingung, jangan ragu untuk berbagi cerita dengan kami. Di sini, kamu akan belajar cara mengatur perasaan dan menghadapi tantangan dengan senyum. Yuk, mari kita ciptakan hari-hari ceria bersama, karena setiap senyummu adalah kunci masa depan yang gemilang!',
     'blog_title' => 'Edukasi & Saran',
     'blog_desc' => 'Jelajahi kiat-kiat praktis mencintai diri sendiri untuk membangun hubungan yang lebih sehat dengan diri sendiri.',

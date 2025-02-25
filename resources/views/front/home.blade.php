@@ -42,6 +42,10 @@
                         class="block w-full px-12 py-3 text-lg font-medium text-white rounded shadow bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
                         {{ __('front.get_started') }}
                     </a>
+                    <a href="{{ url('/survei') }}"
+                        class="block w-full px-12 py-3 text-lg font-medium text-black rounded shadow bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring active:bg-gray-300 sm:w-auto">
+                        {{ __('front.alt_intro') }}
+                    </a>
                 </div>
             </div>
         </div>
