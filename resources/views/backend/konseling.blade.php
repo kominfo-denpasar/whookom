@@ -98,7 +98,7 @@
 								<strong><i class="far fa-file-alt mr-1"></i> Riwayat Konseling</strong>
 								@if($riwayat_konseling->isEmpty())
 								<p class="text-muted">
-									<small>- Belum ada data konseling lainnya -</small>
+									<small>[Belum ada data konseling lainnya]</small>
 								</p>
 								@else
 								<ol class="text-muted">
@@ -219,6 +219,7 @@
 														<input type="hidden" name="jadwal_alt2_jam" value="{{$data->jadwal_alt_jam}}">
 														<button type="submit" class="btn btn-info">Konfirmasi Jadwal Alternatif</button>
 													</form>
+														<a class="btn btn-danger" target="_BLANK" href="//wa.me/62{{$data->hp}}"><i class="fas fa-phone"></i> &nbsp;Hubungi Klien</a>
 												</div>
 											</div>
 										</div>
@@ -317,6 +318,51 @@
 											</div>
 										</div>
 										<!-- /.card -->
+
+										<div class="callout callout-info">
+											<h5></h5>
+											<p>
+												Jika Anda ingin reschedule. Anda dapat melakukan pengajuan ulang tanggal dan jam di bawah ini dan mengklik tombol "reschedule".
+											</p>
+										</div>
+
+										<form action="{{route('backend.konseling-reschedule')}}" method="POST" class="form-horizontal">
+											@csrf
+											<input type="hidden" name="keluhan_id" value="{{$data->keluhan_id}}">
+											
+											<div class="form-group row">
+												<label for="field" class="col-sm-2 col-form-label">Tanggal</label>
+												<div class="col-sm-10">
+													<input class="form-control" id="jadwal_alt2_tgl" type="date" name="jadwal_alt2_tgl">
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<label for="field" class="col-sm-2 col-form-label">Jam</label>
+												<div class="col-sm-10">
+													<input class="form-control" id="jadwal_alt2_jam" type="time" name="jadwal_alt2_jam">
+												</div>
+											</div>
+											<!-- <div class="form-group row">
+												<div class="offset-sm-2 col-sm-10">
+													<div class="checkbox">
+														<label>
+															<input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+														</label>
+													</div>
+												</div>
+											</div> -->
+											<div class="form-group row">
+												<div class="offset-sm-2 col-sm-10">
+													<button type="submit" class="btn btn-success">
+														Reschedule Jadwal
+													</button>
+													<a href="{{route('backend.konseling-batal', $data->keluhan_id)}}" class="btn btn-danger">
+														Batalkan
+													</a>
+												</div>
+											</div>
+										</form>
 
 										@elseif($data->status==2)
 
