@@ -11,6 +11,7 @@ use App\Models\keluhan;
 use App\Models\Masalah;
 use App\Models\KonselingMasalah;
 
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
 class HomePsikologController extends Controller
@@ -377,10 +378,21 @@ class HomePsikologController extends Controller
 		]);
 
 		// dd($request->all());
-		// simpan file berkas pendukung
+		// simpan file berkas pendukung menggunakan storage
 		$berkas_pendukung = $request->file('berkas_pendukung');
 		$berkas_pendukung_name = time().'_'.$berkas_pendukung->getClientOriginalName();
-		$berkas_pendukung->move(public_path('uploads/berkas_pendukung'), $berkas_pendukung_name);
+
+		$year_folder = date("Y");
+		$month_folder = $year_folder . '/' . date("m");
+
+		$path = 'uploads/berkas_pendukung/'.$month_folder.'/'.$berkas_pendukung_name;
+
+		$file_content = file_get_contents($berkas_pendukung);
+		if(!Storage::disk('public')->put($path, $file_content)) {
+			return false;
+		}
+
+		// $berkas_pendukung->move(public_path('uploads/berkas_pendukung'), $berkas_pendukung_name);
 
 		// update data konseling
 		$konseling = Konseling::where([
@@ -391,7 +403,7 @@ class HomePsikologController extends Controller
 			'hasil' => $request->hasil,
 			'kesimpulan' => $request->kesimpulan,
 			'saran' => $request->saran,
-			'berkas_pendukung' => $berkas_pendukung_name,
+			'berkas_pendukung' => $month_folder.'/'.$berkas_pendukung_name,
 			'status' => 2,
 			'updated_at' => Carbon::now()
 		]);
@@ -444,18 +456,24 @@ class HomePsikologController extends Controller
 		// jika ada file berkas pendukung
 		if($request->hasFile('berkas_pendukung')) {
 			// hapus file lama
+			$year_folder = date("Y");
+			$month_folder = $year_folder . '/' . date("m");
+
 			$old_berkas_pendukung = Konseling::where('id', $request->konseling_id)->first();
 			if($old_berkas_pendukung->berkas_pendukung) {
-				$old_file = public_path('uploads/berkas_pendukung/'.$old_berkas_pendukung->berkas_pendukung);
-				if(file_exists($old_file)) {
-					unlink($old_file);
-				}
+				unlink(storage_path('app/public/uploads/berkas_pendukung/'.$old_berkas_pendukung->berkas_pendukung));
 			}
 			
-			// simpan file berkas pendukung
+			// simpan file berkas pendukung menggunakan storage
 			$berkas_pendukung = $request->file('berkas_pendukung');
 			$berkas_pendukung_name = time().'_'.$berkas_pendukung->getClientOriginalName();
-			$berkas_pendukung->move(public_path('uploads/berkas_pendukung'), $berkas_pendukung_name);
+
+			$path = 'uploads/berkas_pendukung/'.$month_folder.'/'.$berkas_pendukung_name;
+
+			$file_content = file_get_contents($berkas_pendukung);
+			if(!Storage::disk('public')->put($path, $file_content)) {
+				return false;
+			}
 
 			$konseling = Konseling::where([
 				'id' => $request->konseling_id
@@ -463,7 +481,7 @@ class HomePsikologController extends Controller
 				'hasil' => $request->hasil,
 				'kesimpulan' => $request->kesimpulan,
 				'saran' => $request->saran,
-				'berkas_pendukung' => $berkas_pendukung_name,
+				'berkas_pendukung' => $month_folder.'/'.$berkas_pendukung_name,
 				'status' => 2,
 				'updated_at' => Carbon::now()
 			]);

@@ -513,7 +513,12 @@
 
 														<div class="col-sm-10">
 															@if($konseling['berkas_pendukung'])
-															<img class="img-fluid" src="{{asset('uploads/berkas_pendukung/'.$konseling['berkas_pendukung'])}}">
+																<!-- cek apakah file ada di folder -->
+																@if(file_exists(storage_path('app/public/uploads/berkas_pendukung/'.$konseling['berkas_pendukung'])))
+																	<img class="img-fluid" src="{{asset('storage/uploads/berkas_pendukung/'.$konseling['berkas_pendukung'])}}">
+																@else
+																	<img class="img-fluid" src="{{asset('img/pp_user.jpg')}}">
+																@endif
 															@endif
 															<div class="custom-file">
 																@if($data->status!=0)
