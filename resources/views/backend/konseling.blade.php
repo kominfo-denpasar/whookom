@@ -317,7 +317,7 @@
 										<div class="callout callout-info">
 											<h5></h5>
 											<p>
-												Jika Anda ingin <b>reschedule</b> jadwal. Anda dapat melakukan pengajuan ulang tanggal dan jam di bawah ini dan mengklik tombol "reschedule". Jika Anda ingin <b>membatalkan</b> jadwal ini mohon mengklik tombol 'Batalkan'.
+												Jika Anda ingin <b>reschedule</b> jadwal. Anda dapat melakukan pengajuan ulang tanggal dan jam dengan cara mengisi field bawah ini dan mengklik tombol "reschedule". Jika Anda ingin <b>membatalkan</b> jadwal ini mohon mengklik tombol 'Batalkan' tanpa mengisi field di bawah.
 											</p>
 										</div>
 

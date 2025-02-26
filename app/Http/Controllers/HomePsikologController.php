@@ -563,7 +563,7 @@ class HomePsikologController extends Controller
 			$this->notif_wa($data);
 
 			// redirect ke halaman konseling
-			return redirect()->route('backend.konseling', $request->keluhan_id)->with('success', 'Berhasil melakukan pembatalan konseling');
+			return redirect()->route('backend.konseling', $id)->with('success', 'Berhasil melakukan pembatalan konseling');
 		} else {
 			// update balik status keluhan menjadi sebelumnya
 			$keluhan = keluhan::find($id);
@@ -571,7 +571,7 @@ class HomePsikologController extends Controller
 			$keluhan->updated_at = Carbon::now();
 			$keluhan->save(['timestamps' => FALSE]);
 			
-			return redirect()->route('backend.konseling', $request->keluhan_id)->with('error', 'Gagal melakukan pembatalan konseling');
+			return redirect()->route('backend.konseling', $id)->with('error', 'Gagal melakukan pembatalan konseling');
 		}
 	}
 
