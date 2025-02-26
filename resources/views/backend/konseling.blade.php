@@ -191,7 +191,7 @@
 														</tr>
 														<tr>
 															<td class="text-right">Jam</td>
-															<td><b>{{ \Carbon\Carbon::parse($data->jadwal_alt_jam)->format('h:i')}} WITA</b></td>
+															<td><b>{{$data->jadwal_alt_jam}} WITA</b></td>
 														</tr>
 													</tbody>
 												</table>
@@ -297,7 +297,7 @@
 														</tr>
 														<tr>
 															<td class="text-right">Jam</td>
-															<td><b>{{ \Carbon\Carbon::parse($data->jadwal_alt2_jam)->format('h:i')}} WITA</b></td>
+															<td><b>{{$data->jadwal_alt2_jam}} WITA</b></td>
 														</tr>
 														<tr>
 															<td class="text-right">Waktu Dikonfirmasi</td>
@@ -310,19 +310,14 @@
 										</div>
 										<!-- /.card -->
 
-										<div class="card card-info shadow-md">
-											<div class="card-body">
-												<p>
-													<b>Catatan:</b> Setelah selesai melakukan assessment, mohon untuk menginputkan data pada tab 'Input Data Konseling' supaya status konseling menjadi selesai. Formulir evaluasi dapat diisi oleh Klien pada tab 'Formulir Evaluasi'.
-												</p>
-											</div>
+										<div class="col-md-12">
+											<hr>
 										</div>
-										<!-- /.card -->
 
 										<div class="callout callout-info">
 											<h5></h5>
 											<p>
-												Jika Anda ingin reschedule. Anda dapat melakukan pengajuan ulang tanggal dan jam di bawah ini dan mengklik tombol "reschedule".
+												Jika Anda ingin <b>reschedule</b> jadwal. Anda dapat melakukan pengajuan ulang tanggal dan jam di bawah ini dan mengklik tombol "reschedule". Jika Anda ingin <b>membatalkan</b> jadwal ini mohon mengklik tombol 'Batalkan'.
 											</p>
 										</div>
 
@@ -384,6 +379,15 @@
 										</div>
 										<!-- /.card -->
 
+										@elseif($data->status==3)
+										<div class="alert alert-danger">
+											<h5>Perhatian!</h5>
+											<p>
+												Konseling terhadap Klien ini dibatalkan. Jika Anda ingin melakukan konseling terhadap klien ini, mohon supaya klien untuk melakukan registrasi ulang.
+											</p>
+										</div>
+										<!-- .callout -->
+
 										@endif
 									</div>
 									<!-- /.tab-pane -->
@@ -410,7 +414,6 @@
 												<!-- .callout -->
 											</div>
 										</div>
-
 										
 										<div class="card card-primary">
 											<div class="card-header">
@@ -469,6 +472,8 @@
 											</div>
 									</div>
 									<!-- /.tab-pane -->
+
+									@if($data->status!=3)
 
 									<div class="tab-pane" id="settings">
 										<div class="callout callout-danger">
@@ -598,6 +603,7 @@
 										<!-- /.card -->
 									</div>
 									<!-- /.tab-pane -->
+									
 
 									<div class="tab-pane" id="evaluasi">
 										<div class="col-11">
@@ -648,6 +654,7 @@
 										<!-- .col-11 -->
 									</div>
 									<!-- .evaluasi -->
+									@endif
 								</div>
 								<!-- .col-12 -->
 								</div>

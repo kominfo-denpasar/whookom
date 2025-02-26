@@ -526,4 +526,101 @@ class HomePsikologController extends Controller
 			return redirect()->route('backend.konseling', $request->keluhan_id)->with('error', 'Gagal melakukan update data hasil konseling');
 		}
 	}
+
+	/**
+	 * Batalkan konseling. 
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function batal($id)
+	{
+		// update status keluhan dan konseling menjadi batal
+		$keluhan = keluhan::find($id);
+		$keluhan->status = 3;
+		$keluhan->updated_at = Carbon::now();
+		$keluhan->save(['timestamps' => FALSE]);
+
+		$konseling = Konseling::where([
+			'psikolog_id' => $this->getUser()->psikolog_id,
+			'mas_id' => $keluhan->mas_id,
+			'status' => 1
+		])->latest()->first();
+		$konseling->status = 3;
+		$konseling->updated_at = Carbon::now();
+		$konseling->save(['timestamps' => FALSE]);
+		
+
+		if($keluhan && $konseling) {
+			// get data masyarakat
+			$masyarakat = Masyarakat::where('token', $keluhan->mas_id)->first();
+
+			// kirim notifikasi ke masyarakat
+			$data = [
+				'phone' => '0'.$masyarakat->hp,
+				'message' => "Halo $masyarakat->nama, maaf konseling Anda pada tanggal $keluhan->jadwal_alt2_tgl jam $keluhan->jadwal_alt2_jam telah dibatalkan. Silakan hubungi kami untuk informasi lebih lanjut.\n\nSalam, Denpasar Menyama Bagia"
+			];
+
+			$this->notif_wa($data);
+
+			// redirect ke halaman konseling
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('success', 'Berhasil melakukan pembatalan konseling');
+		} else {
+			// update balik status keluhan menjadi sebelumnya
+			$keluhan = keluhan::find($id);
+			$keluhan->status = 1;
+			$keluhan->updated_at = Carbon::now();
+			$keluhan->save(['timestamps' => FALSE]);
+			
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('error', 'Gagal melakukan pembatalan konseling');
+		}
+	}
+
+	/**
+	 * reschedule konseling. 
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function reschedule(Request $request)
+	{
+		//validate form
+		$this->validate($request, [
+			'keluhan_id'     => 'required',
+			'jadwal_alt2_tgl'     => 'required',
+			'jadwal_alt2_jam'     => 'required'
+		]);
+
+		// dd($request->all());
+
+		// update keluhan dan konseling
+		$keluhan = keluhan::find($request->keluhan_id);
+		$keluhan->jadwal_alt2_tgl = $request->jadwal_alt2_tgl;
+		$keluhan->jadwal_alt2_jam = $request->jadwal_alt2_jam;
+		$keluhan->status = 1;
+		$keluhan->updated_at = Carbon::now();
+		$keluhan->save(['timestamps' => FALSE]);
+
+		$konseling = Konseling::where([
+			'psikolog_id' => $this->getUser()->psikolog_id,
+			'mas_id' => $keluhan->mas_id,
+			'status' => 1
+		])->latest()->first();
+		$konseling->updated_at = Carbon::now();
+		$konseling->save(['timestamps' => FALSE]);
+
+		// kirim notifikasi ke masyarakat
+		// get masyarakat
+		$masyarakat = Masyarakat::where('token', $keluhan->mas_id)->first();
+
+		$data = [
+			'phone' => '0'.$masyarakat->hp,
+			'message' => "Halo $masyarakat->nama, jadwal konseling Anda telah direschedule menjadi:\n\nTanggal: $masyarakat->hari\nJam: $masyarakat->jam\n\nSampai jumpa nanti!\n\nSalam, Denpasar Menyama Bagia"
+		];
+		$this->notif_wa($data);
+
+		if($keluhan && $konseling) {
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('success', 'Berhasil melakukan reschedule konseling');
+		} else {
+			return redirect()->route('backend.konseling', $request->keluhan_id)->with('error', 'Gagal melakukan reschedule konseling');
+		}
+	}
 }

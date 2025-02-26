@@ -31,10 +31,10 @@
 				<div class="row">
 					<div class="col-12 col-sm-6 col-md-4">
 						<div class="info-box">
-						<span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cog"></i></span>
+						<span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
 
 						<div class="info-box-content">
-							<span class="info-box-text">Konseling Belum</span>
+							<span class="info-box-text">Konseling Menunggu</span>
 							<span class="info-box-number">
 								<h3>{{$dashboard['konseling_belum']}}</h3>
 							</span>
@@ -115,8 +115,10 @@
 											<span class="badge bg-success">Selesai</span>
 										@elseif($k->status == 1)
 											<span class="badge bg-warning">On Progress</span>
+										@elseif($k->status == 3)
+											<span class="badge bg-danger">Batal</span>
 										@else
-											<span class="badge bg-danger">Belum</span>
+											<span class="badge bg-info">Menunggu</span>
 										@endif
 									</td>
 									<td>
