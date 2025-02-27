@@ -16,7 +16,7 @@
 				</div>
 			</div>
 
-			<h2 class="text-2xl font-bold mb-6 text-center">Perkenalan Diri</h2>
+			<h2 class="text-2xl font-bold mb-6 text-center">Sejenak, mari renungkan diri</h2>
 
 			<div class="mt-4 mb-2 space-y-2">
 				<div role="alert" class="rounded border-s-4 border-green-500 bg-green-50 p-4">
@@ -84,7 +84,7 @@
 					</div> -->
 
 					<p class="text-blue-700">
-						Ketahui tingkat stress, depresi dan kecemasan Anda sebagai langkah awal untuk mengenali diri sendiri melalui pengisian survei DASS-21.
+					Ketahui kondisi kesehatan mental dan saran praktis untuk diri Anda. 
 					</p>
 				</div>
 			</div>
@@ -118,41 +118,25 @@
 									d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
 								</path>
 							</svg>
-							<span>Apa yang perlu pahami dan dilakukan sebelum mengisi survei?</span>
+							<span>Penting diketahui sebelum pengisian survey</span>
 						</summary>
 
 						<article class="px-4 pb-4">
 							<p class="text-sm my-2">
-								Sebelum mengisi survei, pastikan Anda berada di tempat yang tenang dan tidak terganggu. Jawablah pertanyaan dengan jujur dan sejujur-jujurnya. Hasil survei ini akan membantu Anda untuk mengetahui tingkat depresi, kecemasan, dan stres yang Anda alami.
+								> Silahkan berada di tempat yang nyaman dan kondusif agar anda dapat berkonsentrasi dalam mengisi survey.
 							</p>
 							<p class="text-sm my-2">
-								Hasil survei ini tidak dapat digunakan sebagai alat diagnosis medis. Jika Anda merasa membutuhkan bantuan lebih lanjut, segera hubungi psikolog atau psikiater terdekat.
+								> Hasil survei ini tidak dapat digunakan sebagai alat diagnosis medis. Jika Anda merasa membutuhkan bantuan lebih lanjut, segera hubungi psikolog atau psikiater terdekat.
 							</p>
 							<p class="my-2 text-sm">
-								Hasil dari survei DASS-21 ini bertujuan untuk memberikan gambaran umum mengenai tingkat depresi, kecemasan, dan stres yang dialami responden. Tes ini bukan alat diagnosis medis dan tidak dapat menggantikan evaluasi profesional dari psikolog atau psikiater.
+								> Tidak ada jawaban yang benar dan salah, jadi silahkan isi sesuai kondisi anda yang sejujur-jujurnya.
 							</p>
 							<p class="my-2 text-sm">
-								Jika hasil survei menunjukkan tingkat yang tinggi dalam salah satu atau lebih kategori, disarankan untuk berkonsultasi dengan tenaga profesional di bidang kesehatan mental guna mendapatkan penilaian yang lebih akurat dan rekomendasi yang sesuai.
+								> Identitas diri dan data pribadi anda akan dijaga kerahasiaannya.
 							</p>
-						</article>
-					</details>
-				</li>
-				<li>
-					<details class="group">
-						<summary class="flex items-center gap-3 px-4 py-3 font-medium marker:content-none hover:cursor-pointer">
-							<svg class="w-5 h-5 text-gray-500 transition group-open:rotate-90" xmlns="http://www.w3.org/2000/svg"
-								width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-								<path fill-rule="evenodd"
-									d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
-								</path>
-							</svg>
-							<span>Hal-hal lain yang ingin ditanyakan</span>
-						</summary>
-
-						<article class="px-4 pb-4">
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et ipsum sapien. Vestibulum molestie
-								porttitor augue vitae vulputate. Aliquam nec ex maximus, suscipit diam vel, tristique tellus. </p>
+							<p class="my-2 text-sm">
+								> Hasil dari survey tidak dapat dijadikan data diagnosis, jadi silahkan untuk ke Psikolog untuk melakukan pemeriksaan lebih lanjut.
+							</p>
 						</article>
 					</details>
 				</li>
