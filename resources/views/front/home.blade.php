@@ -29,8 +29,8 @@
         <div class="relative max-w-screen-xl px-4 py-32 mx-auto sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
             <div class="max-w-xl ltr:sm:text-left rtl:sm:text-right">
                 <h1 class="text-3xl font-extrabold sm:text-5xl">
-                    Kamu berhak untuk
-                    <strong class="block font-extrabold text-rose-700"> Bahagia! </strong>
+                    "Setiap Kita,
+                    <strong class="block font-extrabold text-rose-700"> Berhak Bahagia" </strong>
                 </h1>
 
                 <p class="max-w-lg mt-4 sm:text-xl/relaxed">
@@ -41,6 +41,10 @@
                     <a href="{{ url('/survei') }}"
                         class="block w-full px-12 py-3 text-lg font-medium text-white rounded shadow bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
                         {{ __('front.get_started') }}
+                    </a>
+                    <a href="{{ url('/survei') }}"
+                        class="block w-full px-12 py-3 text-lg font-medium text-black rounded shadow bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring active:bg-gray-300 sm:w-auto">
+                        {{ __('front.alt_intro') }}
                     </a>
                 </div>
             </div>

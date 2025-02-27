@@ -98,7 +98,7 @@
 								<strong><i class="far fa-file-alt mr-1"></i> Riwayat Konseling</strong>
 								@if($riwayat_konseling->isEmpty())
 								<p class="text-muted">
-									<small>- Belum ada data konseling lainnya -</small>
+									<small>[Belum ada data konseling lainnya]</small>
 								</p>
 								@else
 								<ol class="text-muted">
@@ -191,7 +191,7 @@
 														</tr>
 														<tr>
 															<td class="text-right">Jam</td>
-															<td><b>{{ \Carbon\Carbon::parse($data->jadwal_alt_jam)->format('h:i')}} WITA</b></td>
+															<td><b>{{$data->jadwal_alt_jam}} WITA</b></td>
 														</tr>
 													</tbody>
 												</table>
@@ -219,6 +219,7 @@
 														<input type="hidden" name="jadwal_alt2_jam" value="{{$data->jadwal_alt_jam}}">
 														<button type="submit" class="btn btn-info">Konfirmasi Jadwal Alternatif</button>
 													</form>
+														<a class="btn btn-danger" target="_BLANK" href="//wa.me/62{{$data->hp}}"><i class="fas fa-phone"></i> &nbsp;Hubungi Klien</a>
 												</div>
 											</div>
 										</div>
@@ -296,7 +297,7 @@
 														</tr>
 														<tr>
 															<td class="text-right">Jam</td>
-															<td><b>{{ \Carbon\Carbon::parse($data->jadwal_alt2_jam)->format('h:i')}} WITA</b></td>
+															<td><b>{{$data->jadwal_alt2_jam}} WITA</b></td>
 														</tr>
 														<tr>
 															<td class="text-right">Waktu Dikonfirmasi</td>
@@ -309,14 +310,54 @@
 										</div>
 										<!-- /.card -->
 
-										<div class="card card-info shadow-md">
-											<div class="card-body">
-												<p>
-													<b>Catatan:</b> Setelah selesai melakukan assessment, mohon untuk menginputkan data pada tab 'Input Data Konseling' supaya status konseling menjadi selesai. Formulir evaluasi dapat diisi oleh Klien pada tab 'Formulir Evaluasi'.
-												</p>
-											</div>
+										<div class="col-md-12">
+											<hr>
 										</div>
-										<!-- /.card -->
+
+										<div class="callout callout-info">
+											<h5></h5>
+											<p>
+												Jika Anda ingin <b>reschedule</b> jadwal. Anda dapat melakukan pengajuan ulang tanggal dan jam dengan cara mengisi field bawah ini dan mengklik tombol "reschedule". Jika Anda ingin <b>membatalkan</b> jadwal ini mohon mengklik tombol 'Batalkan' tanpa mengisi field di bawah.
+											</p>
+										</div>
+
+										<form action="{{route('backend.konseling-reschedule')}}" method="POST" class="form-horizontal">
+											@csrf
+											<input type="hidden" name="keluhan_id" value="{{$data->keluhan_id}}">
+											
+											<div class="form-group row">
+												<label for="field" class="col-sm-2 col-form-label">Tanggal</label>
+												<div class="col-sm-10">
+													<input class="form-control" id="jadwal_alt2_tgl" type="date" name="jadwal_alt2_tgl">
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<label for="field" class="col-sm-2 col-form-label">Jam</label>
+												<div class="col-sm-10">
+													<input class="form-control" id="jadwal_alt2_jam" type="time" name="jadwal_alt2_jam">
+												</div>
+											</div>
+											<!-- <div class="form-group row">
+												<div class="offset-sm-2 col-sm-10">
+													<div class="checkbox">
+														<label>
+															<input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+														</label>
+													</div>
+												</div>
+											</div> -->
+											<div class="form-group row">
+												<div class="offset-sm-2 col-sm-10">
+													<button type="submit" class="btn btn-success">
+														Reschedule Jadwal
+													</button>
+													<a href="{{route('backend.konseling-batal', $data->keluhan_id)}}" class="btn btn-danger">
+														Batalkan
+													</a>
+												</div>
+											</div>
+										</form>
 
 										@elseif($data->status==2)
 
@@ -337,6 +378,15 @@
 											</div>
 										</div>
 										<!-- /.card -->
+
+										@elseif($data->status==3)
+										<div class="alert alert-danger">
+											<h5>Perhatian!</h5>
+											<p>
+												Konseling terhadap Klien ini dibatalkan. Jika Anda ingin melakukan konseling terhadap klien ini, mohon supaya klien untuk melakukan registrasi ulang.
+											</p>
+										</div>
+										<!-- .callout -->
 
 										@endif
 									</div>
@@ -364,7 +414,6 @@
 												<!-- .callout -->
 											</div>
 										</div>
-
 										
 										<div class="card card-primary">
 											<div class="card-header">
@@ -423,6 +472,8 @@
 											</div>
 									</div>
 									<!-- /.tab-pane -->
+
+									@if($data->status!=3)
 
 									<div class="tab-pane" id="settings">
 										<div class="callout callout-danger">
@@ -513,7 +564,12 @@
 
 														<div class="col-sm-10">
 															@if($konseling['berkas_pendukung'])
-															<img class="img-fluid" src="{{asset('uploads/berkas_pendukung/'.$konseling['berkas_pendukung'])}}">
+																<!-- cek apakah file ada di folder -->
+																@if(file_exists(storage_path('app/public/uploads/berkas_pendukung/'.$konseling['berkas_pendukung'])))
+																	<img class="img-fluid" src="{{asset('storage/uploads/berkas_pendukung/'.$konseling['berkas_pendukung'])}}">
+																@else
+																	<img class="img-fluid" src="{{asset('img/pp_user.jpg')}}">
+																@endif
 															@endif
 															<div class="custom-file">
 																@if($data->status!=0)
@@ -547,6 +603,7 @@
 										<!-- /.card -->
 									</div>
 									<!-- /.tab-pane -->
+									
 
 									<div class="tab-pane" id="evaluasi">
 										<div class="col-11">
@@ -597,6 +654,7 @@
 										<!-- .col-11 -->
 									</div>
 									<!-- .evaluasi -->
+									@endif
 								</div>
 								<!-- .col-12 -->
 								</div>

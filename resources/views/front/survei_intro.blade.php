@@ -19,6 +19,65 @@
 			<h2 class="text-2xl font-bold mb-6 text-center">Perkenalan Diri</h2>
 
 			<div class="mt-4 mb-2 space-y-2">
+				<div role="alert" class="rounded border-s-4 border-green-500 bg-green-50 p-4">
+					<!-- <div class="flex items-center gap-2 text-green-800">
+						<strong class="block font-medium"> Catatan</strong>
+					</div> -->
+
+					<p class="text-green-700">
+						Sebelum memulai, mohon untuk menginputkan Nomor Telpon Anda pada kolom di bawah ini. Kami akan mengirimkan informasi lanjutan melalui Whatsapp. Terima kasih 🙏🏻
+					</p>
+				</div>
+			</div>
+
+			<form action="{{route('front.cek-nik')}}" method="POST" class="space-y-2">
+				@csrf
+				<div class="field">
+					<label class="label">Nomor HP</label>
+					<div class="field-body">
+						<div class="field">
+							<div class="field addons">
+								<div class="control">
+									<input class="input" value="+62" size="2" readonly="">
+								</div>
+								<div class="control expanded">
+									<input class="input" type="tel" placeholder="81xxx" name="hp" required="">
+								</div>
+							</div>
+							<p class="help">Tanpa nol depan. Disarankan nomor yang terhubung dengan WhatsApp. Kami menggunakan WhatsApp untuk mengirimkan info ke Anda</p>
+							<!-- error message untuk title -->
+							@error('hp')
+								<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
+									{{ $message }}
+								</div>
+							@enderror
+							@if($message = Session::get("error"))
+							<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
+								<strong class="font-bold">Error: </strong>
+								<span class="block sm:inline">{{$message}}</span>
+							</div>
+							@endif
+						</div>
+					</div>
+				</div>
+				<!-- .field -->
+				 
+				<div class="space-y-2 text-center">
+					<!-- Base -->
+					<button type="submit" class="mt-4 mb-2 group relative inline-block focus:outline-none focus:ring">
+						<span
+							class="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-yellow-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"
+						></span>
+
+						<span
+							class="relative inline-block border-2 border-current px-8 py-3 text-sm font-bold tracking-widest text-black group-active:text-opacity-75">
+							Submit
+						</span>
+					</button>
+				</div>
+			</form>
+
+			<div class="mt-4 mb-2 space-y-2">
 				<div role="alert" class="rounded border-s-4 border-blue-500 bg-blue-50 p-4">
 					<!-- <div class="flex items-center gap-2 text-green-800">
 						<strong class="block font-medium"> Catatan</strong>
@@ -100,64 +159,7 @@
 
 			</ul>
 
-			<div class="mt-4 mb-2 space-y-2">
-				<div role="alert" class="rounded border-s-4 border-green-500 bg-green-50 p-4">
-					<!-- <div class="flex items-center gap-2 text-green-800">
-						<strong class="block font-medium"> Catatan</strong>
-					</div> -->
-
-					<p class="text-green-700">
-						Mohon untuk menginputkan Nomor Telpon Anda pada kolom di bawah ini. Kami akan mengirimkan informasi lanjutan melalui Whatsapp. Terima kasih 🙏🏻
-					</p>
-				</div>
-			</div>
-
-			<form action="{{route('front.cek-nik')}}" method="POST" class="space-y-2">
-				@csrf
-				<div class="field">
-					<label class="label">Nomor HP</label>
-					<div class="field-body">
-						<div class="field">
-							<div class="field addons">
-								<div class="control">
-									<input class="input" value="+62" size="2" readonly="">
-								</div>
-								<div class="control expanded">
-									<input class="input" type="tel" placeholder="81xxx" name="hp" required="">
-								</div>
-							</div>
-							<p class="help">Tanpa nol depan. Disarankan nomor yang terhubung dengan WhatsApp. Kami menggunakan WhatsApp untuk mengirimkan info ke Anda</p>
-							<!-- error message untuk title -->
-							@error('hp')
-								<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
-									{{ $message }}
-								</div>
-							@enderror
-							@if($message = Session::get("error"))
-							<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
-								<strong class="font-bold">Error: </strong>
-								<span class="block sm:inline">{{$message}}</span>
-							</div>
-							@endif
-						</div>
-					</div>
-				</div>
-				<!-- .field -->
-				 
-				<div class="space-y-2 text-center">
-					<!-- Base -->
-					<button type="submit" class="mt-4 mb-2 group relative inline-block focus:outline-none focus:ring">
-						<span
-							class="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-yellow-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"
-						></span>
-
-						<span
-							class="relative inline-block border-2 border-current px-8 py-3 text-sm font-bold tracking-widest text-black group-active:text-opacity-75">
-							Submit
-						</span>
-					</button>
-				</div>
-			</form>
+			
 		</article>
 
 	</div>
