@@ -73,20 +73,19 @@
                         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                         <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
                         <div class="flex flex-wrap items-center overflow-hidden text-sm leading-6 text-gray-300 gap-y-1">
-                            <time datetime="2023-10-11" class="mr-8">Oct 11, 2023</time>
+                            <time datetime="2023-10-11" class="mr-8">11 Januari 2025</time>
                             <div class="flex items-center -ml-4 gap-x-4"><svg viewBox="0 0 2 2"
                                     class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50">
                                     <circle cx="1" cy="1" r="1"></circle>
                                 </svg>
                                 <div class="flex gap-x-2.5">
                                     <img src="https://randomuser.me/api/portraits/men/2.jpg" alt=""
-                                        class="flex-none w-6 h-6 rounded-full bg-white/10">John
+                                        class="flex-none w-6 h-6 rounded-full bg-white/10">Mirah Laksmi, M.Psi., Psikolog
                                 </div>
                             </div>
                         </div>
                         <h3 class="mt-3 text-lg font-semibold leading-6 text-white">
-                            <a href="/tech-blog/post1"><span class="absolute inset-0"></span>The Future of Artificial
-                                Intelligence: Trends and Challenges</a>
+                            <a href="/tech-blog/post1"><span class="absolute inset-0"></span>Kenali Tanda-tanda perilaku Bunuh Diri</a>
                         </h3>
                     </article>
                     <!-- Second blog post -->
@@ -97,21 +96,19 @@
                         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                         <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
                         <div class="flex flex-wrap items-center overflow-hidden text-sm leading-6 text-gray-300 gap-y-1">
-                            <time datetime="2023-09-25" class="mr-8">Sept 25, 2023</time>
+                            <time datetime="2023-09-25" class="mr-8">20 Januari 2025</time>
                             <div class="flex items-center -ml-4 gap-x-4"><svg viewBox="0 0 2 2"
                                     class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50">
                                     <circle cx="1" cy="1" r="1"></circle>
                                 </svg>
                                 <div class="flex gap-x-2.5">
                                     <img src="https://randomuser.me/api/portraits/women/2.jpg" alt=""
-                                        class="flex-none w-6 h-6 rounded-full bg-white/10">Jane
+                                        class="flex-none w-6 h-6 rounded-full bg-white/10">Mirah Laksmi, M.Psi., Psikolog
                                 </div>
                             </div>
                         </div>
                         <h3 class="mt-3 text-lg font-semibold leading-6 text-white">
-                            <a href="/tech-blog/post2"><span class="absolute inset-0"></span>The Rise of Blockchain
-                                Technology:
-                                A Comprehensive Guide</a>
+                            <a href="/tech-blog/post2"><span class="absolute inset-0"></span>Mengenal Kesehatan Mental</a>
                         </h3>
                     </article>
                     <!-- Third blog post -->
@@ -122,20 +119,19 @@
                         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                         <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
                         <div class="flex flex-wrap items-center overflow-hidden text-sm leading-6 text-gray-300 gap-y-1">
-                            <time datetime="2023-09-24" class="mr-8">Sept 24, 2023</time>
+                            <time datetime="2023-09-24" class="mr-8">14 Februari, 2025</time>
                             <div class="flex items-center -ml-4 gap-x-4"><svg viewBox="0 0 2 2"
                                     class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50">
                                     <circle cx="1" cy="1" r="1"></circle>
                                 </svg>
                                 <div class="flex gap-x-2.5">
                                     <img src="https://randomuser.me/api/portraits/men/4.jpg" alt=""
-                                        class="flex-none w-6 h-6 rounded-full bg-white/10">Michael
+                                        class="flex-none w-6 h-6 rounded-full bg-white/10">Astri Dwidiyanti, M.Psi., Psikolog
                                 </div>
                             </div>
                         </div>
                         <h3 class="mt-3 text-lg font-semibold leading-6 text-white">
-                            <a href="/tech-blog/post3"><span class="absolute inset-0"></span>How Quantum Computing Will
-                                Revolutionize Data Security</a>
+                            <a href="/tech-blog/post3"><span class="absolute inset-0"></span>Quarter Life Crisis</a>
                         </h3>
                     </article>
                     <!-- More blog posts can be added similarly -->
