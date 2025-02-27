@@ -29,8 +29,8 @@
         <div class="relative max-w-screen-xl px-4 py-32 mx-auto sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
             <div class="max-w-xl ltr:sm:text-left rtl:sm:text-right">
                 <h1 class="text-3xl font-extrabold sm:text-5xl">
-                    Kamu berhak untuk
-                    <strong class="block font-extrabold text-rose-700"> Bahagia! </strong>
+                    "Setiap Kita,
+                    <strong class="block font-extrabold text-rose-700"> Berhak Bahagia" </strong>
                 </h1>
 
                 <p class="max-w-lg mt-4 sm:text-xl/relaxed">
