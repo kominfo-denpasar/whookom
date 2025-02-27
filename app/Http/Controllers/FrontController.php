@@ -35,7 +35,7 @@ class FrontController extends Controller
 	public function index()
 	{
 		// dd(\App::getLocale());
-		$psikolog = Psikolog::take(3)->get();
+		$psikolog = Psikolog::inRandomOrder()->take(3)->get();
 
 		return view('front.home')->with([
 			'psikolog' => $psikolog

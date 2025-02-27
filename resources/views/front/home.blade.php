@@ -162,10 +162,10 @@
                                 class="object-cover rounded-full" />
                             
                         </div>
-                        <p class="mt-0.5 text-lg font-medium text-gray-900">{{ $data->nama }}</p>
+                        <p class="mt-0.5 text-lg text-center font-medium text-gray-900">{{ $data->nama }}</p>
 
                         <p class="mt-4 text-gray-700">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                            <!-- Lorem ipsum dolor sit, amet consectetur adipisicing elit. -->
                         </p>
                     </blockquote>
                 </div>
