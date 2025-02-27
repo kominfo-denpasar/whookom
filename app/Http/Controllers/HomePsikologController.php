@@ -548,7 +548,6 @@ class HomePsikologController extends Controller
 		$konseling->status = 3;
 		$konseling->updated_at = Carbon::now();
 		$konseling->save(['timestamps' => FALSE]);
-		
 
 		if($keluhan && $konseling) {
 			// get data masyarakat
