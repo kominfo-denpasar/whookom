@@ -698,7 +698,16 @@ class FrontController extends Controller
 			])
 			->first();
 
-			dd($masyarakat);
+			// dd($masyarakat);
+
+			if($masyarakat) {
+				return view('front.evaluasi', [
+					'mas_id' => $id, 
+					'masyarakat' => $masyarakat]
+				);
+			} else {
+				return redirect()->route('front.survei-intro');
+			}
 	}
 
 	/**
