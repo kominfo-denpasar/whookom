@@ -252,13 +252,13 @@ class HomePsikologController extends Controller
 	}
 
 	/**
-	 * Tampilkan form evaluasi. 
+	 * Trigger kirim form evaluasi ke masyarakat. 
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable
 	 */
 	public function formEvaluasi($id)
 	{
-		return view('backend/evaluasi');
+		dd($id);
 	}
 
 	/**

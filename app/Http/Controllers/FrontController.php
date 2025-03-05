@@ -674,6 +674,34 @@ class FrontController extends Controller
 	}
 
 	/**
+	 * Halaman Formulir Evaluasi.
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function formulirEvaluasi($id)
+	{
+		//ambil data join masyarakat, keluhan dan jadwal
+		$masyarakat = Masyarakat::join('keluhans', 'masyarakats.token', '=', 'keluhans.mas_id')
+			->join('psikologs', 'keluhans.psikolog_id', '=', 'psikologs.id')
+			->select(
+				'masyarakats.nik', 
+				'masyarakats.nama', 
+				'masyarakats.hp', 
+				'keluhans.keluhan', 
+				'psikologs.id as psikolog_id',
+				'psikologs.nama as psikolog',
+				'psikologs.alamat_praktek',
+				'psikologs.hp as psikolog_hp')
+			->where([
+				'masyarakats.token' => $id,
+				'keluhans.status' => 1
+			])
+			->first();
+
+			dd($masyarakat);
+	}
+
+	/**
 	 * Tes halaman
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable

@@ -11,13 +11,17 @@ class Evaluasi extends Model
     public $fillable = [
         'nilai_layanan',
         'nilai_keluhan',
-        'rekomendasi'
+        'rekomendasi',
+        'mas_id',
+        'psikolog_id'
     ];
 
     protected $casts = [
         'nilai_layanan' => 'integer',
         'nilai_keluhan' => 'integer',
-        'rekomendasi' => 'integer'
+        'rekomendasi' => 'integer',
+        'mas_id' => 'string',
+        'psikolog_id' => 'string'
     ];
 
     public static array $rules = [

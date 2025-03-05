@@ -30,7 +30,6 @@ Route::get('/konseling/keluhan/{id}', [App\Http\Controllers\FrontController::cla
 Route::get('/konseling/jadwal/{id}', [App\Http\Controllers\FrontController::class, 'konselingJadwal'])->name('front.konseling-jadwal');
 Route::get('/konseling/final/{id}', [App\Http\Controllers\FrontController::class, 'konselingFinal'])->name('front.konseling-final');
 
-
 Route::post('/survei/cek-nik', [App\Http\Controllers\FrontController::class, 'cekNik'])->name('front.cek-nik');
 Route::post('/survei/store-reg', [App\Http\Controllers\FrontController::class, 'storeReg'])->name('front.store-reg');
 Route::post('/survei/store-dass', [App\Http\Controllers\FrontController::class, 'storeDass'])->name('front.store-dass');
@@ -41,6 +40,7 @@ Route::get('/konseling/store-reg/{id}', [App\Http\Controllers\FrontController::c
 Route::post('/validasi-otp', [App\Http\Controllers\FrontController::class, 'validasiOtp'])->name('front.validasi-otp');
 
 Route::get('/jadwal/psikolog/{id}', [App\Http\Controllers\FrontController::class, 'jadwalPsikolog'])->name('front.jadwal-psikolog');
+Route::get('/evaluasi/{id}', [App\Http\Controllers\FrontController::class, 'formulirEvaluasi'])->name('front.evaluasi');
 
 Auth::routes();
 

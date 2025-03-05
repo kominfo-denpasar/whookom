@@ -610,7 +610,7 @@
 											<div class="callout callout-info">
 												<h5>Perhatian!</h5>
 												<p>
-													Formulir ini ditujukan untuk klien yang telah selesai melakukan konseling. Mohon untuk mengisi formulir evaluasi dengan jujur dan benar. 
+													Formulir ini ditujukan untuk klien yang telah selesai melakukan konseling. Untuk mengirim form ke klien klik tombol di bawah. Klien akan mendapatkan formulir evaluasi melalui email & Whatsapp.
 												</p>
 											</div>
 											<!-- .callout -->
@@ -619,8 +619,8 @@
 											<div class="form-group">
 												<label>Seberapa membantu layanan konseling yang diberikan?
 												</label>
-												<select class="form-control">
-													<option value="">Pilih</option>
+												<select class="form-control" readonly>
+													<option>-</option>
 													<option>Sangat Membantu</option>
 													<option>Membantu</option>
 													<option>Cukup Membantu</option>
@@ -630,8 +630,8 @@
 											<div class="form-group">
 												<label>Setelah konseling, seberapa mengganggu keluhan yang Anda rasakan pada aktivitas sehari-hari?
 												</label>
-												<select class="form-control">
-													<option>Pilih</option>
+												<select class="form-control" readonly>
+													<option>-</option>
 													<option>Sangat Membantu</option>
 													<option>Membantu</option>
 													<option>Cukup Membantu</option>
@@ -641,14 +641,16 @@
 											<div class="form-group">
 												<label>Apakah anda bersedia merekomendasikan layanan konseling ini ke rekan/keluarga yang membutuhkan?
 												</label>
-												<select class="form-control">
-													<option>Pilih</option>
+												<select class="form-control" readonly>
+													<option>-</option>
 													<option>Bersedia</option>
 													<option>Tidak Bersedia</option>
 												</select>
 											</div>
 											<div class="btn-group float-right">
-												<button type="button" class="btn btn-primary">Kirim Data</button>
+												<a href="{{route('backend.evaluasi', $data->token)}}" class="btn btn-primary">
+													Kirim Form Evaluasi ke Klien
+												</a>
 											</div>
 										</div>
 										<!-- .col-11 -->

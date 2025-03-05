@@ -91,9 +91,9 @@
 	</a>
 </li> -->
 
-<li class="nav-item">
+<!-- <li class="nav-item">
     <a href="{{ route('evaluasis.index') }}" class="nav-link {{ Request::is('evaluasis*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Evaluasis</p>
     </a>
-</li>
+</li> -->
