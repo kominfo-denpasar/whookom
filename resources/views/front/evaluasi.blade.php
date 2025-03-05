@@ -41,6 +41,8 @@
 			<form action="{{route('front.store-evaluasi')}}" method="POST" class="space-y-2">
 				@csrf
 				<input type="hidden" name="mas_id" value="{{$mas_id}}">
+				<input type="hidden" name="psikolog_id" value="{{$masyarakat->psikolog_id}}">
+				<input type="hidden" name="keluhan_id" value="{{$masyarakat->keluhan_id}}">
 
 				<div class="field">
 					<label class="label">Nama Lengkap</label>
@@ -99,7 +101,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<select name="jk" class="w-full p-2 input" required="">
+								<select name="nilai_keluhan" class="w-full p-2 input" required="">
 									<option value="">Pilih</option>
 									<option value="4">Sangat Membantu</option>
 									<option value="3">Membantu</option>
@@ -118,7 +120,7 @@
 					<div class="field-body">
 						<div class="field">
 							<div class="control">
-								<select name="jk" class="w-full p-2 input" required="">
+								<select name="rekomendasi" class="w-full p-2 input" required="">
 									<option value="">Pilih</option>
 									<option value="1">Bersedia</option>
 									<option value="0">Tidak Bersedia</option>

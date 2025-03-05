@@ -9,6 +9,7 @@ use App\Models\dasshasil;
 use App\Models\keluhan;
 use App\Models\jadwal;
 use App\Models\Konseling;
+use App\Models\Evaluasi;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -687,7 +688,7 @@ class FrontController extends Controller
 				'masyarakats.nik', 
 				'masyarakats.nama', 
 				'masyarakats.hp', 
-				'keluhans.keluhan', 
+				'keluhans.id as keluhan_id', 
 				'psikologs.id as psikolog_id',
 				'psikologs.nama as psikolog',
 				'psikologs.alamat_praktek',
@@ -698,16 +699,54 @@ class FrontController extends Controller
 			])
 			->first();
 
-			// dd($masyarakat);
+		// cek jika sudah mengisi form evaluasi
+		$evaluasi = Evaluasi::where([
+			'mas_id' => $id,
+			'psikolog_id' => $masyarakat->psikolog_id,
+			'keluhan_id' => $masyarakat->keluhan_id
+		])->first();
+		
 
-			if($masyarakat) {
-				return view('front.evaluasi', [
-					'mas_id' => $id, 
-					'masyarakat' => $masyarakat]
-				);
-			} else {
-				return redirect()->route('front.survei-intro');
-			}
+		// dd($masyarakat);
+
+		if($masyarakat && !$evaluasi) {
+			return view('front.evaluasi', [
+				'mas_id' => $id, 
+				'masyarakat' => $masyarakat]
+			);
+		} else {
+			return redirect()->route('front.survei-intro');
+		}
+	}
+
+	/**
+	 * simpan data evaluasi
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function storeEvaluasi(Request $request)
+	{
+		//validate form
+		$this->validate($request, [
+			'nilai_layanan'   => 'required',
+			'nilai_keluhan'   => 'required',
+			'rekomendasi'   => 'required'
+		]);
+
+		// dd($request->all());
+
+		//simpan data
+		$evaluasi = Evaluasi::create([
+			'nilai_layanan'   	=> $request->nilai_layanan,
+			'nilai_keluhan'   	=> $request->nilai_keluhan,
+			'rekomendasi'   	=> $request->rekomendasi,
+			'mas_id'   			=> $request->mas_id,
+			'psikolog_id'   	=> $request->psikolog_id
+		]);
+
+		//redirect to finish
+		return view('front.evaluasi_selesai');
 	}
 
 	/**

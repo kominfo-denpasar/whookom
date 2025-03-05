@@ -13,7 +13,8 @@ class Evaluasi extends Model
         'nilai_keluhan',
         'rekomendasi',
         'mas_id',
-        'psikolog_id'
+        'psikolog_id',
+        'keluhan_id'
     ];
 
     protected $casts = [
@@ -21,7 +22,8 @@ class Evaluasi extends Model
         'nilai_keluhan' => 'integer',
         'rekomendasi' => 'integer',
         'mas_id' => 'string',
-        'psikolog_id' => 'string'
+        'psikolog_id' => 'string',
+        'keluhan_id' => 'string'
     ];
 
     public static array $rules = [

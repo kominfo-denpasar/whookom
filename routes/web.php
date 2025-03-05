@@ -42,7 +42,7 @@ Route::post('/validasi-otp', [App\Http\Controllers\FrontController::class, 'vali
 Route::get('/jadwal/psikolog/{id}', [App\Http\Controllers\FrontController::class, 'jadwalPsikolog'])->name('front.jadwal-psikolog');
 
 Route::get('/evaluasi/{id}', [App\Http\Controllers\FrontController::class, 'formulirEvaluasi'])->name('front.evaluasi');
-Route::get('/evaluasi/store', [App\Http\Controllers\FrontController::class, 'storeEvaluasi'])->name('front.store-evaluasi');
+Route::post('/evaluasi/store', [App\Http\Controllers\FrontController::class, 'storeEvaluasi'])->name('front.store-evaluasi');
 
 Auth::routes();
 
