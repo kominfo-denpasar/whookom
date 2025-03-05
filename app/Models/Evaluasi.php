@@ -23,14 +23,12 @@ class Evaluasi extends Model
         'rekomendasi' => 'integer',
         'mas_id' => 'string',
         'psikolog_id' => 'string',
-        'keluhan_id' => 'string'
+        'keluhan_id' => 'integer'
     ];
 
     public static array $rules = [
         'nilai_layanan' => 'required',
         'nilai_keluhan' => 'required',
         'rekomendasi' => 'required'
-    ];
-
-    
+    ];   
 }

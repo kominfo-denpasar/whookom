@@ -125,7 +125,7 @@
 									<li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Informasi</a></li>
 									<li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Keluhan & DASS-21</a></li>
 									<li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Input Data Konseling</a></li>
-									<li class="nav-item"><a class="nav-link" href="#evaluasi" data-toggle="tab">Formulir Evaluasi</a></li>
+									<li class="nav-item"><a class="nav-link" href="#evaluasi" data-toggle="tab">Evaluasi</a></li>
 								</ul>
 							</div><!-- /.card-header -->
 							<div class="card-body">
@@ -611,6 +611,10 @@
 												<h5>Perhatian!</h5>
 												<p>
 													Formulir ini ditujukan untuk klien yang telah selesai melakukan konseling. Untuk mengirim form ke klien klik tombol di bawah. Klien akan mendapatkan formulir evaluasi melalui email & Whatsapp.
+
+													@if($konseling!=null)
+													Note: Form evaluasi sudah diinputkan oleh klien.
+													@endif
 												</p>
 											</div>
 											<!-- .callout -->
@@ -619,12 +623,12 @@
 											<div class="form-group">
 												<label>Seberapa membantu layanan konseling yang diberikan?
 												</label>
-												<select class="form-control" readonly>
+												<select class="form-control" disabled>
 													<option>-</option>
-													<option>Sangat Membantu</option>
-													<option>Membantu</option>
-													<option>Cukup Membantu</option>
-													<option>Kurang Membantu</option>
+													<option @if($evaluasi->nilai_layanan==4) {{"selected"}} @endif>Sangat Membantu</option>
+													<option @if($evaluasi->nilai_layanan==3) {{"selected"}} @endif>Membantu</option>
+													<option @if($evaluasi->nilai_layanan==2) {{"selected"}} @endif>Cukup Membantu</option>
+													<option @if($evaluasi->nilai_layanan==1) {{"selected"}} @endif>Kurang Membantu</option>
 												</select>
 											</div>
 											<div class="form-group">
@@ -632,10 +636,10 @@
 												</label>
 												<select class="form-control" readonly>
 													<option>-</option>
-													<option>Sangat Membantu</option>
-													<option>Membantu</option>
-													<option>Cukup Membantu</option>
-													<option>Kurang Membantu</option>
+													<option @if($evaluasi->nilai_keluhan==4) {{"selected"}} @endif>Sangat Membantu</option>
+													<option @if($evaluasi->nilai_keluhan==3) {{"selected"}} @endif>Membantu</option>
+													<option @if($evaluasi->nilai_keluhan==2) {{"selected"}} @endif>Cukup Membantu</option>
+													<option @if($evaluasi->nilai_keluhan==1) {{"selected"}} @endif>Kurang Membantu</option>
 												</select>
 											</div>
 											<div class="form-group">
@@ -643,12 +647,16 @@
 												</label>
 												<select class="form-control" readonly>
 													<option>-</option>
-													<option>Bersedia</option>
-													<option>Tidak Bersedia</option>
+													<option @if($evaluasi->rekomendasi==1) {{"selected"}} @endif>Bersedia</option>
+													<option @if($evaluasi->rekomendasi==0) {{"selected"}} @endif>Tidak Bersedia</option>
 												</select>
 											</div>
 											<div class="btn-group float-right">
+												@if($konseling==null)
 												<a href="{{route('backend.evaluasi', $data->token)}}" class="btn btn-primary">
+												@else
+												<a class="btn btn-primary disabled">
+												@endif
 													Kirim Form Evaluasi ke Klien
 												</a>
 											</div>

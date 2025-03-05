@@ -10,6 +10,7 @@ use App\Models\Konseling;
 use App\Models\keluhan;
 use App\Models\Masalah;
 use App\Models\KonselingMasalah;
+use App\Models\Evaluasi;
 
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -149,6 +150,9 @@ class HomePsikologController extends Controller
 					'berkas_pendukung' => $konseling->berkas_pendukung
 				];
 
+				// get data evaluasi
+				$evaluasi = Evaluasi::where('keluhan_id', $data->keluhan_id)->first();
+
 				// get data konseling masalah
 				$konseling_masalah = KonselingMasalah::where('konseling_id', $data->konseling_id)->get();
 				$konseling_masalah = $konseling_masalah->map(function($item) {
@@ -161,10 +165,11 @@ class HomePsikologController extends Controller
 					'saran' => null,
 					'berkas_pendukung' => null
 				];
+				$evaluasi = null;
 				$konseling_masalah = [];
 			}
 
-			// dd($data->konseling_id);
+			// dd($evaluasi);
 
 			return view('backend/konseling')->with([
 				'data' => $data,
@@ -172,6 +177,7 @@ class HomePsikologController extends Controller
 				'riwayat_konseling' => $riwayat_konseling,
 				'konseling' => $konseling,
 				'konseling_masalah' => $konseling_masalah,
+				'evaluasi' => $evaluasi,
 				'user' => $this->getUser()
 			]);
 		} else {
@@ -258,7 +264,17 @@ class HomePsikologController extends Controller
 	 */
 	public function formEvaluasi($id)
 	{
-		dd($id);
+		// dd($id);
+		// trigger kirim pesan ke klien untuk mengisi form evaluasi
+		$masyarakat = Masyarakat::where('token', $id)->first();
+
+		$data = [
+			'phone' => '0'.$masyarakat->hp,
+			'message' => "Halo $masyarakat->nama, kami mohon bantuan Anda untuk mengisi formulir evaluasi konseling yang telah Anda lakukan. Silakan klik link berikut untuk mengisi formulir evaluasi: ".route('front.evaluasi', $id)."\n\nSalam, Denpasar Menyama Bagia"
+		];
+
+		$this->notif_wa($data);
+		return redirect()->route('backend.konseling', $id)->with('success', 'Berhasil mengirimkan formulir evaluasi ke masyarakat');
 	}
 
 	/**

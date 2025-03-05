@@ -741,6 +741,7 @@ class FrontController extends Controller
 			'nilai_layanan'   	=> $request->nilai_layanan,
 			'nilai_keluhan'   	=> $request->nilai_keluhan,
 			'rekomendasi'   	=> $request->rekomendasi,
+			'keluhan_id'   		=> $request->keluhan_id,
 			'mas_id'   			=> $request->mas_id,
 			'psikolog_id'   	=> $request->psikolog_id
 		]);
