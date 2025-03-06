@@ -92,3 +92,4 @@ Route::get('/notif', [App\Http\Controllers\FrontController::class, 'testNotif'])
 
 
 Route::resource('evaluasis', App\Http\Controllers\EvaluasiController::class);
+Route::resource('pengaturans', App\Http\Controllers\PengaturanController::class);

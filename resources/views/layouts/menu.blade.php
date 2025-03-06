@@ -97,3 +97,10 @@
         <p>Evaluasis</p>
     </a>
 </li> -->
+
+<li class="nav-item">
+    <a href="{{ route('pengaturans.index') }}" class="nav-link {{ Request::is('pengaturans*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Pengaturans</p>
+    </a>
+</li>
