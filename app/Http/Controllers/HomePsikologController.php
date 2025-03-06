@@ -274,7 +274,7 @@ class HomePsikologController extends Controller
 		];
 
 		$this->notif_wa($data);
-		return redirect()->route('backend.konseling', $id)->with('success', 'Berhasil mengirimkan formulir evaluasi ke masyarakat');
+		return redirect()->route('home-psikolog')->with('message', 'Berhasil mengirimkan formulir evaluasi ke masyarakat');
 	}
 
 	/**

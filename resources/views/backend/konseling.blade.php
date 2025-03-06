@@ -612,13 +612,13 @@
 												<p>
 													Formulir ini ditujukan untuk klien yang telah selesai melakukan konseling. Untuk mengirim form ke klien klik tombol di bawah. Klien akan mendapatkan formulir evaluasi melalui email & Whatsapp.
 
-													@if($konseling!=null)
+													@if($evaluasi!=null)
 													<br><b>Catatan: Form evaluasi sudah diinputkan oleh klien.</b>
 													@endif
 												</p>
 											</div>
 											<!-- .callout -->
-											
+											@if($evaluasi!=null)
 											<hr>
 											<div class="form-group">
 												<label>Seberapa membantu layanan konseling yang diberikan?
@@ -651,8 +651,9 @@
 													<option @if($evaluasi->rekomendasi==0) {{"selected"}} @endif>Tidak Bersedia</option>
 												</select>
 											</div>
+											@endif
 											<div class="btn-group float-right">
-												@if($konseling==null)
+												@if($evaluasi==null)
 												<a href="{{route('backend.evaluasi', $data->token)}}" class="btn btn-primary">
 												@else
 												<a class="btn btn-primary disabled">
