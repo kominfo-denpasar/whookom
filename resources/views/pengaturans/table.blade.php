@@ -3,14 +3,14 @@
         <table class="table" id="pengaturans-table">
             <thead>
             <tr>
-                
+                <th>Nama<th>
                 <th colspan="3">Action</th>
             </tr>
             </thead>
             <tbody>
             @foreach($pengaturans as $pengaturan)
                 <tr>
-                    
+                    <td>{{ $pengaturan->slug }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['pengaturans.destroy', $pengaturan->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

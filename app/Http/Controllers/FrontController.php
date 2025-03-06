@@ -751,6 +751,24 @@ class FrontController extends Controller
 	}
 
 	/**
+	 * view halaman faq
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function faq()
+	{
+		//get data faq dari tabel pengaturan
+		$faq = DB::table('pengaturans')
+			->where('slug', 'faq')
+			->first();
+		
+		return view('front.faq')->with([
+			'faq' => $faq
+		]);
+	}
+
+	/**
 	 * Tes halaman
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable

@@ -44,6 +44,8 @@ Route::get('/jadwal/psikolog/{id}', [App\Http\Controllers\FrontController::class
 Route::get('/evaluasi/{id}', [App\Http\Controllers\FrontController::class, 'formulirEvaluasi'])->name('front.evaluasi');
 Route::post('/evaluasi/store', [App\Http\Controllers\FrontController::class, 'storeEvaluasi'])->name('front.store-evaluasi');
 
+Route::get('/faq', [App\Http\Controllers\FrontController::class, 'faq'])->name('faq');
+
 Auth::routes();
 
 Route::group([

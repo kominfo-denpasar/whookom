@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('pengaturans', function (Blueprint $table) {
             $table->id('id');
             $table->string('slug');
-            $table->string('value');
-            $table->text('value_type');
-            $table->string('helper');
-            $table->integer('user_id');
+            $table->text('value');
+            $table->text('value_type')->nullable();
+            $table->string('helper')->nullable();
+            $table->integer('user_id')->nullable();
             $table->timestamps();
         });
     }
