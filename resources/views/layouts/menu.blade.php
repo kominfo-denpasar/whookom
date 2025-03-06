@@ -71,6 +71,12 @@
 
 @role('admin', true)
 <li class="nav-item">
+    <a href="{{ route('blogs.index') }}" class="nav-link {{ Request::is('blogs*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Edukasi & Saran</p>
+    </a>
+</li>
+<li class="nav-item">
     <a href="{{ route('pengaturans.index') }}" class="nav-link {{ Request::is('pengaturans*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Narasi Aplikasi</p>
@@ -106,10 +112,3 @@
         <p>Evaluasis</p>
     </a>
 </li> -->
-
-<li class="nav-item">
-    <a href="{{ route('blogs.index') }}" class="nav-link {{ Request::is('blogs*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Blogs</p>
-    </a>
-</li>

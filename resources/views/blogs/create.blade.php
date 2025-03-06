@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                    Create Blogs
+                    Tambah Data
                     </h1>
                 </div>
             </div>
@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'blogs.store']) !!}
+            {!! Form::open(['route' => 'blogs.store', 'enctype'=>'multipart/form-data']) !!}
 
             <div class="card-body">
 

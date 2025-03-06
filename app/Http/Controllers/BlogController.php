@@ -9,6 +9,9 @@ use App\Repositories\BlogRepository;
 use Illuminate\Http\Request;
 use Flash;
 
+use Illuminate\Support\Facades\Storage;
+use App\Models\Blog;
+
 class BlogController extends AppBaseController
 {
     /** @var BlogRepository $blogRepository*/
@@ -41,13 +44,56 @@ class BlogController extends AppBaseController
     /**
      * Store a newly created Blog in storage.
      */
-    public function store(CreateBlogRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        // $input = $request->all();
+        // $blog = $this->blogRepository->create($input);
+        
+        //validate form
+        $this->validate($request, [
+            'gambar'     => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'judul'     => 'required|min:5',
+            'deskripsi'   => 'required|min:10'
+        ]);
 
-        $blog = $this->blogRepository->create($input);
+        //upload image
+        if($request->file('gambar')) {
+            $file = $request->file('gambar');
+            $file_name = time().'_'.$file->getClientOriginalName();
 
-        Flash::success('Blog saved successfully.');
+            $year_folder = date("Y");
+            $month_folder = $year_folder . '/' . date("m");
+
+            $path = 'uploads/blog/'.$month_folder.'/'.$file_name;
+
+            $file_content = file_get_contents($file);
+            if(!Storage::disk('public')->put($path, $file_content)) {
+                return false;
+            }
+
+            //create post
+            $blog = Blog::create([
+                'gambar'     => $month_folder.'/'.$file_name,
+                'judul'     => $request->judul,
+                'deskripsi'   => $request->deskripsi,
+                'user_id'   => $this->getUser()->id
+            ]);
+        } else {
+            //create post
+            $blog = Blog::create([
+                'judul'     => $request->judul,
+                'deskripsi'   => $request->deskripsi,
+                'user_id'   => $this->getUser()->id
+            ]);
+        }
+
+        
+
+        if($blog) {
+            Flash::success('Data berhasil disimpan.');
+        } else {
+            Flash::error('Data gagal disimpan.');
+        }
 
         return redirect(route('blogs.index'));
     }

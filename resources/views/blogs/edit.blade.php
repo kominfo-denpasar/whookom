@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                        Edit Blog
+                        Edit Data
                     </h1>
                 </div>
             </div>
@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::model($blog, ['route' => ['blogs.update', $blog->id], 'method' => 'patch']) !!}
+            {!! Form::model($blog, ['route' => ['blogs.update', $blog->id], 'method' => 'patch', 'enctype'=>'multipart/form-data']) !!}
 
             <div class="card-body">
                 <div class="row">

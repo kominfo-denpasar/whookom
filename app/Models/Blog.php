@@ -27,9 +27,15 @@ class Blog extends Model
     public static array $rules = [
         'judul' => 'required',
         'deskripsi' => 'required',
-        'slug' => 'user_id string text s,ii',
+        'slug' => 'required',
         'user_id' => 'required'
     ];
+
+    public function setJudulAttribute($value)
+    {
+        $this->attributes['judul'] = $value;
+        $this->attributes['slug'] = str_slug($value);
+    }
 
     
 }
