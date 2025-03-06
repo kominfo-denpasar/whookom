@@ -613,7 +613,7 @@
 													Formulir ini ditujukan untuk klien yang telah selesai melakukan konseling. Untuk mengirim form ke klien klik tombol di bawah. Klien akan mendapatkan formulir evaluasi melalui email & Whatsapp.
 
 													@if($konseling!=null)
-													Note: Form evaluasi sudah diinputkan oleh klien.
+													<br><b>Catatan: Form evaluasi sudah diinputkan oleh klien.</b>
 													@endif
 												</p>
 											</div>
@@ -634,7 +634,7 @@
 											<div class="form-group">
 												<label>Setelah konseling, seberapa mengganggu keluhan yang Anda rasakan pada aktivitas sehari-hari?
 												</label>
-												<select class="form-control" readonly>
+												<select class="form-control" disabled>
 													<option>-</option>
 													<option @if($evaluasi->nilai_keluhan==4) {{"selected"}} @endif>Sangat Membantu</option>
 													<option @if($evaluasi->nilai_keluhan==3) {{"selected"}} @endif>Membantu</option>
@@ -645,7 +645,7 @@
 											<div class="form-group">
 												<label>Apakah anda bersedia merekomendasikan layanan konseling ini ke rekan/keluarga yang membutuhkan?
 												</label>
-												<select class="form-control" readonly>
+												<select class="form-control" disabled>
 													<option>-</option>
 													<option @if($evaluasi->rekomendasi==1) {{"selected"}} @endif>Bersedia</option>
 													<option @if($evaluasi->rekomendasi==0) {{"selected"}} @endif>Tidak Bersedia</option>
