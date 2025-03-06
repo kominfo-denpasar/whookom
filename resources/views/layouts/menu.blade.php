@@ -106,3 +106,10 @@
         <p>Evaluasis</p>
     </a>
 </li> -->
+
+<li class="nav-item">
+    <a href="{{ route('blogs.index') }}" class="nav-link {{ Request::is('blogs*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Blogs</p>
+    </a>
+</li>

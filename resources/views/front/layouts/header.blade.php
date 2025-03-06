@@ -67,7 +67,7 @@
    </div> -->
             <a href="{{ url('/faq') }}" class="navbar-item has-divider desktop-icon-only" title="FAQ">
                 <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
-                <span>{{ trans('front.tentang') }}</span>
+                <span>{{ trans('front.faq') }}</span>
             </a>
             <hr class="navbar-divider">
             <a href="{{ url('/login') }}" title="Login" class="navbar-item desktop-icon-only">
