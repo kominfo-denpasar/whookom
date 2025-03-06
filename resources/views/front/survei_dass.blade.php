@@ -81,10 +81,10 @@
 									<select class="w-full p-2 border border-gray-300 rounded-lg" name="nilai_s[]" required="">
 								@endif
 									<option value="">- Pilih salah satu -</option>
-									<option value="0">0 - Tidak berlaku sama sekali</option>
-									<option value="1">1 - Berlaku untuk saya sampai batas tertentu, atau beberapa waktu</option>
-									<option value="2">2 - Berlaku untuk saya sampai batas yang cukup besar, atau sebagian besar waktu</option>
-									<option value="3">3 - Berlaku untuk saya sangat banyak, atau hampir sepanjang waktu</option>
+									<option value="0">0 - Tidak sesuai dengan saya sama sekali, atau tidak pernah</option>
+									<option value="1">1 - Sesuai dengan saya sampai tingkat tertentu, atau kadang-kadang</option>
+									<option value="2">2 - Sesuai dengan saya sampai batas yang dapat dipertimbangkan, atau lumayan sering</option>
+									<option value="3">3 - Sangat sesuai dengan saya, atau sering sekali</option>
 								</select>
 							</div>
 							@php
