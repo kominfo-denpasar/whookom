@@ -8,7 +8,7 @@
         margin-left: 18px;
     }
 
-    ul > li {
+    ol > li, ul > li {
         margin-top:8px;
         margin-left: 12px;
     }

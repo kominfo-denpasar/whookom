@@ -4,12 +4,12 @@
 <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 relative">
 	@if(file_exists(storage_path('app/public/uploads/blog/'.$blog->gambar)))
 	<div class="bg-cover bg-center text-center overflow-hidden"
-		style="min-height: 400px; background-image: url('{{url('/storage/uploads/blog/'.$blog->gambar)}}')"
+		style="min-height: 450px; background-image: url('{{url('/storage/uploads/blog/'.$blog->gambar)}}')"
 		title="Gambar {{$blog->judul}}">
 	</div>
 	@else
 	<div class="bg-cover bg-center text-center overflow-hidden"
-		style="min-height: 400px; background-image: url('{{url('img/pp_user.jpg')}}')"
+		style="min-height: 450px; background-image: url('{{url('img/pp_user.jpg')}}')"
 		title="Gambar {{$blog->judul}}">
 	</div>
 	@endif

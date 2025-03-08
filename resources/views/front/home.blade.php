@@ -147,7 +147,7 @@
 								<img class="h-32 w-32 rounded-full" src="{{ asset('storage/uploads/psikolog/'.$data->foto) }}" alt="user avatar" width="400" height="400" loading="lazy">
 								@endif
 								<div>
-									<h6 class="text-lg font-medium text-gray-700 ">{{ $data->nama }}</h6>
+									<h6 class="text-lg font-medium text-gray-700 leading-tight">{{ $data->nama }}</h6>
 									<p class="text-sm text-gray-500 ">
 										<b>SIPP</b> ({{ $data->sipp }})<br>
 										<b>Wilayah</b> <span class="block lowercase">{{ App\Http\Controllers\PsikologController::kec($data->kec_id) }}</span>

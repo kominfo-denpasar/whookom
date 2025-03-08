@@ -87,7 +87,12 @@ Route::group([
             Route::resource('konseling-masalahs', App\Http\Controllers\KonselingMasalahController::class);
         });
 
+        Route::resource('pengaturans', App\Http\Controllers\PengaturanController::class);
+        Route::resource('blogs', App\Http\Controllers\BlogController::class);
+        
         Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
+        Route::resource('evaluasis', App\Http\Controllers\EvaluasiController::class);
+
     });
 });
 
@@ -96,6 +101,6 @@ Route::get('/test', [App\Http\Controllers\FrontController::class, 'testHalaman']
 Route::get('/notif', [App\Http\Controllers\FrontController::class, 'testNotif']);
 
 
-Route::resource('evaluasis', App\Http\Controllers\EvaluasiController::class);
-Route::resource('pengaturans', App\Http\Controllers\PengaturanController::class);
-Route::resource('blogs', App\Http\Controllers\BlogController::class);
+
+
+Route::any('{catchall}', [App\Http\Controllers\FrontController::class, 'notFound'])->where('catchall', '.*');

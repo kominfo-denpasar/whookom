@@ -817,24 +817,31 @@ class FrontController extends Controller
 			->first();
 		
 
-		// seo
-		SEOTools::setTitle($blog->judul);
-        SEOTools::setDescription(str_limit(strip_tags($blog->deskripsi), $limit = 150, $end = '...'));
-        SEOTools::opengraph()->setUrl(url('/artikel/'.$slug));
-        SEOTools::opengraph()->addProperty('type', 'articles');
-        // SEOTools::twitter()->setSite('@LuizVinicius73');
-		if(file_exists(storage_path('app/public/uploads/blog/'.$blog->gambar))) {
-			SEOTools::jsonLd()->addImage(asset('/storage/uploads/blog/'.$blog->gambar));
-			SEOTools::addImages(url('/storage/uploads/blog/'.$blog->gambar));
+		if($blog) {
+			// seo
+			SEOTools::setTitle($blog->judul);
+			SEOTools::setDescription(str_limit(strip_tags($blog->deskripsi), $limit = 150, $end = '...'));
+			SEOTools::opengraph()->setUrl(url('/artikel/'.$slug));
+			SEOTools::opengraph()->addProperty('type', 'articles');
+			// SEOTools::twitter()->setSite('@LuizVinicius73');
+			if(file_exists(storage_path('app/public/uploads/blog/'.$blog->gambar))) {
+				SEOTools::jsonLd()->addImage(asset('/storage/uploads/blog/'.$blog->gambar));
+				SEOTools::addImages(url('/storage/uploads/blog/'.$blog->gambar));
+			} else {
+				SEOTools::jsonLd()->addImage(asset('img/pp_user.jpg'));
+				SEOTools::addImages(url('img/pp_user.jpg'));
+			}
+
+			return view('front.blog_detail')->with([
+				'blog' => $blog
+			]);
 		} else {
-			SEOTools::jsonLd()->addImage(asset('img/pp_user.jpg'));
-			SEOTools::addImages(url('img/pp_user.jpg'));
+			return view('front.404');
 		}
+		
         
 
-		return view('front.blog_detail')->with([
-			'blog' => $blog
-		]);
+		
 	}
 
 	/**
@@ -905,5 +912,15 @@ class FrontController extends Controller
 		
 		// script
 		$this->notif_wa($data);
+	}
+
+	/**
+	 * halaman error
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function notFound() 
+	{ 
+		return view('front.404'); 
 	}
 }

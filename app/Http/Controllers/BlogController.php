@@ -223,9 +223,15 @@ class BlogController extends AppBaseController
             return redirect(route('blogs.index'));
         }
 
+        // hapus file lama
+        $old_file = Blog::where('id', $id)->first();
+        if($old_file->gambar) {
+            unlink(storage_path('app/public/uploads/blog/'.$old_file->gambar));
+        }
+
         $this->blogRepository->delete($id);
 
-        Flash::success('Blog deleted successfully.');
+        Flash::success('Artikel berhasil dihapus.');
 
         return redirect(route('blogs.index'));
     }
