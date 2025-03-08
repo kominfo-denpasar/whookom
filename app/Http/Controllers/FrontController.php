@@ -10,6 +10,7 @@ use App\Models\keluhan;
 use App\Models\jadwal;
 use App\Models\Konseling;
 use App\Models\Evaluasi;
+use App\Models\Blog;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,9 +38,21 @@ class FrontController extends Controller
 	{
 		// dd(\App::getLocale());
 		$psikolog = Psikolog::inRandomOrder()->take(3)->get();
+		$blog = Blog::join('users', 'blogs.user_id', '=', 'users.id')
+					->select(
+						'blogs.judul', 
+						'blogs.id', 
+						'blogs.slug',
+						'blogs.gambar', 
+						'blogs.updated_at', 
+						'users.name')
+					->inRandomOrder()
+					->take(3)
+					->get();
 
 		return view('front.home')->with([
-			'psikolog' => $psikolog
+			'psikolog' => $psikolog,
+			'blog' => $blog
 		]);
 	}
 
@@ -765,6 +778,56 @@ class FrontController extends Controller
 		
 		return view('front.faq')->with([
 			'faq' => $faq
+		]);
+	}
+
+	/**
+	 * view halaman detail blog
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function blogDetail($slug)
+	{
+		//get data faq dari tabel pengaturan
+		$blog = DB::table('blogs')
+			->join('users', 'blogs.user_id', 'users.id')
+			->select(
+				'blogs.judul',
+				'blogs.deskripsi',
+				'blogs.gambar',
+				'blogs.updated_at',
+				'users.name')
+			->where('slug', $slug)
+			->first();
+		
+		return view('front.blog_detail')->with([
+			'blog' => $blog
+		]);
+	}
+
+	/**
+	 * view halaman list blog
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function blogList()
+	{
+		//get data faq dari tabel pengaturan
+		$blogs = DB::table('blogs')
+			->join('users', 'blogs.user_id', 'users.id')
+			->select(
+				'blogs.judul',
+				'blogs.deskripsi',
+				'blogs.gambar',
+				'blogs.slug',
+				'blogs.updated_at',
+				'users.name')
+			->get();
+		
+		return view('front.blog_list')->with([
+			'blogs' => $blogs
 		]);
 	}
 

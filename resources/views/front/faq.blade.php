@@ -5,9 +5,9 @@
     <div class="max-w-3xl mx-auto">
         <div
             class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
-            <div class="p-6">
+            <div class="p-6 faq">
 
-                <a href="{{ url('/') }}" class="text-indigo-600 hover:text-gray-700 transition duration-500 ease-in-out text-sm">
+                <a href="{{ url('/') }}" class="text-red-600 hover:text-gray-700 transition duration-500 ease-in-out text-sm">
                     Beranda
                 </a>
                 <a>> <span class="text-gray-900">Frequent Asked Question (FAQ)</span></a>

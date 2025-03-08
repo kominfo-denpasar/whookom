@@ -3,12 +3,21 @@
 @tailwind utilities;
 
 @layer base {
-    ul, ol {
+    faq ul, ol {
         list-style: revert;
         margin-left: 15px;
     }
 
     ul > li {
         margin-bottom:10px;
+    }
+    relative {
+        position: relative;
+    }
+    top-0 {
+        top: 0px;
+    }
+    -mt-32 {
+        margin-top: 8rem;
     }
 }

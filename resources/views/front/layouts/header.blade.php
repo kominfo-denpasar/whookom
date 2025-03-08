@@ -30,7 +30,7 @@
                         <span class="icon"><i class="mdi mdi-account"></i></span>
                         <span>{{ trans('front.dashboard') }}</span>
                     </a>
-                    <a href="{{ url('/') }}" class="navbar-item">
+                    <a href="{{ route('front.blog-list') }}" class="navbar-item">
                         <span class="icon"><i class="mdi mdi-lightbulb-on-outline"></i></span>
                         <span>{{ trans('front.tips') }}</span>
                     </a>

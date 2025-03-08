@@ -46,6 +46,9 @@ Route::post('/evaluasi/store', [App\Http\Controllers\FrontController::class, 'st
 
 Route::get('/faq', [App\Http\Controllers\FrontController::class, 'faq'])->name('faq');
 
+Route::get('/artikel/{slug}', [App\Http\Controllers\FrontController::class, 'blogDetail'])->name('front.blog-detail');
+Route::get('/artikel', [App\Http\Controllers\FrontController::class, 'blogList'])->name('front.blog-list');
+
 Auth::routes();
 
 Route::group([
