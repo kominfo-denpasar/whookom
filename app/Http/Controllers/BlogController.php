@@ -158,6 +158,12 @@ class BlogController extends AppBaseController
 
         //upload image
         if($request->file('gambar')) {
+            // hapus file lama
+			$old_file = Blog::where('id', $id)->first();
+			if($old_file->gambar) {
+				unlink(storage_path('app/public/uploads/blog/'.$old_file->gambar));
+			}
+
             $file = $request->file('gambar');
             $file_name = time().'_'.$file->getClientOriginalName();
 

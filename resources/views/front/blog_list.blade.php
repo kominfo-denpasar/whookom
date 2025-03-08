@@ -48,7 +48,7 @@
 				</a>
 
 				<p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-700">
-					{!! str_limit(strip_tags($bl->deskripsi), $limit = 50, $end = '...') !!}
+					{!! str_limit(strip_tags($bl->deskripsi), $limit = 150, $end = '...') !!}
 				</p>
 			</div>
 

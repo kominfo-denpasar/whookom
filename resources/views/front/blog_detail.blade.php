@@ -42,9 +42,9 @@
 
 				</p>
 
-				<p class="text-base leading-8 my-5">
+				<div class="leading-2 my-5 text-base">
 					{!! $blog->deskripsi !!}
-				</p>
+				</div>
 
 
 				<!-- <a href="#"

@@ -819,7 +819,7 @@ class FrontController extends Controller
 
 		// seo
 		SEOTools::setTitle($blog->judul);
-        SEOTools::setDescription(str_limit(strip_tags($blog->deskripsi), $limit = 50, $end = '...'));
+        SEOTools::setDescription(str_limit(strip_tags($blog->deskripsi), $limit = 150, $end = '...'));
         SEOTools::opengraph()->setUrl(url('/artikel/'.$slug));
         SEOTools::opengraph()->addProperty('type', 'articles');
         // SEOTools::twitter()->setSite('@LuizVinicius73');

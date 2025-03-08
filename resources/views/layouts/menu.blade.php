@@ -72,14 +72,14 @@
 @role('admin', true)
 <li class="nav-item">
     <a href="{{ route('blogs.index') }}" class="nav-link {{ Request::is('blogs*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
+        <i class="nav-icon fas fa-newspaper"></i>
         <p>Edukasi & Saran</p>
     </a>
 </li>
 <li class="nav-item">
     <a href="{{ route('pengaturans.index') }}" class="nav-link {{ Request::is('pengaturans*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Narasi Aplikasi</p>
+        <i class="nav-icon fas fa-wrench"></i>
+        <p>Konfigurasi & Narasi</p>
     </a>
 </li>
 @endrole
