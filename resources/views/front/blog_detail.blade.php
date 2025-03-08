@@ -43,6 +43,30 @@
 					{!! $blog->deskripsi !!}
 				</div>
 
+				<div class="py-4">
+					<hr>
+				</div>
+				<!-- AddToAny BEGIN -->
+				<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+					<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+					<a class="a2a_button_facebook"></a>
+					<a class="a2a_button_whatsapp"></a>
+					<a class="a2a_button_email"></a>
+					<a class="a2a_button_telegram"></a>
+					<a class="a2a_button_facebook_messenger"></a>
+				</div>
+				<script>
+					var a2a_config = a2a_config || {};
+					a2a_config.locale = "id";
+				</script>
+				<script defer src="https://static.addtoany.com/menu/page.js"></script>
+				<!-- AddToAny END -->
+				<div class="py-4">
+					<hr>
+				</div>
+
+				<div id="disqus_thread"></div>
+
 
 				<!-- <a href="#"
 					class="text-xs text-red-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
@@ -60,3 +84,24 @@
 
 
 @endsection
+
+@push('script')
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dmb-2.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+@endpush

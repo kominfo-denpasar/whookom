@@ -24,12 +24,13 @@
                 </a>
                 <div class="navbar-dropdown">
                     <a href="{{ url('/') }}" class="navbar-item">
-                        <span class="icon"><i class="mdi mdi-home"></i></span>
                         <span>{{ trans('front.dashboard') }}</span>
                     </a>
                     <a href="{{ route('front.blog-list') }}" class="navbar-item">
-                        <span class="icon"><i class="mdi mdi-lightbulb-on-outline"></i></span>
                         <span>{{ trans('front.tips') }}</span>
+                    </a>
+                    <a href="{{ route('front.survei-intro') }}" class="navbar-item">
+                        <span>{{ "Cek Kesehatan Mental & Konseling" }}</span>
                     </a>
                     <hr class="navbar-divider">
                 </div>
@@ -40,10 +41,17 @@
                 <span>{{ trans('front.faq') }}</span>
             </a>
             <hr class="navbar-divider">
+            @if(Auth::check()==1)
+            <a href="{{ url('/admin/home') }}" title="Admin" class="navbar-item desktop-icon-only">
+                <span class="icon"><i class="mdi mdi-comment-account-outline"></i></span>
+                <span>{{Auth::user()->name}}</span>
+            </a>
+            @else
             <a href="{{ url('/login') }}" title="Login" class="navbar-item desktop-icon-only">
                 <span class="icon"><i class="mdi mdi-lock"></i></span>
                 <span>Login</span>
             </a>
+            @endif
         </div>
     </div>
 </nav>

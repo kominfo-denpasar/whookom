@@ -45,6 +45,7 @@ Route::get('/evaluasi/{id}', [App\Http\Controllers\FrontController::class, 'form
 Route::post('/evaluasi/store', [App\Http\Controllers\FrontController::class, 'storeEvaluasi'])->name('front.store-evaluasi');
 
 Route::get('/faq', [App\Http\Controllers\FrontController::class, 'faq'])->name('faq');
+Route::get('/privasi', [App\Http\Controllers\FrontController::class, 'privasi'])->name('privasi');
 
 Route::get('/artikel/{slug}', [App\Http\Controllers\FrontController::class, 'blogDetail'])->name('front.blog-detail');
 Route::get('/artikel', [App\Http\Controllers\FrontController::class, 'blogList'])->name('front.blog-list');

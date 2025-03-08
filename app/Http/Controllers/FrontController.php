@@ -797,6 +797,29 @@ class FrontController extends Controller
 	}
 
 	/**
+	 * view halaman privasi
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function privasi()
+	{
+		//get data dari tabel pengaturan
+		$data = DB::table('pengaturans')
+			->where('slug', 'privasi')
+			->first();
+
+		// seo
+		SEOTools::setTitle('Kebijakan Privasi');
+        SEOTools::setDescription("Kebijakan Privasi Denpasar Menyama Bagia");
+        SEOTools::opengraph()->setUrl(url('/privasi'));
+		
+		return view('front.privasi')->with([
+			'data' => $data
+		]);
+	}
+
+	/**
 	 * view halaman detail blog
 	 *
 	 * @param Request $request
