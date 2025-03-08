@@ -23,19 +23,16 @@
 					> Artikel
 				</a>
 				<a>> <span class="text-gray-900">Detail Artikel</span></a>
-				<h1 href="#" class="text-gray-900 font-bold text-3xl mb-2">{{ $blog->judul }}</h1>
+				<h1 class="text-gray-900 font-bold text-3xl mb-2">{{ $blog->judul }}</h1>
 				<p class="text-gray-700 text-xs mt-2">Ditulis Oleh:
-					<a href="#"
-						class="text-red-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
+					<a class="text-red-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
 						{{ $blog->name }}
 					</a> Di
-					<a href="#"
-						class="text-xs text-red-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
+					<a class="text-xs text-red-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
 						Artikel
 					</a>
 					Pada 
-					<a href="#"
-						class="text-xs text-red-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
+					<a class="text-xs text-red-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
 						{{ \Carbon\Carbon::parse($blog->updated_at)->format('d/m/Y')}}
 					</a>
 					
