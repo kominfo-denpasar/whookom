@@ -1,24 +1,6 @@
 @extends('front.layouts.app')
 
 @section('content')
-	<!-- <section class="is-title-bar">
-		<div class="flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0">
-		<ul>
-		<li>Admin</li>
-		<li>Dashboard</li>
-		</ul>
-		<a
-		href="https://github.com/justboil/admin-one-tailwind"
-		target="_blank"
-		class="button blue">
-		<span class="icon">
-		<i class="mdi mdi-github-circle"></i>
-		</span>
-		<span>GitHub</span>
-		</a>
-		</div>
-	</section> -->
-
 	<section
 		class="relative bg-cover bg-center bg-no-repeat"
 		style="background-image: url('{{ asset('img/banner_dmb.jpg') }}');">
