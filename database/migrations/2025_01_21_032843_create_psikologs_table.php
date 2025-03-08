@@ -19,9 +19,12 @@ return new class extends Migration
             $table->string('kta', 10)->nullable();
             $table->string('sipp', 10)->nullable();
             $table->string('nama', 200);
+            $table->string('jk', 2);
             $table->string('hp');
             $table->text('alamat_rumah')->nullable();
             $table->text('alamat_praktek');
+            $table->text('foto')->nullable();
+
             $table->string('kec_id', 25)->nullable();
             $table->string('desa_id', 25)->nullable();
 

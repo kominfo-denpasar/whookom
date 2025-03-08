@@ -12,182 +12,232 @@ use Flash;
 
 use App\Models\Psikolog;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class PsikologController extends AppBaseController
 {
-    /** @var PsikologRepository $psikologRepository*/
-    private $psikologRepository;
+	/** @var PsikologRepository $psikologRepository*/
+	private $psikologRepository;
 
-    public $user;
+	public $user;
 
-    public function __construct(PsikologRepository $psikologRepo)
-    {
-        // cek jika user sesuai dengan rolenya untuk akses controller
-        $this->middleware(function ($request, $next) {
-            $this->user = $this->getUser();
-            
-            if(!$this->user->hasRole('admin')) return redirect()->route('home');
-            else return $next($request);
-        });
+	public function __construct(PsikologRepository $psikologRepo)
+	{
+		// cek jika user sesuai dengan rolenya untuk akses controller
+		$this->middleware(function ($request, $next) {
+			$this->user = $this->getUser();
+			
+			if(!$this->user->hasRole('admin')) return redirect()->route('home');
+			else return $next($request);
+		});
 
-        $this->psikologRepository = $psikologRepo;
-    }
+		$this->psikologRepository = $psikologRepo;
+	}
 
-    /**
-     * Display a listing of the Psikolog.
-     */
-    public function index(Request $request)
-    {
-        $psikologs = $this->psikologRepository->paginate(10);
+	/**
+	 * Display a listing of the Psikolog.
+	 */
+	public function index(Request $request)
+	{
+		$psikologs = $this->psikologRepository->paginate(10);
 
-        return view('psikologs.index')
-            ->with('psikologs', $psikologs);
-    }
+		return view('psikologs.index')
+			->with('psikologs', $psikologs);
+	}
 
-    /**
-     * Show the form for creating a new Psikolog.
-     */
-    public function create()
-    {
-        return view('psikologs.create');
-    }
+	/**
+	 * Show the form for creating a new Psikolog.
+	 */
+	public function create()
+	{
+		$psikolog = null;
+		return view('psikologs.create')->with('psikolog', $psikolog);
+	}
 
-    /**
-     * Store a newly created Psikolog in storage.
-     */
-    public function store(CreatePsikologRequest $request)
-    {
-        $input = $request->all();
+	/**
+	 * Store a newly created Psikolog in storage.
+	 */
+	public function store(CreatePsikologRequest $request)
+	{
+		//validate form
+		$this->validate($request, [
+			'gambar'     => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+		]);
 
-        $psikolog = $this->psikologRepository->create($input);
+		$input = $request->all();
+		// dd($input);
 
-        // dd($psikolog->id);
+		//upload image
+		if($request->file('foto')) {
+			$file = $request->file('foto');
+			$file_name = time().'_'.$file->getClientOriginalName();
 
-        // buat user baru
+			$year_folder = date("Y");
+			$month_folder = $year_folder . '/' . date("m");
+
+			$path = 'uploads/psikolog/'.$month_folder.'/'.$file_name;
+
+			$file_content = file_get_contents($file);
+			if(!Storage::disk('public')->put($path, $file_content)) {
+				return false;
+			}
+
+			$input['foto'] = $month_folder.'/'.$file_name;
+		}
+
+		$psikolog = $this->psikologRepository->create($input);
+
+		// buat user baru
 		$user = config('roles.models.defaultUser')::create([
-            'name' => $request->nama,
-            'email' => $request->email,
-            'psikolog_id' => $psikolog->id,
-            'password' => bcrypt('AdminPsikolog#25'),
-        ]);
+			'name' => $request->nama,
+			'email' => $request->email,
+			'psikolog_id' => $psikolog->id,
+			'password' => bcrypt('AdminPsikolog#25'),
+		]);
 
-        $role = config('roles.models.role')::where('name', '=', 'Psikolog')->first();  //choose the default role upon user creation.
-        $user->attachRole($role);
+		$role = config('roles.models.role')::where('name', '=', 'Psikolog')->first();  //choose the default role upon user creation.
+		$user->attachRole($role);
 
-        // 
-        Flash::success('Psikolog saved successfully.');
+		// 
+		Flash::success('Psikolog saved successfully.');
 
-        return redirect(route('psikologs.index'));
-    }
+		return redirect(route('psikologs.index'));
+	}
 
-    /**
-     * Display the specified Psikolog.
-     */
-    public function show($id)
-    {
-        $psikolog = $this->psikologRepository->find($id);
+	/**
+	 * Display the specified Psikolog.
+	 */
+	public function show($id)
+	{
+		$psikolog = $this->psikologRepository->find($id);
 
-        if (empty($psikolog)) {
-            Flash::error('Psikolog not found');
+		if (empty($psikolog)) {
+			Flash::error('Psikolog not found');
 
-            return redirect(route('psikologs.index'));
-        }
+			return redirect(route('psikologs.index'));
+		}
 
-        return view('psikologs.show')->with('psikolog', $psikolog);
-    }
+		return view('psikologs.show')->with('psikolog', $psikolog);
+	}
 
-    /**
-     * Show the form for editing the specified Psikolog.
-     */
-    public function edit($id)
-    {
-        // $psikolog = $this->psikologRepository->find($id);
+	/**
+	 * Show the form for editing the specified Psikolog.
+	 */
+	public function edit($id)
+	{
+		// $psikolog = $this->psikologRepository->find($id);
 
-        $psikolog = psikolog::where('psikologs.id', $id)
-            ->join('users', 'psikologs.id', '=', 'users.psikolog_id')
-            ->select('psikologs.*','users.email')->first();
+		$psikolog = psikolog::where('psikologs.id', $id)
+			->join('users', 'psikologs.id', '=', 'users.psikolog_id')
+			->select('psikologs.*','users.email')->first();
 
-        // dd($psikolog);
+		// dd($psikolog);
 
-        if (empty($psikolog)) {
-            Flash::error('Psikolog not found');
+		if (empty($psikolog)) {
+			Flash::error('Psikolog not found');
 
-            return redirect(route('psikologs.index'));
-        }
+			return redirect(route('psikologs.index'));
+		}
 
-        return view('psikologs.edit')->with('psikolog', $psikolog);
-    }
+		return view('psikologs.edit')->with('psikolog', $psikolog);
+	}
 
-    /**
-     * Update the specified Psikolog in storage.
-     */
-    public function update($id, UpdatePsikologRequest $request)
-    {
-        $psikolog = $this->psikologRepository->find($id);
+	/**
+	 * Update the specified Psikolog in storage.
+	 */
+	public function update($id, UpdatePsikologRequest $request)
+	{
+		$psikolog = $this->psikologRepository->find($id);
 
-        // dd($request->password);
-        if($request->password) {
-            // 
-            // dd($request->password);
-            $data = User::where('psikolog_id', $id)->update([
-                'password' => bcrypt($request->password)
-            ]);
-        }
+		// dd($request->password);
+		if($request->password) {
+			// 
+			// dd($request->password);
+			$data = User::where('psikolog_id', $id)->update([
+				'password' => bcrypt($request->password)
+			]);
+		}
 
-        if (empty($psikolog)) {
-            Flash::error('Psikolog not found');
+		if (empty($psikolog)) {
+			Flash::error('Psikolog not found');
 
-            return redirect(route('psikologs.index'));
-        }
+			return redirect(route('psikologs.index'));
+		}
 
-        $psikolog = $this->psikologRepository->update($request->all(), $id);
+		$input = $request->all();
 
-        Flash::success('Psikolog updated successfully.');
+		//upload image
+		if($request->file('foto')) {
+			// hapus file lama
+			$old_file = Psikolog::where('id', $id)->first();
+			if($old_file->foto) {
+				unlink(storage_path('app/public/uploads/psikolog/'.$old_file->foto));
+			}
 
-        return redirect(route('psikologs.index'));
-    }
+			$file = $request->file('foto');
+			$file_name = time().'_'.$file->getClientOriginalName();
 
-    /**
-     * Remove the specified Psikolog from storage.
-     *
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
-        $psikolog = $this->psikologRepository->find($id);
+			$year_folder = date("Y");
+			$month_folder = $year_folder . '/' . date("m");
 
-        if (empty($psikolog)) {
-            Flash::error('Psikolog not found');
+			$path = 'uploads/psikolog/'.$month_folder.'/'.$file_name;
 
-            return redirect(route('psikologs.index'));
-        }
+			$file_content = file_get_contents($file);
+			if(!Storage::disk('public')->put($path, $file_content)) {
+				return false;
+			}
 
-        $this->psikologRepository->delete($id);
+			$input['foto'] = $month_folder.'/'.$file_name;
+		}
 
-        Flash::success('Psikolog deleted successfully.');
+		$psikolog = $this->psikologRepository->update($input, $id);
 
-        return redirect(route('psikologs.index'));
-    }
+		Flash::success('Psikolog updated successfully.');
 
-    public static function kec($id) {
-        $data = 'https://emsifa.github.io/api-wilayah-indonesia/api/district/'.$id.'.json';
+		return redirect(route('psikologs.index'));
+	}
 
-        $res = Http::get($data);
-        if($res->json()) {
-            return $res->json()['name'];
-        } else {
-            return null;
-        }
-    }
+	/**
+	 * Remove the specified Psikolog from storage.
+	 *
+	 * @throws \Exception
+	 */
+	public function destroy($id)
+	{
+		$psikolog = $this->psikologRepository->find($id);
 
-    public static function desa($id) {
-        $data = 'https://emsifa.github.io/api-wilayah-indonesia/api/village/'.$id.'.json';
+		if (empty($psikolog)) {
+			Flash::error('Psikolog not found');
 
-        $res = Http::get($data);
-        if($res->json()) {
-            return $res->json()['name'];
-        } else {
-            return null;
-        }
-    }
+			return redirect(route('psikologs.index'));
+		}
+
+		$this->psikologRepository->delete($id);
+
+		Flash::success('Psikolog deleted successfully.');
+
+		return redirect(route('psikologs.index'));
+	}
+
+	public static function kec($id) {
+		$data = 'https://emsifa.github.io/api-wilayah-indonesia/api/district/'.$id.'.json';
+
+		$res = Http::get($data);
+		if($res->json()) {
+			return $res->json()['name'];
+		} else {
+			return null;
+		}
+	}
+
+	public static function desa($id) {
+		$data = 'https://emsifa.github.io/api-wilayah-indonesia/api/village/'.$id.'.json';
+
+		$res = Http::get($data);
+		if($res->json()) {
+			return $res->json()['name'];
+		} else {
+			return null;
+		}
+	}
 }
