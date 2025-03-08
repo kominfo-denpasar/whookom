@@ -1,7 +1,7 @@
 @extends('front.layouts.app')
 
 @section('content')
-<div class="max-w-screen-xl mx-auto my-5 p-5 sm:p-10 md:p-16">
+<div class="max-w-screen-md mx-auto my-5 p-5 sm:p-10 md:p-16">
 	<!-- Title Section -->
 	<div class="text-center py-10">
 		<h1 class="text-4xl font-bold text-black mb-4">{{ __('front.blog_title') }}</h1>
