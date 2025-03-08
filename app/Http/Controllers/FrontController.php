@@ -825,8 +825,10 @@ class FrontController extends Controller
         // SEOTools::twitter()->setSite('@LuizVinicius73');
 		if(file_exists(storage_path('app/public/uploads/blog/'.$blog->gambar))) {
 			SEOTools::jsonLd()->addImage(asset('/storage/uploads/blog/'.$blog->gambar));
+			SEOTools::addImages(url('/storage/uploads/blog/'.$blog->gambar));
 		} else {
 			SEOTools::jsonLd()->addImage(asset('img/pp_user.jpg'));
+			SEOTools::addImages(url('img/pp_user.jpg'));
 		}
         
 
