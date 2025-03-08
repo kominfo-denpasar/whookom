@@ -68,6 +68,11 @@ class FrontController extends Controller
 	 */
 	public function surveiIntro()
 	{
+		// seo
+		SEOTools::setTitle("Sejenak, mari renungkan diri");
+        SEOTools::setDescription("Mari renungkan diri. Ketahui kondisi kesehatan mental dan saran praktis untuk diri Anda di Denpasar Menyama Bagia");
+        SEOTools::opengraph()->setUrl(url('/survei'));
+
 		return view('front.survei_intro');
 	}
 
