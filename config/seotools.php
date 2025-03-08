@@ -9,7 +9,7 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'        => "Denpasar Menyama Bagia - Program Konseling untuk Anak Sekolah", // set false to total remove
+            'title'        => "Denpasar Menyama Bagia", // set false to total remove
             'titleBefore'  => false, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
             'description'  => 'Denpasar Menyama Bagia - Denpasar Menyama Bagia adalah program konseling dari Pemerintah Kota Denpasar yang berfokus pada kesehatan mental anak sekolah. Dapatkan dukungan psikologis untuk tumbuh kembang yang lebih baik.', // set false to total remove
             'separator'    => ' - ',

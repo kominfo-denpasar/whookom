@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
+use Artesaos\SEOTools\Facades\SEOTools;
+
 class FrontController extends Controller
 {
 	/**
@@ -49,6 +51,9 @@ class FrontController extends Controller
 					->inRandomOrder()
 					->take(3)
 					->get();
+
+		// seo
+		SEOTools::setTitle("Program Konseling Anak Sekolah");
 
 		return view('front.home')->with([
 			'psikolog' => $psikolog,
@@ -775,6 +780,11 @@ class FrontController extends Controller
 		$faq = DB::table('pengaturans')
 			->where('slug', 'faq')
 			->first();
+
+		// seo
+		SEOTools::setTitle(__('front.faq'));
+        SEOTools::setDescription("List pertanyaan yang sering ditanyakan");
+        SEOTools::opengraph()->setUrl(url('/faq'));
 		
 		return view('front.faq')->with([
 			'faq' => $faq
@@ -801,6 +811,20 @@ class FrontController extends Controller
 			->where('slug', $slug)
 			->first();
 		
+
+		// seo
+		SEOTools::setTitle($blog->judul);
+        SEOTools::setDescription(str_limit(strip_tags($blog->deskripsi), $limit = 50, $end = '...'));
+        SEOTools::opengraph()->setUrl(url('/artikel/'.$slug));
+        SEOTools::opengraph()->addProperty('type', 'articles');
+        // SEOTools::twitter()->setSite('@LuizVinicius73');
+		if(file_exists(storage_path('app/public/uploads/blog/'.$blog->gambar))) {
+			SEOTools::jsonLd()->addImage(asset('/storage/uploads/blog/'.$blog->gambar));
+		} else {
+			SEOTools::jsonLd()->addImage(asset('img/pp_user.jpg'));
+		}
+        
+
 		return view('front.blog_detail')->with([
 			'blog' => $blog
 		]);
@@ -825,6 +849,11 @@ class FrontController extends Controller
 				'blogs.updated_at',
 				'users.name')
 			->get();
+
+		// seo
+		SEOTools::setTitle(__('front.blog_title'));
+        SEOTools::setDescription(__('front.blog_desc'));
+        SEOTools::opengraph()->setUrl(url('/artikel'));
 		
 		return view('front.blog_list')->with([
 			'blogs' => $blogs
