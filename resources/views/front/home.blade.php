@@ -33,6 +33,7 @@
 		</div>
 	</section>
 
+	@if(count($blog) > 0)
 	<section class="section main-section">
 
 		<div class="w-full bg-white">
@@ -72,6 +73,7 @@
 					<!-- More blog posts can be added similarly -->
 				</div>
 
+				@if(count($blog) > 3)
 				<div class="align-middle text-center">
 					<!-- Base -->
 					<a href="{{route('front.blog-list')}}" class="mt-4 mb-2 group relative inline-block focus:outline-none focus:ring">
@@ -85,43 +87,19 @@
 						</span>
 					</a>
 				</div>
+				@endif
 			</div>
 
 		</div>
 	</section>
+	@endif
 
 
+	@if(count($psikolog) > 0)
 	<section class="bg-white">
 		<div class="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8 lg:py-16">
 
-			<!-- <div class="mt-8 [column-fill:_balance] sm:columns-2 sm:gap-6 lg:columns-3 lg:gap-8">
-				@foreach($psikolog as $data)
-				<div class="mb-8 sm:break-inside-avoid">
-					<div class="relative mb-32 max-w-sm mx-auto mt-24">
-						<div class="rounded overflow-hidden shadow-md bg-white">
-							<div class="absolute -mt-20 w-full flex justify-center">
-								<div class="h-32 w-32">
-									<img src="https://randomuser.me/api/portraits/women/49.jpg" class="rounded-full object-cover h-full w-full shadow-md" />
-								</div>
-							</div>
-							<div class="px-6 mt-16">
-								<h1 class="font-bold text-3xl text-center mb-1">{{ $data->nama }}</h1>
-								<p class="text-gray-800 text-sm text-center">Chief Executive Officer</p>
-								<p class="text-center text-gray-600 text-base pt-3 font-normal">
-									Carole Steward is a visionary CEO known for her exceptional leadership and strategic acumen. With a
-									wealth of experience in the corporate world, she has a proven track record of driving innovation and
-									achieving remarkable business growth.
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				@endforeach
-			</div> -->
-
-
 			<div class="text-gray-600 " id="reviews">
-
 				<div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
 
 					<div class="mb-10 space-y-4 px-6 md:px-0">
@@ -164,4 +142,6 @@
 			</div>
 		</div>
 	</section>
+	@endif
+	
 @endsection

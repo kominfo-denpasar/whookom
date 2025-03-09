@@ -48,6 +48,7 @@ class FrontController extends Controller
 						'blogs.gambar', 
 						'blogs.updated_at', 
 						'users.name')
+					->where('status', 1)
 					->inRandomOrder()
 					->take(3)
 					->get();
