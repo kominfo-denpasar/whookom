@@ -13,6 +13,7 @@ use Flash;
 use App\Models\Psikolog;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Yajra\Datatables\Datatables;
 
 class PsikologController extends AppBaseController
 {
@@ -240,4 +241,42 @@ class PsikologController extends AppBaseController
 			return null;
 		}
 	}
+
+	/**
+     * Display data for datatable.
+     *
+     * @throws \Exception
+     */
+    public function indexJson() {
+        $sql = Psikolog::select(
+            'id',
+            'nama',
+            'hp',
+			'kec_id',
+            'status'
+        )->get();
+
+        return Datatables::of($sql)
+        ->addColumn('aksi', function($sql){
+            $table = 'psikologs';
+            return view('layouts/datatables_action', compact('sql', 'table'));
+        })
+		->editColumn('hp', function($sql){
+            return "<a href='tel:62$sql->hp'>0".$sql->hp."</a>";
+        })
+		->editColumn('kec_id', function($sql){
+            return $this->kec($sql->kec_id);
+        })
+        ->editColumn('status', function($sql){
+            if($sql->status==0) {
+                return "<span class='badge bg-danger'> Tidak Aktif </span>";
+            } elseif ($sql->status==1) {
+                return "<span class='badge bg-success'> Aktif </span>";
+            } else {
+                return "-";
+            }
+        })
+        ->rawColumns(['status', 'hp'])
+        ->make(true);
+    }
 }
