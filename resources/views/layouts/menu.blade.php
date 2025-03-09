@@ -77,6 +77,12 @@
     </a>
 </li>
 <li class="nav-item">
+    <a href="{{ route('blog-kategoris.index') }}" class="nav-link {{ Request::is('blog-kategoris*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Kategori E & S</p>
+    </a>
+</li>
+<li class="nav-item">
     <a href="{{ route('pengaturans.index') }}" class="nav-link {{ Request::is('pengaturans*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-wrench"></i>
         <p>Konfigurasi & Narasi</p>
@@ -112,3 +118,5 @@
         <p>Evaluasis</p>
     </a>
 </li> -->
+
+

@@ -93,6 +93,7 @@ Route::group([
         
         Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
         Route::resource('evaluasis', App\Http\Controllers\EvaluasiController::class);
+        Route::resource('blog-kategoris', App\Http\Controllers\BlogKategoriController::class);
 
     });
 });

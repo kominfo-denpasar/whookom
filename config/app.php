@@ -198,6 +198,10 @@ return [
         Scyllaly\HCaptcha\HCaptchaServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
 
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        Yajra\Datatables\ButtonsServiceProvider::class,
+        Yajra\Datatables\HtmlServiceProvider::class,
+
     ],
 
     /*
@@ -215,6 +219,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'HCaptcha' => Scyllaly\HCaptcha\Facades\HCaptcha::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
     ])->toArray(),
 
 ];
