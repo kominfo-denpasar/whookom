@@ -124,8 +124,10 @@
 								<ul class="nav nav-pills">
 									<li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Informasi</a></li>
 									<li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Keluhan & DASS-21</a></li>
+									@role('psikolog', true)
 									<li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Input Data Konseling</a></li>
 									<li class="nav-item"><a class="nav-link" href="#evaluasi" data-toggle="tab">Evaluasi</a></li>
+									@endrole
 								</ul>
 							</div><!-- /.card-header -->
 							<div class="card-body">
@@ -200,6 +202,7 @@
 										</div>
 										<!-- /.card -->
 
+										@role('psikolog', true)
 										<div class="card card-info shadow-md">
 											<div class="card-body">
 												<div class="btn-group float-right">
@@ -265,6 +268,7 @@
 												</div>
 											</div>
 										</form>
+										@endrole
 
 										@elseif($data->status==1)
 										<hr>
@@ -310,6 +314,7 @@
 										</div>
 										<!-- /.card -->
 
+										@role('psikolog', true)
 										<div class="col-md-12">
 											<hr>
 										</div>
@@ -358,6 +363,7 @@
 												</div>
 											</div>
 										</form>
+										@endrole
 
 										@elseif($data->status==2)
 

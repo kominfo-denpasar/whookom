@@ -114,9 +114,11 @@ class HomePsikologController extends Controller
 
 		// cek apakah ada data, jika iya maka tampilkan halaman detail konseling
 		if($data) {
-			// cek apakah psikolog yang login adalah psikolog yang ditunjuk
-			if($data->psikolog_id != $this->getUser()->psikolog_id) {
-				return redirect()->route('home-psikolog')->with('message', 'Anda tidak memiliki akses ke halaman ini');
+			// cek apakah psikolog yang login adalah psikolog yang ditunjuk dan apakah user adalah admin?
+			if(!$this->getUser()->hasRole('admin')) {
+				if($data->psikolog_id != $this->getUser()->psikolog_id) {
+					return redirect()->route('home-psikolog')->with('message', 'Anda tidak memiliki akses ke halaman ini');
+				}
 			}
 
 			// get data riwayat konseling
@@ -167,9 +169,11 @@ class HomePsikologController extends Controller
 				];
 				$evaluasi = null;
 				$konseling_masalah = [];
+
+				
 			}
 
-			// dd($evaluasi);
+			// dd($data->konseling_id);
 
 			return view('backend/konseling')->with([
 				'data' => $data,

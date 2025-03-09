@@ -12,6 +12,7 @@ use Flash;
 
 use App\Models\Psikolog;
 use App\Models\User;
+use App\Models\Keluhan;
 use Illuminate\Support\Facades\Storage;
 use Yajra\Datatables\Datatables;
 
@@ -117,6 +118,8 @@ class PsikologController extends AppBaseController
 
 			return redirect(route('psikologs.index'));
 		}
+
+		// dd($psikolog);
 
 		return view('psikologs.show')->with('psikolog', $psikolog);
 	}
@@ -272,6 +275,50 @@ class PsikologController extends AppBaseController
                 return "<span class='badge bg-danger'> Tidak Aktif </span>";
             } elseif ($sql->status==1) {
                 return "<span class='badge bg-success'> Aktif </span>";
+            } else {
+                return "-";
+            }
+        })
+        ->rawColumns(['status', 'hp'])
+        ->make(true);
+    }
+
+	/**
+     * Display data keluhan for datatable.
+     *
+     * @throws \Exception
+     */
+    public function keluhanJson($id) {
+
+		// get data keluhan masyarakat yang ditangani oleh psikolog
+		$sql = keluhan::where('psikolog_id', $id)
+			->join('masyarakats', 'keluhans.mas_id', '=', 'masyarakats.token')
+			->select(
+				'keluhans.id', 
+				'keluhans.created_at', 
+				'keluhans.status', 
+				'masyarakats.nama', 
+				'masyarakats.hp')
+			->orderBy('keluhans.created_at', 'desc')
+			->get();
+
+        return Datatables::of($sql)
+        ->addColumn('aksi', function($sql){
+            $table = 'keluhans';
+            return view('layouts/datatables_action_keluhan', compact('sql', 'table'));
+        })
+		->editColumn('created_at', function($sql){
+            return $tanggal = date('d/m/Y', strtotime($sql->created_at));
+        })
+        ->editColumn('status', function($sql){
+            if($sql->status==0) {
+                return "<span class='badge bg-default'> Menunggu </span>";
+            } elseif ($sql->status==1) {
+                return "<span class='badge bg-warning'> On Progress </span>";
+			} elseif ($sql->status==2) {
+                return "<span class='badge bg-success'> Selesai </span>";
+			} elseif ($sql->status==3) {
+                return "<span class='badge bg-danger'>Batal </span>";
             } else {
                 return "-";
             }

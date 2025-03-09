@@ -1,9 +1,9 @@
 {!! Form::open(['route' => [$table.'.destroy', $sql->id], 'method' => 'delete']) !!}
 <div class='btn-group'>
     <a href="{{ route($table.'.show', $sql->id) }}" class='btn btn-default btn-sm'>
-        <i class="fa fa-eye"></i>
+        <i class="fa fa-search"></i>
     </a>
-    <a href="{{ route($table.'.edit', $sql->id) }}" class='btn btn-default btn-sm'>
+    <a href="{{ route($table.'.edit', $sql->id) }}" class='btn btn-secondary btn-sm'>
         <i class="fa fa-edit"></i>
     </a>
     {!! Form::button('<i class="fa fa-trash"></i>', [
