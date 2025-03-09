@@ -11,6 +11,7 @@ use Flash;
 
 use Illuminate\Support\Facades\Storage;
 use App\Models\Blog;
+use Yajra\Datatables\Datatables;
 
 class BlogController extends AppBaseController
 {
@@ -234,5 +235,39 @@ class BlogController extends AppBaseController
         Flash::success('Artikel berhasil dihapus.');
 
         return redirect(route('blogs.index'));
+    }
+
+    /**
+     * Display data for datatable.
+     *
+     * @throws \Exception
+     */
+    public function indexJson() {
+        $sql = Blog::select(
+            'id',
+            'judul',
+            'updated_at',
+            'status'
+        )->get();
+
+        return Datatables::of($sql)
+        ->addColumn('aksi', function($sql){
+            $table = 'blogs';
+            return view('layouts/datatables_action', compact('sql', 'table'));
+        })
+        ->editColumn('status', function($sql){
+            if($sql->status==0) {
+                return "<span class='badge bg-danger'> Tidak Aktif </span>";
+            } elseif ($sql->status==1) {
+                return "<span class='badge bg-success'> Aktif </span>";
+            } else {
+                return "-";
+            }
+        })
+        ->editColumn('tanggal', function($sql){
+            return $tanggal = date('d/m/Y', strtotime($sql->updated_at));
+        })
+        ->rawColumns(['status'])
+        ->make(true);
     }
 }

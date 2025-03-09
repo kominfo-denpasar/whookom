@@ -89,6 +89,7 @@ Route::group([
         });
 
         Route::prefix('data')->group(function () {
+            Route::get('blogs/json', [App\Http\Controllers\BlogController::class, 'indexJson'])->name('backend.blog-json');
             Route::resource('blogs', App\Http\Controllers\BlogController::class);
             Route::resource('blog-kategoris', App\Http\Controllers\BlogKategoriController::class);
         });

@@ -7,13 +7,13 @@
 <!-- Deskripsi Field -->
 <div class="col-sm-12">
     {!! Form::label('deskripsi', 'Deskripsi:') !!}
-    <p>{{ $blog->deskripsi }}</p>
+    <p>{!! $blog->deskripsi !!}</p>
 </div>
 
 <!-- Gambar Field -->
 <div class="col-sm-12">
     {!! Form::label('gambar', 'Gambar:') !!}
-    <p>{{ $blog->gambar }}</p>
+    <p><img style="width:100%" src="{{ asset('storage/uploads/blog/'.$blog->gambar) }}"></p>
 </div>
 
 <!-- Slug Field -->
