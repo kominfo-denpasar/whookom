@@ -94,6 +94,7 @@ Route::group([
         Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
         Route::resource('evaluasis', App\Http\Controllers\EvaluasiController::class);
         Route::resource('blog-kategoris', App\Http\Controllers\BlogKategoriController::class);
+        Route::resource('logs', App\Http\Controllers\LogController::class);
 
     });
 });
@@ -106,4 +107,3 @@ Route::get('/notif', [App\Http\Controllers\FrontController::class, 'testNotif'])
 
 
 Route::any('{catchall}', [App\Http\Controllers\FrontController::class, 'notFound'])->where('catchall', '.*');
-Route::resource('logs', App\Http\Controllers\LogController::class);
