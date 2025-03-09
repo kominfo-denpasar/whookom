@@ -904,18 +904,19 @@ class FrontController extends Controller
 	 */
 	public function testHalaman()
 	{
+		activity()->log('Look, I logged something');
 		// fungsi cek user menggunakan modul role
-		$user = config('roles.models.defaultUser')::find(1);
+		// $user = config('roles.models.defaultUser')::find(1);
 
-		// attach role admin
-		$user->attachRole(1);
+		// // attach role admin
+		// $user->attachRole(1);
 		
-		// cek apakah rolenya admin
-		if ($user->isAdmin()) {
-			echo "admin";
-		} else {
-			dd($user);
-		}
+		// // cek apakah rolenya admin
+		// if ($user->isAdmin()) {
+		// 	echo "admin";
+		// } else {
+		// 	dd($user);
+		// }
 
 		// return view('front.konseling_final');
 	}
