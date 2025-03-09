@@ -11,6 +11,7 @@ use Flash;
 
 use Illuminate\Support\Facades\Storage;
 use App\Models\Blog;
+use App\Models\BlogKategori;
 use Yajra\Datatables\Datatables;
 
 class BlogController extends AppBaseController
@@ -40,7 +41,12 @@ class BlogController extends AppBaseController
     public function create()
     {
         $blog = null;
-        return view('blogs.create')->with('blog', $blog);
+        $kategori = BlogKategori::where('status', 1)->get();
+
+        return view('blogs.create')->with([
+            'blog' => $blog,
+            'kategori' => $kategori
+        ]);
     }
 
     /**
@@ -75,17 +81,21 @@ class BlogController extends AppBaseController
 
             //create post
             $blog = Blog::create([
-                'gambar'     => $month_folder.'/'.$file_name,
-                'judul'     => $request->judul,
-                'deskripsi'   => $request->deskripsi,
-                'user_id'   => $this->getUser()->id
+                'gambar'        => $month_folder.'/'.$file_name,
+                'judul'         => $request->judul,
+                'status'        => $request->status,
+                'deskripsi'     => $request->deskripsi,
+                'kat_id'        => $request->kat_id,
+                'user_id'       => $this->getUser()->id
             ]);
         } else {
             //create post
             $blog = Blog::create([
-                'judul'     => $request->judul,
-                'deskripsi'   => $request->deskripsi,
-                'user_id'   => $this->getUser()->id
+                'judul'         => $request->judul,
+                'deskripsi'     => $request->deskripsi,
+                'status'        => $request->status,
+                'kat_id'        => $request->kat_id,
+                'user_id'       => $this->getUser()->id
             ]);
         }
 
@@ -122,6 +132,7 @@ class BlogController extends AppBaseController
     public function edit($id)
     {
         $blog = $this->blogRepository->find($id);
+        $kategori = BlogKategori::where('status', 1)->get();
 
         if (empty($blog)) {
             Flash::error('Blog not found');
@@ -131,7 +142,10 @@ class BlogController extends AppBaseController
 
         // dd($blog->gambar);
 
-        return view('blogs.edit')->with('blog', $blog);
+        return view('blogs.edit')->with([
+            'blog' => $blog,
+            'kategori' => $kategori
+        ]);
     }
 
     /**
@@ -183,8 +197,10 @@ class BlogController extends AppBaseController
             ->update([
                 'gambar'        => $month_folder.'/'.$file_name,
                 'judul'         => $request->judul,
+                'status'        => $request->status,
                 'slug'          => str_slug($request->judul),
                 'deskripsi'     => $request->deskripsi,
+                'kat_id'        => $request->kat_id,
                 'user_id'       => $this->getUser()->id
             ]);
         } else {
@@ -193,7 +209,9 @@ class BlogController extends AppBaseController
             ->update([
                 'judul'         => $request->judul,
                 'slug'          => str_slug($request->judul),
+                'status'        => $request->status,
                 'deskripsi'     => $request->deskripsi,
+                'kat_id'        => $request->kat_id,
                 'user_id'       => $this->getUser()->id
             ]);
         }

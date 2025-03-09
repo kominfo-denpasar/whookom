@@ -13,6 +13,8 @@ class Blog extends Model
         'deskripsi',
         'gambar',
         'slug',
+        'status',
+        'kat_id',
         'user_id'
     ];
 
@@ -21,6 +23,8 @@ class Blog extends Model
         'deskripsi' => 'string',
         'gambar' => 'string',
         'slug' => 'string',
+        'status' => 'integer',
+        'kat_id' => 'integer',
         'user_id' => 'string'
     ];
 

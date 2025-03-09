@@ -4,6 +4,22 @@
     {!! Form::text('judul', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
+<!-- kategori -->
+<div class="form-group col-sm-6">
+    {!! Form::label('kategori', 'Kategori Artikel:') !!}
+    <select name="kat_id" id="kat_id" class="form-control" required="">
+        <option value="">Pilih</option>
+        @foreach($kategori as $kat)
+            @if($blog!=null)
+            <option value="{{$kat->id}}" @if($blog->kat_id==$kat->id) {{ "selected" }} @endif>{{$kat->judul}}</option>
+            @else
+            <option value="{{$kat->id}}">{{$kat->judul}}</option>
+            @endif
+        @endforeach
+        
+    </select>
+</div>
+
 <!-- Deskripsi Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('deskripsi', 'Deskripsi:') !!}
@@ -17,18 +33,33 @@
         @if($blog && $blog->gambar)
             <!-- cek apakah file ada di folder -->
             @if(file_exists(storage_path('app/public/uploads/blog/'.$blog->gambar)))
-                <img class="img-fluid" src="{{asset('storage/uploads/blog/'.$blog->gambar)}}" style="height:30%">
+                <img class="img-fluid" src="{{asset('storage/uploads/blog/'.$blog->gambar)}}" style="height:30%;margin-bottom:10px;">
             @else
-                <img class="img-fluid" src="{{asset('img/pp_user.jpg')}}" style="height:30%">
+                <img class="img-fluid" src="{{asset('img/pp_user.jpg')}}" style="height:30%;margin-bottom:10px;">
             @endif
         @endif
-        <div class="custom-file" style="margin-top: 15px;">
+        <div class="custom-file">
             {!! Form::file('gambar', ['class' => 'custom-file-input']) !!}
             {!! Form::label('gambar', 'Choose file', ['class' => 'custom-file-label']) !!}
         </div>
     </div>
 </div>
 <div class="clearfix"></div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('status', 'Status') !!}
+    <select name="status" id="status" class="form-control" required="">
+        <option value="">Pilih</option>
+        @if($blog!=null)
+		<option value="1" @if($blog->status==1) {{ "selected" }} @endif>Aktif</option>
+		<option value="0" @if($blog->status==0) {{ "selected" }} @endif>Tidak Aktif</option>
+        @else
+        <option value="1">Aktif</option>
+		<option value="0">Tidak Aktif</option>
+        @endif
+    </select>
+	<small>Jika status tidak aktif, maka artikel tidak muncul.</small>
+</div>
 
 
 <!-- tinymce -->

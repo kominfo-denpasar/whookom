@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->text('gambar');
             $table->string('slug');
+            $table->integer('status')->default(0);
+            $table->integer('kat_id');
             $table->string('user_id');
             $table->timestamps();
         });
