@@ -9,11 +9,15 @@ use App\Models\dasshasil;
 use App\Models\keluhan;
 use App\Models\jadwal;
 use App\Models\Konseling;
+use App\Models\Evaluasi;
+use App\Models\Blog;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+
+use Artesaos\SEOTools\Facades\SEOTools;
 
 class FrontController extends Controller
 {
@@ -35,10 +39,26 @@ class FrontController extends Controller
 	public function index()
 	{
 		// dd(\App::getLocale());
-		$psikolog = Psikolog::inRandomOrder()->take(3)->get();
+		$psikolog = Psikolog::where('status', 1)->inRandomOrder()->get();
+		$blog = Blog::join('users', 'blogs.user_id', '=', 'users.id')
+					->select(
+						'blogs.judul', 
+						'blogs.id', 
+						'blogs.slug',
+						'blogs.gambar', 
+						'blogs.updated_at', 
+						'users.name')
+					->where('status', 1)
+					->inRandomOrder()
+					->take(3)
+					->get();
+
+		// seo
+		SEOTools::setTitle("Program Konseling Anak Sekolah");
 
 		return view('front.home')->with([
-			'psikolog' => $psikolog
+			'psikolog' => $psikolog,
+			'blog' => $blog
 		]);
 	}
 
@@ -49,6 +69,11 @@ class FrontController extends Controller
 	 */
 	public function surveiIntro()
 	{
+		// seo
+		SEOTools::setTitle("Sejenak, mari renungkan diri");
+        SEOTools::setDescription("Mari renungkan diri. Ketahui kondisi kesehatan mental dan saran praktis untuk diri Anda di Denpasar Menyama Bagia");
+        SEOTools::opengraph()->setUrl(url('/survei'));
+
 		return view('front.survei_intro');
 	}
 
@@ -240,7 +265,7 @@ class FrontController extends Controller
 			$hasil_text = "Hasil tes Anda menunjukkan kondisi kesehatan mental yang berada dalam batas normal. Ini artinya, Anda mungkin sudah cukup baik dalam mengelola stres, kecemasan, atau suasana hati. Namun, kesehatan mental tetap penting untuk dijaga, lho! Jika Anda ingin berdiskusi atau memperdalam pemahaman tentang diri, klik tombol di bawah untuk menjadwalkan konseling gratis. Kami siap mendengarkan!";
 			$hasil_status = 'Normal';
 		} elseif($hasil_d == 'Extreme Severe' || $hasil_a == 'Extreme Severe' || $hasil_s == 'Extreme Severe') {
-			$hasil_text = "Anda sepertinya sudah sangat gila. Anda mungkin merasa sangat tertekan, cemas, atau sedih. Kondisi ini bisa sangat mengganggu aktivitas sehari-hari dan kualitas hidup Anda. Jangan biarkan kondisi ini berlarut-larut. Klik tombol di bawah untuk konseling gratis dan izinkan kami membantu Anda melewati ini.";
+			$hasil_text = "Hasil tes menunjukkan gejala yang sangat serius dan perlu tindakan segera. Anda mungkin merasa sangat tertekan, cemas, atau sedih. Kondisi ini bisa sangat mengganggu aktivitas sehari-hari dan kualitas hidup Anda. Jangan biarkan kondisi ini berlarut-larut. Klik tombol di bawah untuk konseling gratis dan izinkan kami membantu Anda melewati ini.";
 			$hasil_status = 'Extreme Severe';
 		} elseif($hasil_d == 'Severe' || $hasil_a == 'Severe' || $hasil_s == 'Severe') {
 			$hasil_text = "Hasil tes menunjukkan gejala yang cukup serius. Anda mungkin merasa stres yang sangat berat, sering diliputi kecemasan, atau suasana hati yang begitu rendah hingga mengganggu aktivitas sehari-hari. Kami paham ini tidak mudah, tapi Anda tidak perlu menghadapi ini sendirian. Silahkan tombol di bawah untuk konseling gratis dan izinkan kami membantu Anda melewati ini.";
@@ -674,24 +699,225 @@ class FrontController extends Controller
 	}
 
 	/**
+	 * Halaman Formulir Evaluasi.
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function formulirEvaluasi($id)
+	{
+		//ambil data join masyarakat, keluhan dan jadwal
+		$masyarakat = Masyarakat::join('keluhans', 'masyarakats.token', '=', 'keluhans.mas_id')
+			->join('psikologs', 'keluhans.psikolog_id', '=', 'psikologs.id')
+			->select(
+				'masyarakats.nik', 
+				'masyarakats.nama', 
+				'masyarakats.hp', 
+				'keluhans.id as keluhan_id', 
+				'psikologs.id as psikolog_id',
+				'psikologs.nama as psikolog',
+				'psikologs.alamat_praktek',
+				'psikologs.hp as psikolog_hp')
+			->where([
+				'masyarakats.token' => $id,
+				'keluhans.status' => 1
+			])
+			->first();
+
+		// cek jika sudah mengisi form evaluasi
+		$evaluasi = Evaluasi::where([
+			'mas_id' => $id,
+			'psikolog_id' => $masyarakat->psikolog_id,
+			'keluhan_id' => $masyarakat->keluhan_id
+		])->first();
+		
+
+		// dd($masyarakat);
+
+		if($masyarakat && !$evaluasi) {
+			return view('front.evaluasi', [
+				'mas_id' => $id, 
+				'masyarakat' => $masyarakat]
+			);
+		} else {
+			return redirect()->route('front.survei-intro');
+		}
+	}
+
+	/**
+	 * simpan data evaluasi
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function storeEvaluasi(Request $request)
+	{
+		//validate form
+		$this->validate($request, [
+			'nilai_layanan'   => 'required',
+			'nilai_keluhan'   => 'required',
+			'rekomendasi'   => 'required'
+		]);
+
+		// dd($request->all());
+
+		//simpan data
+		$evaluasi = Evaluasi::create([
+			'nilai_layanan'   	=> $request->nilai_layanan,
+			'nilai_keluhan'   	=> $request->nilai_keluhan,
+			'rekomendasi'   	=> $request->rekomendasi,
+			'keluhan_id'   		=> $request->keluhan_id,
+			'mas_id'   			=> $request->mas_id,
+			'psikolog_id'   	=> $request->psikolog_id
+		]);
+
+		//redirect to finish
+		return view('front.evaluasi_selesai');
+	}
+
+	/**
+	 * view halaman faq
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function faq()
+	{
+		//get data faq dari tabel pengaturan
+		$faq = DB::table('pengaturans')
+			->where('slug', 'faq')
+			->first();
+
+		// seo
+		SEOTools::setTitle(__('front.faq'));
+        SEOTools::setDescription("List pertanyaan yang sering ditanyakan");
+        SEOTools::opengraph()->setUrl(url('/faq'));
+		
+		return view('front.faq')->with([
+			'faq' => $faq
+		]);
+	}
+
+	/**
+	 * view halaman privasi
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function privasi()
+	{
+		//get data dari tabel pengaturan
+		$data = DB::table('pengaturans')
+			->where('slug', 'privasi')
+			->first();
+
+		// seo
+		SEOTools::setTitle('Kebijakan Privasi');
+        SEOTools::setDescription("Kebijakan Privasi Denpasar Menyama Bagia");
+        SEOTools::opengraph()->setUrl(url('/privasi'));
+		
+		return view('front.privasi')->with([
+			'data' => $data
+		]);
+	}
+
+	/**
+	 * view halaman detail blog
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function blogDetail($slug)
+	{
+		//get data faq dari tabel pengaturan
+		$blog = DB::table('blogs')
+			->join('users', 'blogs.user_id', 'users.id')
+			->select(
+				'blogs.judul',
+				'blogs.deskripsi',
+				'blogs.gambar',
+				'blogs.updated_at',
+				'users.name')
+			->where('slug', $slug)
+			->first();
+		
+
+		if($blog) {
+			// seo
+			SEOTools::setTitle($blog->judul);
+			SEOTools::setDescription(str_limit(strip_tags($blog->deskripsi), $limit = 150, $end = '...'));
+			SEOTools::opengraph()->setUrl(url('/artikel/'.$slug));
+			SEOTools::opengraph()->addProperty('type', 'articles');
+			// SEOTools::twitter()->setSite('@LuizVinicius73');
+			if(file_exists(storage_path('app/public/uploads/blog/'.$blog->gambar))) {
+				SEOTools::jsonLd()->addImage(asset('/storage/uploads/blog/'.$blog->gambar));
+				SEOTools::addImages(url('/storage/uploads/blog/'.$blog->gambar));
+			} else {
+				SEOTools::jsonLd()->addImage(asset('img/pp_user.jpg'));
+				SEOTools::addImages(url('img/pp_user.jpg'));
+			}
+
+			return view('front.blog_detail')->with([
+				'blog' => $blog
+			]);
+		} else {
+			return view('front.404');
+		}
+		
+        
+
+		
+	}
+
+	/**
+	 * view halaman list blog
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
+	public function blogList()
+	{
+		//get data faq dari tabel pengaturan
+		$blogs = DB::table('blogs')
+			->join('users', 'blogs.user_id', 'users.id')
+			->select(
+				'blogs.judul',
+				'blogs.deskripsi',
+				'blogs.gambar',
+				'blogs.slug',
+				'blogs.updated_at',
+				'users.name')
+			->get();
+
+		// seo
+		SEOTools::setTitle(__('front.blog_title'));
+        SEOTools::setDescription(__('front.blog_desc'));
+        SEOTools::opengraph()->setUrl(url('/artikel'));
+		
+		return view('front.blog_list')->with([
+			'blogs' => $blogs
+		]);
+	}
+
+	/**
 	 * Tes halaman
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable
 	 */
 	public function testHalaman()
 	{
+		activity()->log('Look, I logged something');
 		// fungsi cek user menggunakan modul role
-		$user = config('roles.models.defaultUser')::find(1);
+		// $user = config('roles.models.defaultUser')::find(1);
 
-		// attach role admin
-		$user->attachRole(1);
+		// // attach role admin
+		// $user->attachRole(1);
 		
-		// cek apakah rolenya admin
-		if ($user->isAdmin()) {
-			echo "admin";
-		} else {
-			dd($user);
-		}
+		// // cek apakah rolenya admin
+		// if ($user->isAdmin()) {
+		// 	echo "admin";
+		// } else {
+		// 	dd($user);
+		// }
 
 		// return view('front.konseling_final');
 	}
@@ -711,5 +937,15 @@ class FrontController extends Controller
 		
 		// script
 		$this->notif_wa($data);
+	}
+
+	/**
+	 * halaman error
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function notFound() 
+	{ 
+		return view('front.404'); 
 	}
 }

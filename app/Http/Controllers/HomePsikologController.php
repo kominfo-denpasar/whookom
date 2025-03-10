@@ -10,6 +10,7 @@ use App\Models\Konseling;
 use App\Models\keluhan;
 use App\Models\Masalah;
 use App\Models\KonselingMasalah;
+use App\Models\Evaluasi;
 
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -113,9 +114,11 @@ class HomePsikologController extends Controller
 
 		// cek apakah ada data, jika iya maka tampilkan halaman detail konseling
 		if($data) {
-			// cek apakah psikolog yang login adalah psikolog yang ditunjuk
-			if($data->psikolog_id != $this->getUser()->psikolog_id) {
-				return redirect()->route('home-psikolog')->with('message', 'Anda tidak memiliki akses ke halaman ini');
+			// cek apakah psikolog yang login adalah psikolog yang ditunjuk dan apakah user adalah admin?
+			if(!$this->getUser()->hasRole('admin')) {
+				if($data->psikolog_id != $this->getUser()->psikolog_id) {
+					return redirect()->route('home-psikolog')->with('message', 'Anda tidak memiliki akses ke halaman ini');
+				}
 			}
 
 			// get data riwayat konseling
@@ -149,6 +152,9 @@ class HomePsikologController extends Controller
 					'berkas_pendukung' => $konseling->berkas_pendukung
 				];
 
+				// get data evaluasi
+				$evaluasi = Evaluasi::where('keluhan_id', $data->keluhan_id)->first();
+
 				// get data konseling masalah
 				$konseling_masalah = KonselingMasalah::where('konseling_id', $data->konseling_id)->get();
 				$konseling_masalah = $konseling_masalah->map(function($item) {
@@ -161,7 +167,10 @@ class HomePsikologController extends Controller
 					'saran' => null,
 					'berkas_pendukung' => null
 				];
+				$evaluasi = null;
 				$konseling_masalah = [];
+
+				
 			}
 
 			// dd($data->konseling_id);
@@ -172,6 +181,7 @@ class HomePsikologController extends Controller
 				'riwayat_konseling' => $riwayat_konseling,
 				'konseling' => $konseling,
 				'konseling_masalah' => $konseling_masalah,
+				'evaluasi' => $evaluasi,
 				'user' => $this->getUser()
 			]);
 		} else {
@@ -252,13 +262,23 @@ class HomePsikologController extends Controller
 	}
 
 	/**
-	 * Tampilkan form evaluasi. 
+	 * Trigger kirim form evaluasi ke masyarakat. 
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable
 	 */
 	public function formEvaluasi($id)
 	{
-		return view('backend/evaluasi');
+		// dd($id);
+		// trigger kirim pesan ke klien untuk mengisi form evaluasi
+		$masyarakat = Masyarakat::where('token', $id)->first();
+
+		$data = [
+			'phone' => '0'.$masyarakat->hp,
+			'message' => "Halo $masyarakat->nama, kami mohon bantuan Anda untuk mengisi formulir evaluasi konseling yang telah Anda lakukan. Silakan klik link berikut untuk mengisi formulir evaluasi: ".route('front.evaluasi', $id)."\n\nSalam, Denpasar Menyama Bagia"
+		];
+
+		$this->notif_wa($data);
+		return redirect()->route('home-psikolog')->with('message', 'Berhasil mengirimkan formulir evaluasi ke masyarakat');
 	}
 
 	/**

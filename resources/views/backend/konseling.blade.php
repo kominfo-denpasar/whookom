@@ -124,8 +124,10 @@
 								<ul class="nav nav-pills">
 									<li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Informasi</a></li>
 									<li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Keluhan & DASS-21</a></li>
+									@role('psikolog', true)
 									<li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Input Data Konseling</a></li>
-									<li class="nav-item"><a class="nav-link" href="#evaluasi" data-toggle="tab">Formulir Evaluasi</a></li>
+									<li class="nav-item"><a class="nav-link" href="#evaluasi" data-toggle="tab">Evaluasi</a></li>
+									@endrole
 								</ul>
 							</div><!-- /.card-header -->
 							<div class="card-body">
@@ -200,6 +202,7 @@
 										</div>
 										<!-- /.card -->
 
+										@role('psikolog', true)
 										<div class="card card-info shadow-md">
 											<div class="card-body">
 												<div class="btn-group float-right">
@@ -265,6 +268,7 @@
 												</div>
 											</div>
 										</form>
+										@endrole
 
 										@elseif($data->status==1)
 										<hr>
@@ -310,6 +314,7 @@
 										</div>
 										<!-- /.card -->
 
+										@role('psikolog', true)
 										<div class="col-md-12">
 											<hr>
 										</div>
@@ -358,6 +363,7 @@
 												</div>
 											</div>
 										</form>
+										@endrole
 
 										@elseif($data->status==2)
 
@@ -610,45 +616,56 @@
 											<div class="callout callout-info">
 												<h5>Perhatian!</h5>
 												<p>
-													Formulir ini ditujukan untuk klien yang telah selesai melakukan konseling. Mohon untuk mengisi formulir evaluasi dengan jujur dan benar. 
+													Formulir ini ditujukan untuk klien yang telah selesai melakukan konseling. Untuk mengirim form ke klien klik tombol di bawah. Klien akan mendapatkan formulir evaluasi melalui email & Whatsapp.
+
+													@if($evaluasi!=null)
+													<br><b>Catatan: Form evaluasi sudah diinputkan oleh klien.</b>
+													@endif
 												</p>
 											</div>
 											<!-- .callout -->
-											
+											@if($evaluasi!=null)
 											<hr>
 											<div class="form-group">
 												<label>Seberapa membantu layanan konseling yang diberikan?
 												</label>
-												<select class="form-control">
-													<option value="">Pilih</option>
-													<option>Sangat Membantu</option>
-													<option>Membantu</option>
-													<option>Cukup Membantu</option>
-													<option>Kurang Membantu</option>
+												<select class="form-control" disabled>
+													<option>-</option>
+													<option @if($evaluasi->nilai_layanan==4) {{"selected"}} @endif>Sangat Membantu</option>
+													<option @if($evaluasi->nilai_layanan==3) {{"selected"}} @endif>Membantu</option>
+													<option @if($evaluasi->nilai_layanan==2) {{"selected"}} @endif>Cukup Membantu</option>
+													<option @if($evaluasi->nilai_layanan==1) {{"selected"}} @endif>Kurang Membantu</option>
 												</select>
 											</div>
 											<div class="form-group">
 												<label>Setelah konseling, seberapa mengganggu keluhan yang Anda rasakan pada aktivitas sehari-hari?
 												</label>
-												<select class="form-control">
-													<option>Pilih</option>
-													<option>Sangat Membantu</option>
-													<option>Membantu</option>
-													<option>Cukup Membantu</option>
-													<option>Kurang Membantu</option>
+												<select class="form-control" disabled>
+													<option>-</option>
+													<option @if($evaluasi->nilai_keluhan==4) {{"selected"}} @endif>Sangat Membantu</option>
+													<option @if($evaluasi->nilai_keluhan==3) {{"selected"}} @endif>Membantu</option>
+													<option @if($evaluasi->nilai_keluhan==2) {{"selected"}} @endif>Cukup Membantu</option>
+													<option @if($evaluasi->nilai_keluhan==1) {{"selected"}} @endif>Kurang Membantu</option>
 												</select>
 											</div>
 											<div class="form-group">
 												<label>Apakah anda bersedia merekomendasikan layanan konseling ini ke rekan/keluarga yang membutuhkan?
 												</label>
-												<select class="form-control">
-													<option>Pilih</option>
-													<option>Bersedia</option>
-													<option>Tidak Bersedia</option>
+												<select class="form-control" disabled>
+													<option>-</option>
+													<option @if($evaluasi->rekomendasi==1) {{"selected"}} @endif>Bersedia</option>
+													<option @if($evaluasi->rekomendasi==0) {{"selected"}} @endif>Tidak Bersedia</option>
 												</select>
 											</div>
+											@endif
 											<div class="btn-group float-right">
-												<button type="button" class="btn btn-primary">Kirim Data</button>
+												@if($evaluasi==null)
+												<a href="{{route('backend.evaluasi', $data->token)}}" class="btn btn-primary">
+												@else
+												<a class="btn btn-primary disabled">
+												@endif
+													Kirim Form Evaluasi ke Klien
+												</a>
 											</div>
 										</div>
 										<!-- .col-11 -->

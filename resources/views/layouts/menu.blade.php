@@ -69,6 +69,45 @@
 	</li>
 @endrole
 
+@role('admin', true)
+<li class="nav-item {{ request()->is('admin/data/*') ? 'menu-open' : '' }}">
+		<a href="#" class="nav-link {{ request()->is('admin/data/*') ? 'active' : '' }}">
+			<i class="nav-icon fas fa-table"></i>
+			<p>
+			Edukasi & Saran
+			<i class="fas fa-angle-left right"></i>
+			</p>
+		</a>
+		<ul class="nav nav-treeview">
+			<li class="nav-item">
+				<a href="{{ route('blog-kategoris.index') }}" class="nav-link {{ Request::is('admin/data/blog-kategoris*') ? 'active' : '' }}">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Kategori</p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{ route('blogs.index') }}" class="nav-link {{ Request::is('admin/data/blogs*') ? 'active' : '' }}">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Data</p>
+				</a>
+			</li>
+		</ul>
+	</li>
+
+<li class="nav-item">
+    <a href="{{ route('pengaturans.index') }}" class="nav-link {{ Request::is('pengaturans*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-wrench"></i>
+        <p>Konfigurasi & Narasi</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('logs.index') }}" class="nav-link {{ Request::is('logs*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-history"></i>
+        <p>Log Aktivitas</p>
+    </a>
+</li>
+@endrole
+
 
 <!-- <li class="nav-item">
 	<a href="{{ route('dassPertanyaans.index') }}" class="nav-link {{ Request::is('dassPertanyaans*') ? 'active' : '' }}">
@@ -91,9 +130,9 @@
 	</a>
 </li> -->
 
-<li class="nav-item">
+<!-- <li class="nav-item">
     <a href="{{ route('evaluasis.index') }}" class="nav-link {{ Request::is('evaluasis*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Evaluasis</p>
     </a>
-</li>
+</li> -->

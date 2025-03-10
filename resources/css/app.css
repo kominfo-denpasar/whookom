@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    ul, ol {
+        list-style: revert;
+        margin-left: 18px;
+    }
+
+    ol > li, ul > li {
+        margin-top:8px;
+        margin-left: 12px;
+    }
+    relative {
+        position: relative;
+    }
+    top-0 {
+        top: 0px;
+    }
+    -mt-32 {
+        margin-top: 8rem;
+    }
+}

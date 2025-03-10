@@ -3,7 +3,7 @@
 return [
     'menu'     => 'Menu',
     'dashboard' => 'Beranda',
-    'tips'     => 'Edukasi & Saran',
+    'tips'     => 'Artikel & Tips',
     'tentang'   => 'Tentang',
     'tentang-kami'   => 'Apa itu :app?',
     'kebijakan-privasi'   => 'Kebijakan Privasi',

@@ -24,7 +24,7 @@
 
         <div class="card card-primary">
 
-            {!! Form::open(['route' => 'psikologs.store']) !!}
+            {!! Form::open(['route' => 'psikologs.store', 'enctype'=>'multipart/form-data']) !!}
 
             <div class="card-body">
                 <div class="row">

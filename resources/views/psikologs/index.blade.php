@@ -25,7 +25,7 @@
 
 				<div class="row">
 				<div class="col-md-3">
-					<a href="{{ route('psikologs.create') }}" class="btn btn-primary btn-block mb-3">Tambah</a>
+					<a href="{{ route('psikologs.create') }}" class="btn btn-primary btn-block mb-3">Tambah <span class="fas fa-plus-circle"></span></a>
 
 					<div class="card">
 						<div class="card-header">

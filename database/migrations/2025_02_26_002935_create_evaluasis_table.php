@@ -18,6 +18,9 @@ return new class extends Migration
             $table->integer('nilai_layanan');
             $table->integer('nilai_keluhan');
             $table->integer('rekomendasi');
+            $table->char('mas_id', 30);
+            $table->char('psikolog_id', 30);
+            $table->integer('keluhan_id');
             $table->timestamps();
         });
     }

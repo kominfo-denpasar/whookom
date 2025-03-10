@@ -30,7 +30,6 @@ Route::get('/konseling/keluhan/{id}', [App\Http\Controllers\FrontController::cla
 Route::get('/konseling/jadwal/{id}', [App\Http\Controllers\FrontController::class, 'konselingJadwal'])->name('front.konseling-jadwal');
 Route::get('/konseling/final/{id}', [App\Http\Controllers\FrontController::class, 'konselingFinal'])->name('front.konseling-final');
 
-
 Route::post('/survei/cek-nik', [App\Http\Controllers\FrontController::class, 'cekNik'])->name('front.cek-nik');
 Route::post('/survei/store-reg', [App\Http\Controllers\FrontController::class, 'storeReg'])->name('front.store-reg');
 Route::post('/survei/store-dass', [App\Http\Controllers\FrontController::class, 'storeDass'])->name('front.store-dass');
@@ -41,6 +40,15 @@ Route::get('/konseling/store-reg/{id}', [App\Http\Controllers\FrontController::c
 Route::post('/validasi-otp', [App\Http\Controllers\FrontController::class, 'validasiOtp'])->name('front.validasi-otp');
 
 Route::get('/jadwal/psikolog/{id}', [App\Http\Controllers\FrontController::class, 'jadwalPsikolog'])->name('front.jadwal-psikolog');
+
+Route::get('/evaluasi/{id}', [App\Http\Controllers\FrontController::class, 'formulirEvaluasi'])->name('front.evaluasi');
+Route::post('/evaluasi/store', [App\Http\Controllers\FrontController::class, 'storeEvaluasi'])->name('front.store-evaluasi');
+
+Route::get('/faq', [App\Http\Controllers\FrontController::class, 'faq'])->name('faq');
+Route::get('/privasi', [App\Http\Controllers\FrontController::class, 'privasi'])->name('privasi');
+
+Route::get('/artikel/{slug}', [App\Http\Controllers\FrontController::class, 'blogDetail'])->name('front.blog-detail');
+Route::get('/artikel', [App\Http\Controllers\FrontController::class, 'blogList'])->name('front.blog-list');
 
 Auth::routes();
 
@@ -70,6 +78,8 @@ Route::group([
         });
         
         Route::prefix('master')->group(function () {
+            Route::get('psikologs/json', [App\Http\Controllers\PsikologController::class, 'indexJson'])->name('backend.psikolog-json');
+            Route::get('psikologs/keluhan-json/{id}', [App\Http\Controllers\PsikologController::class, 'keluhanJson'])->name('backend.psikolog-keluhan-json');
             Route::resource('psikologs', App\Http\Controllers\PsikologController::class);
             Route::resource('masyarakats', App\Http\Controllers\MasyarakatController::class);
             Route::resource('dassPertanyaans', App\Http\Controllers\dassPertanyaanController::class);
@@ -80,7 +90,17 @@ Route::group([
             Route::resource('konseling-masalahs', App\Http\Controllers\KonselingMasalahController::class);
         });
 
+        Route::prefix('data')->group(function () {
+            Route::get('blogs/json', [App\Http\Controllers\BlogController::class, 'indexJson'])->name('backend.blog-json');
+            Route::resource('blogs', App\Http\Controllers\BlogController::class);
+            Route::resource('blog-kategoris', App\Http\Controllers\BlogKategoriController::class);
+        });
+
+        Route::resource('pengaturans', App\Http\Controllers\PengaturanController::class);
         Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
+        Route::resource('evaluasis', App\Http\Controllers\EvaluasiController::class);
+        Route::resource('logs', App\Http\Controllers\LogController::class);
+
     });
 });
 
@@ -89,4 +109,6 @@ Route::get('/test', [App\Http\Controllers\FrontController::class, 'testHalaman']
 Route::get('/notif', [App\Http\Controllers\FrontController::class, 'testNotif']);
 
 
-Route::resource('evaluasis', App\Http\Controllers\EvaluasiController::class);
+
+
+Route::any('{catchall}', [App\Http\Controllers\FrontController::class, 'notFound'])->where('catchall', '.*');

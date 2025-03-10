@@ -1,8 +1,5 @@
 <nav id="navbar-main" class="navbar is-fixed-top lg:pl-24">
     <div class="navbar-brand">
-        <!-- <a class="navbar-item mobile-aside-button">
-   <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
-  </a> -->
         <div class="navbar-item">
             <!-- <div class="control"><input placeholder="Search everywhere..." class="input"></div> -->
             <a href="{{ url('/') }}">
@@ -27,53 +24,34 @@
                 </a>
                 <div class="navbar-dropdown">
                     <a href="{{ url('/') }}" class="navbar-item">
-                        <span class="icon"><i class="mdi mdi-account"></i></span>
                         <span>{{ trans('front.dashboard') }}</span>
                     </a>
-                    <a href="{{ url('/') }}" class="navbar-item">
-                        <span class="icon"><i class="mdi mdi-lightbulb-on-outline"></i></span>
+                    <a href="{{ route('front.blog-list') }}" class="navbar-item">
                         <span>{{ trans('front.tips') }}</span>
+                    </a>
+                    <a href="{{ route('front.survei-intro') }}" class="navbar-item">
+                        <span>{{ "Cek Kesehatan Mental & Konseling" }}</span>
                     </a>
                     <hr class="navbar-divider">
                 </div>
             </div>
-            <!-- <div class="navbar-item dropdown has-divider has-user-avatar">
-    <a class="navbar-link">
-     <div class="user-avatar">
-      <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
-     </div>
-     <div class="is-user-name"><span>John Doe</span></div>
-     <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
-    </a>
-    <div class="navbar-dropdown">
-     <a href="profile.html" class="navbar-item">
-      <span class="icon"><i class="mdi mdi-account"></i></span>
-      <span>My Profile</span>
-     </a>
-     <a class="navbar-item">
-      <span class="icon"><i class="mdi mdi-settings"></i></span>
-      <span>Settings</span>
-     </a>
-     <a class="navbar-item">
-      <span class="icon"><i class="mdi mdi-email"></i></span>
-      <span>Messages</span>
-     </a>
-     <hr class="navbar-divider">
-     <a class="navbar-item">
-      <span class="icon"><i class="mdi mdi-logout"></i></span>
-      <span>Log Out</span>
-     </a>
-    </div>
-   </div> -->
-            <a href="#!" class="navbar-item has-divider desktop-icon-only" title="FAQ">
+           
+            <a href="{{ url('/faq') }}" class="navbar-item has-divider desktop-icon-only" title="FAQ">
                 <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
-                <span>{{ trans('front.tentang') }}</span>
+                <span>{{ trans('front.faq') }}</span>
             </a>
             <hr class="navbar-divider">
+            @if(Auth::check()==1)
+            <a href="{{ url('/admin/home') }}" title="Admin" class="navbar-item desktop-icon-only">
+                <span class="icon"><i class="mdi mdi-comment-account-outline"></i></span>
+                <span>{{Auth::user()->name}}</span>
+            </a>
+            @else
             <a href="{{ url('/login') }}" title="Login" class="navbar-item desktop-icon-only">
                 <span class="icon"><i class="mdi mdi-lock"></i></span>
                 <span>Login</span>
             </a>
+            @endif
         </div>
     </div>
 </nav>

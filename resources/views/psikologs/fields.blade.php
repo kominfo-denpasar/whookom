@@ -4,6 +4,12 @@
     {!! Form::text('nama', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
+<!-- jk Field -->
+<div class="form-group col-sm-8 offset-sm-2">
+    {!! Form::label('jk', 'JK:') !!}
+    {!! Form::select('jk', ['L' => 'Laki-laki', 'P' => 'Perempuan'], null, ['class' => 'form-control custom-select']) !!}
+</div>
+
 <!-- Hp Field -->
 <div class="form-group col-sm-8 offset-sm-2">
     {!! Form::label('hp', 'Nomor HP (Whatsapp)') !!}
@@ -31,6 +37,26 @@
     {!! Form::text('sipp', null, ['class' => 'form-control', 'required']) !!}
     <small>Surat Izin Praktik Psikologi</small>
 </div>
+
+<!-- Gambar Field -->
+<div class="form-group col-sm-8 offset-sm-2">
+    {!! Form::label('foto', 'Foto') !!}
+    <div class="input-group">
+        @if($psikolog && $psikolog->foto)
+            <!-- cek apakah file ada di folder -->
+            @if(file_exists(storage_path('app/public/uploads/psikolog/'.$psikolog->foto)))
+                <img class="img-fluid col-12" src="{{asset('storage/uploads/psikolog/'.$psikolog->foto)}}" style="height:20%">
+            @else
+                <img class="img-fluid col-12" src="{{asset('img/pp_user.jpg')}}" style="height:20%">
+            @endif
+        @endif
+        <div class="col-12 custom-file" style="margin-top: 15px;">
+            {!! Form::file('foto', ['class' => 'custom-file-input']) !!}
+            {!! Form::label('foto', 'Choose file', ['class' => 'custom-file-label']) !!}
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
 
 <!-- Field -->
 <div class="form-group col-sm-8 offset-sm-2">
