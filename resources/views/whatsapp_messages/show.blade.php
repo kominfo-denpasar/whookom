@@ -11,7 +11,7 @@ Whatsapp Messages Details
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('whatsappMessages.index') }}">
+                       href="{{ route('whatsapp-messages.index') }}">
                                                     Back
                                             </a>
                 </div>

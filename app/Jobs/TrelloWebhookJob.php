@@ -30,8 +30,7 @@ class TrelloWebhookJob extends SpatieProcessWebhookJob
         // log
         activity('webhook_trello')
             ->causedBy($this->webhookCall)
-            ->log(json_encode($data))
-            ->createdAt(now());
+            ->log(json_encode($data));
     
         // if ($data['event'] == 'charge.success') {
         //     // take action since the charge was success

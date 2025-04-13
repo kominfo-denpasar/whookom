@@ -10,6 +10,9 @@ use App\Repositories\whatsappMessagesRepository;
 use Illuminate\Http\Request;
 use Flash;
 
+use App\Models\whatsappMessages;
+use Yajra\Datatables\Datatables;
+
 class whatsappMessagesController extends AppBaseController
 {
     /** @var whatsappMessagesRepository $whatsappMessagesRepository*/
@@ -123,5 +126,32 @@ class whatsappMessagesController extends AppBaseController
         Flash::success('Whatsapp Messages deleted successfully.');
 
         return redirect(route('whatsappMessages.index'));
+    }
+
+    /**
+     * Display data for datatable.
+     *
+     * @throws \Exception
+     */
+    public function indexJson() {
+        $sql = whatsappMessages::select(
+            'id',
+            'content',
+            'pushname',
+            'type',
+			'caption',
+            'is_group',
+            'created_at'
+        )->get();
+
+        return Datatables::of($sql)
+        ->addColumn('aksi', function($sql){
+            $table = 'whatsapp-messages';
+            return view('layouts/datatables_action', compact('sql', 'table'));
+        })
+        ->editColumn('created_at', function($sql){
+            return $tanggal = date('d/m/Y H:i', strtotime($sql->created_at));
+        })
+        ->make(true);
     }
 }

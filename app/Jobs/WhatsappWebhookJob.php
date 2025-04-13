@@ -4,6 +4,8 @@ namespace App\Jobs;
 
 use Spatie\WebhookClient\Jobs\ProcessWebhookJob as SpatieProcessWebhookJob;
 use Spatie\WebhookClient\Models\WebhookCall;
+use App\Models\whatsappMessages;
+use Illuminate\Support\Str;
 
 class WhatsappWebhookJob extends SpatieProcessWebhookJob
 {
@@ -27,21 +29,43 @@ class WhatsappWebhookJob extends SpatieProcessWebhookJob
         // Process the webhook call
         $data = $this->webhookCall->payload;
 
-        // log
-        activity('webhook_whatsapp')
-            ->causedBy($this->webhookCall)
-            ->log(json_encode($data))
-            ->createdAt(now());
-    
-        // if ($data['event'] == 'charge.success') {
-        //     // take action since the charge was success
-        //     // Create order
-        //     // Sed email
-        //     // Whatever you want
-        //     Log::info($data);
-        // }
+        // Tentukan tipe pesan (group atau personal)
+        $isGroup = Str::contains($data['from'], '@g.us');
 
-        //Acknowledge you received the response
-        http_response_code(200);
+        $type = 'text'; // default
+        $content = null;
+        $caption = null;
+        $mime_type = null;
+
+        // Deteksi tipe isi pesan
+        if (isset($data['image'])) {
+            $type = 'image';
+            $content = $data['image']['media_path'] ?? null;
+            $caption = $data['image']['caption'] ?? null;
+            $mime_type = $data['image']['mime_type'] ?? null;
+        } elseif (isset($data['document'])) {
+            $type = 'document';
+            $content = $data['document']['media_path'] ?? null;
+            $caption = $data['document']['caption'] ?? null;
+            $mime_type = $data['document']['mime_type'] ?? null;
+        } elseif (isset($data['message']['text'])) {
+            $type = 'text';
+            $content = $data['message']['text'];
+        }
+
+        // Simpan ke database
+        whatsappMessages::create([
+            'message_id' => $data['message']['id'] ?? null,
+            'from' => $data['from'],
+            'pushname' => $data['pushname'],
+            'type' => $type,
+            'content' => $content,
+            'caption' => $caption,
+            'mime_type' => $mime_type,
+            'is_group' => $isGroup,
+            'timestamp' => $data['timestamp'],
+        ]);
+
+        return response()->json(['status' => 'ok']);
     }
 }

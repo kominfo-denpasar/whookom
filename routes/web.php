@@ -102,6 +102,7 @@ Route::group([
         Route::resource('evaluasis', App\Http\Controllers\EvaluasiController::class);
         Route::resource('logs', App\Http\Controllers\LogController::class);
 
+        Route::get('whatsapp-messages/json', [App\Http\Controllers\whatsappMessagesController::class, 'indexJson'])->name('backend.whatsapp-json');
         Route::resource('whatsapp-messages', App\Http\Controllers\whatsappMessagesController::class);
     });
 });
