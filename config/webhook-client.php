@@ -62,7 +62,7 @@ return [
         [
             'name' => 'trello',
             'signing_secret' => env('WEBHOOK_CLIENT_SECRET'),
-            'signature_header_name' => 'x-hub-signature-256',
+            'signature_header_name' => 'x-trello-webhook',
             // 'signature_validator' => \Spatie\WebhookClient\SignatureValidator\DefaultSignatureValidator::class,
             'signature_validator' => App\Handler\TrelloSignature::class,
             'webhook_profile' => \Spatie\WebhookClient\WebhookProfile\ProcessEverythingWebhookProfile::class,
