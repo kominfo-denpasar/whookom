@@ -102,6 +102,7 @@ Route::group([
         Route::resource('evaluasis', App\Http\Controllers\EvaluasiController::class);
         Route::resource('logs', App\Http\Controllers\LogController::class);
 
+        Route::resource('whatsapp-messages', App\Http\Controllers\whatsappMessagesController::class);
     });
 });
 
