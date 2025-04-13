@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.8",
         "scyllaly/hcaptcha": "^4.4",
         "spatie/laravel-activitylog": "^4.10",
+        "spatie/laravel-webhook-client": "^3.4",
         "yajra/laravel-datatables-buttons": "^9.0",
         "yajra/laravel-datatables-html": "^9.0",
         "yajra/laravel-datatables-oracle": "^10.0"

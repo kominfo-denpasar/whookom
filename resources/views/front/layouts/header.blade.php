@@ -29,9 +29,6 @@
                     <a href="{{ route('front.blog-list') }}" class="navbar-item">
                         <span>{{ trans('front.tips') }}</span>
                     </a>
-                    <a href="{{ route('front.survei-intro') }}" class="navbar-item">
-                        <span>{{ "Cek Kesehatan Mental & Konseling" }}</span>
-                    </a>
                     <hr class="navbar-divider">
                 </div>
             </div>

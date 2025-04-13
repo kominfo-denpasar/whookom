@@ -54,7 +54,7 @@ class FrontController extends Controller
 					->get();
 
 		// seo
-		SEOTools::setTitle("Program Konseling Anak Sekolah");
+		SEOTools::setTitle("Home");
 
 		return view('front.home')->with([
 			'psikolog' => $psikolog,

@@ -19,30 +19,31 @@ Route::get('/', function () {
 });
 */
 
+
 Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('front.beranda');
 
-Route::get('/survei', [App\Http\Controllers\FrontController::class, 'surveiIntro'])->name('front.survei-intro');
-Route::get('/survei/registrasi', [App\Http\Controllers\FrontController::class, 'surveiReg'])->name('front.survei-reg');
-Route::get('/survei/dass-21', [App\Http\Controllers\FrontController::class, 'surveiDass'])->name('front.survei-dass-21');
-Route::get('/survei/hasil', [App\Http\Controllers\FrontController::class, 'surveiHasil'])->name('front.survei-hasil');
-Route::get('/konseling/registrasi', [App\Http\Controllers\FrontController::class, 'konselingReg'])->name('front.konseling-reg');
-Route::get('/konseling/keluhan/{id}', [App\Http\Controllers\FrontController::class, 'konselingKeluhan'])->name('front.konseling-keluhan');
-Route::get('/konseling/jadwal/{id}', [App\Http\Controllers\FrontController::class, 'konselingJadwal'])->name('front.konseling-jadwal');
-Route::get('/konseling/final/{id}', [App\Http\Controllers\FrontController::class, 'konselingFinal'])->name('front.konseling-final');
+// Route::get('/survei', [App\Http\Controllers\FrontController::class, 'surveiIntro'])->name('front.survei-intro');
+// Route::get('/survei/registrasi', [App\Http\Controllers\FrontController::class, 'surveiReg'])->name('front.survei-reg');
+// Route::get('/survei/dass-21', [App\Http\Controllers\FrontController::class, 'surveiDass'])->name('front.survei-dass-21');
+// Route::get('/survei/hasil', [App\Http\Controllers\FrontController::class, 'surveiHasil'])->name('front.survei-hasil');
+// Route::get('/konseling/registrasi', [App\Http\Controllers\FrontController::class, 'konselingReg'])->name('front.konseling-reg');
+// Route::get('/konseling/keluhan/{id}', [App\Http\Controllers\FrontController::class, 'konselingKeluhan'])->name('front.konseling-keluhan');
+// Route::get('/konseling/jadwal/{id}', [App\Http\Controllers\FrontController::class, 'konselingJadwal'])->name('front.konseling-jadwal');
+// Route::get('/konseling/final/{id}', [App\Http\Controllers\FrontController::class, 'konselingFinal'])->name('front.konseling-final');
 
-Route::post('/survei/cek-nik', [App\Http\Controllers\FrontController::class, 'cekNik'])->name('front.cek-nik');
-Route::post('/survei/store-reg', [App\Http\Controllers\FrontController::class, 'storeReg'])->name('front.store-reg');
-Route::post('/survei/store-dass', [App\Http\Controllers\FrontController::class, 'storeDass'])->name('front.store-dass');
-Route::post('/konseling/store-keluhan', [App\Http\Controllers\FrontController::class, 'konselingKeluhanStore'])->name('front.konseling-keluhan-store');
-Route::post('/konseling/store-jadwal', [App\Http\Controllers\FrontController::class, 'konselingJadwalStore'])->name('front.konseling-jadwal-store');
+// Route::post('/survei/cek-nik', [App\Http\Controllers\FrontController::class, 'cekNik'])->name('front.cek-nik');
+// Route::post('/survei/store-reg', [App\Http\Controllers\FrontController::class, 'storeReg'])->name('front.store-reg');
+// Route::post('/survei/store-dass', [App\Http\Controllers\FrontController::class, 'storeDass'])->name('front.store-dass');
+// Route::post('/konseling/store-keluhan', [App\Http\Controllers\FrontController::class, 'konselingKeluhanStore'])->name('front.konseling-keluhan-store');
+// Route::post('/konseling/store-jadwal', [App\Http\Controllers\FrontController::class, 'konselingJadwalStore'])->name('front.konseling-jadwal-store');
 
-Route::get('/konseling/store-reg/{id}', [App\Http\Controllers\FrontController::class, 'konselingStoreReg'])->name('front.konseling-store-reg');
-Route::post('/validasi-otp', [App\Http\Controllers\FrontController::class, 'validasiOtp'])->name('front.validasi-otp');
+// Route::get('/konseling/store-reg/{id}', [App\Http\Controllers\FrontController::class, 'konselingStoreReg'])->name('front.konseling-store-reg');
+// Route::post('/validasi-otp', [App\Http\Controllers\FrontController::class, 'validasiOtp'])->name('front.validasi-otp');
 
-Route::get('/jadwal/psikolog/{id}', [App\Http\Controllers\FrontController::class, 'jadwalPsikolog'])->name('front.jadwal-psikolog');
+// Route::get('/jadwal/psikolog/{id}', [App\Http\Controllers\FrontController::class, 'jadwalPsikolog'])->name('front.jadwal-psikolog');
 
-Route::get('/evaluasi/{id}', [App\Http\Controllers\FrontController::class, 'formulirEvaluasi'])->name('front.evaluasi');
-Route::post('/evaluasi/store', [App\Http\Controllers\FrontController::class, 'storeEvaluasi'])->name('front.store-evaluasi');
+// Route::get('/evaluasi/{id}', [App\Http\Controllers\FrontController::class, 'formulirEvaluasi'])->name('front.evaluasi');
+// Route::post('/evaluasi/store', [App\Http\Controllers\FrontController::class, 'storeEvaluasi'])->name('front.store-evaluasi');
 
 Route::get('/faq', [App\Http\Controllers\FrontController::class, 'faq'])->name('faq');
 Route::get('/privasi', [App\Http\Controllers\FrontController::class, 'privasi'])->name('privasi');
