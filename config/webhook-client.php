@@ -71,6 +71,18 @@ return [
             'store_headers' => '*',
             'process_webhook_job' => App\Jobs\TrelloWebhookJob::class,
         ],
+        [
+            'name' => 'nocodb',
+            'signing_secret' => 'secretnocodb',
+            'signature_header_name' => 'x-nocodb-webhook',
+            // 'signature_validator' => \Spatie\WebhookClient\SignatureValidator\DefaultSignatureValidator::class,
+            'signature_validator' => App\Handler\NocodbSignature::class,
+            'webhook_profile' => \Spatie\WebhookClient\WebhookProfile\ProcessEverythingWebhookProfile::class,
+            'webhook_response' => \Spatie\WebhookClient\WebhookResponse\DefaultRespondsTo::class,
+            'webhook_model' => \Spatie\WebhookClient\Models\WebhookCall::class,
+            'store_headers' => '*',
+            'process_webhook_job' => App\Jobs\NocodbWebhookJob::class,
+        ],
     ],
 
     /*

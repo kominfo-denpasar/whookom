@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('webhook/endpoint', [WebhookController::class, 'handle']);
 Route::webhooks('webhook/whatsapp', 'whatsapp');
 Route::webhooks('webhook/trello', 'trello');
+Route::webhooks('webhook/nocodb', 'nocodb');
