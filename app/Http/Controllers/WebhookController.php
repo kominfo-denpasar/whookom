@@ -10,8 +10,6 @@ class WebhookController extends Controller
     //
     public function handle(Request $request)
     {
-        // verify the payload authenticity
-
         // Send payload to job for processing
         ProcessWebhookJob::dispatch($request->all());
         

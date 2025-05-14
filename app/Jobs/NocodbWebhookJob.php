@@ -5,8 +5,11 @@ namespace App\Jobs;
 use Spatie\WebhookClient\Jobs\ProcessWebhookJob as SpatieProcessWebhookJob;
 use Spatie\WebhookClient\Models\WebhookCall;
 
+use App\Traits\Notifikasi;
+
 class NocodbWebhookJob extends SpatieProcessWebhookJob
 {
+    use Notifikasi;
 
     public WebhookCall $webhookCall;
 
@@ -28,9 +31,16 @@ class NocodbWebhookJob extends SpatieProcessWebhookJob
         $data = $this->webhookCall->payload;
 
         // log
-        activity('webhook_nocodb')
+        activity('webhook_nocodbss')
             ->causedBy($this->webhookCall)
             ->log(json_encode($data));
+
+        // kirim notifikasi
+        $data = [
+            'phone' => '6281238921686',
+            'message' => 'Webhook Nocodb: '.json_encode($data)
+        ];
+        $kirim = $this->kirimWhatsapp($data);
     
         // if ($data['event'] == 'charge.success') {
         //     // take action since the charge was success
@@ -41,6 +51,11 @@ class NocodbWebhookJob extends SpatieProcessWebhookJob
         // }
 
         //Acknowledge you received the response
-        http_response_code(200);
+        if($kirim) {
+            http_response_code(200);
+        } else {
+            dd($kirim);
+        }
+        
     }
 }

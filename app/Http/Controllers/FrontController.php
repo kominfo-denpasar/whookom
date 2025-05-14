@@ -18,9 +18,11 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 use Artesaos\SEOTools\Facades\SEOTools;
+use App\Traits\Notifikasi;
 
 class FrontController extends Controller
 {
+	use Notifikasi;
 	/**
 	 * Create a new controller instance.
 	 *
@@ -931,12 +933,13 @@ class FrontController extends Controller
 	{
 		// kirim whatsapp untuk user pemohon
 		$data = [
-			'phone' => '081238921686',
+			'phone' => '6281238921686',
 			'message' => "weee",
 		];
 		
 		// script
-		$this->notif_wa($data);
+		// $this->notif_wa($data);
+		$this->kirimWhatsapp($data);
 	}
 
 	/**
