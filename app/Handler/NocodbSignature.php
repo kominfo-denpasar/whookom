@@ -12,18 +12,24 @@ class NocodbSignature implements SignatureValidator
     {   
 
         $signature = $request->header($config->signatureHeaderName);
-        $signature = trim(str_replace("sha256=", "", $signature));
-        if (!$signature) {
-            return false;
-        }   
+        // $signature = trim(str_replace("sha256=", "", $signature));
+        // if (!$signature) {
+        //     return false;
+        // } 
 
         $signingSecret = $config->signingSecret;
         if (empty($signingSecret)) {
             throw WebhookFailed::signingSecretNotSet();
         }
 
+        // dd($signingSecret);
         // $computedSignature = hash_hmac('sha256', $request->getContent(), $signingSecret);
         // return hash_equals($signature, $computedSignature);
-        return true;
+        
+        if($signature != $signingSecret) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
