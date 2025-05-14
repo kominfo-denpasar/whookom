@@ -7,6 +7,9 @@ use Spatie\WebhookClient\Models\WebhookCall;
 use App\Models\whatsappMessages;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Http;
+use App\Models\Transaksi;
+
 class WhatsappWebhookJob extends SpatieProcessWebhookJob
 {
 
@@ -66,6 +69,72 @@ class WhatsappWebhookJob extends SpatieProcessWebhookJob
             'timestamp' => $data['timestamp'],
         ]);
 
-        return response()->json(['status' => 'ok']);
+        return $this->postBlockchain($data, $type, $content, $caption, $mime_type, $isGroup);
+        
+        // return response()->json(['status' => 'ok']);
+    }
+
+    public function postBlockchain($data, $type, $content, $caption, $mime_type, $isGroup){
+        // Step 1: Ambil token dari auth endpoint
+        $authUrl = 'https://zglza29tiw5mbymtywmtaxbp.baliola.io/api/auth/login';
+
+        $authResponse = Http::asForm()->post($authUrl, [
+            'email' => 'diskominfo.denpasar@mail.com',
+            'password' => 'aU9g0KuKYK)VEKF',
+        ]);
+
+        if (!$authResponse->successful()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal mendapatkan token',
+                'error' => $authResponse->body(),
+            ], $authResponse->status());
+        }
+
+        $token = $authResponse['data']['access_token'];
+
+        // Step 2: Gunakan token untuk request utama
+        $apiUrl = 'https://zglza29tiw5mbymtywmtaxbp.baliola.io/api/e-certificate';
+        $source_id = $data['message']['id'] ?? null;
+
+        $payload = [
+            "serialNumber" => $source_id,
+            "from" => $data['from'],
+            "pushname" => $data['pushname'],
+            "type" => $type,
+            "content" => $content,
+            "caption" => $caption,
+            "mimeType" => $mime_type,
+            "isGroup" => $isGroup,
+            "createdAt" => $data['timestamp']
+        ];
+
+        $apiResponse = Http::withToken($token)->post($apiUrl, $payload);
+
+        if ($apiResponse->successful() && $apiResponse['status'] === true) {
+            $data = $apiResponse['data'];
+    
+            // Step 3: Simpan ke Database
+            $transaksi = Transaksi::create([
+                'source_id'       => $source_id,
+                'asset_hash'       => $data['asset_hash'],
+                'transaction_hash' => $data['transaction_hash'],
+                'onchain_url'      => $data['onchain_url'],
+                'algorithm'        => $data['algorithm'],
+                'signature'        => $data['signature'],
+            ]);
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => $apiResponse['message'],
+                'stored_data' => $transaksi,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => $apiResponse->body()
+            ], $apiResponse->status());
+        }
+
     }
 }
